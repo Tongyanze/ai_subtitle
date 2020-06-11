@@ -7,28 +7,28 @@
     margin-top: 10%;
     margin-left: 10%;
     margin-right: 10%;
-    margin-bottom: 20%;
     height: 100%;
-   
+
 }
 #content {
-    
-    margin-left: 30%;
-    margin-right: 30%;
+
+    margin-left: auto;
+    margin-right: auto;
 
     width: 1000px;
     height:500px;
     border-radius: 30px;
-    box-shadow: 10px 10px 5px #000000;
-    
+    box-shadow: 2px 5px 10px -6px rgba(0,0,0,0.42), 2px 5px 10px 0 rgba(0,0,0,0.12), 0 6px 7px -2px rgba(0,0,0,0.1);
+
 }
 #leftimg {
     width: 50%;
     position: relative;
-    height: 100%;
+    height: 500px;
     float: left;
     border-bottom-left-radius: 30px;
     border-top-left-radius: 30px;
+
 }
 #box{
     width: 50%;
@@ -41,69 +41,69 @@
     float: left;
 }
 #switch{
-  
+
     border: none;
     color: #000;
     padding: 10px 30px;
     text-align: center;
     text-decoration: none;
     font-size: 16px;
-    
+
 }
 
 #switchright{
-  
+
 
     padding: 10px 10px;
-  
-    
+
+
 }
 
 
 #switchcenter{
-      
-   
-    padding: 10px 10px;
-   
-    
-}
-#switchleft{
-        
+
 
     padding: 10px 10px;
-  
-    
+
+
+}
+#switchleft{
+
+
+    padding: 10px 10px;
+
+
 }
 
 #switchlleft{
-      
+
 
     padding: 10px 10px;
 
-    
+
 }
 
 #forgetpass{
-      
+
     float: left;
     padding: 10px 10px;
 
-    
-} 
+
+}
 #register{
-      
+
     float: right;
     padding: 10px 10px;
 
-    
-} 
+
+}
 #other{
-      
+
 color: #999;
 float: left;
 padding: 10px 10px;
-    
-} 
+
+}
 #logo{
     float: right;
     margin-right:5%;
@@ -140,7 +140,7 @@ padding: 10px 10px;
     margin-right: 5%;
     margin-left: 5%;
 	font-size: 18px;
-	text-align: center;	
+	text-align: center;
 	cursor: pointer;
 }
 input {
@@ -158,18 +158,18 @@ input {
 #login-button {
     margin-top: 20px;
     border: none;
-    color: #000;
+    color: white;
     padding: 15px 32px;
     text-align: center;
     text-decoration: none;
     display: inline-block;
     font-size: 16px;
     border-radius: 15px;
-    background-color: aquamarine;
+    background-color: rgb(107, 154, 255);
+    transition: background-color 1s;
 }
 #login-button:hover{
-    background-color: #B721FF;
-    color: #fff;
+    background-color: rgb(56, 106, 255);
 }
 #forgetpass{
     color: #3f7dff;
@@ -180,4 +180,16 @@ input {
     color: #3f7dff;
     padding-bottom: 10px;
 }
-a{ text-decoration:none} 
+a{ text-decoration:none}
+
+
+.login_header span:not(.active){
+    border-bottom: none;
+    padding-bottom: 10px;
+    transition: border-bottom 120ms ease-in;
+}
+
+.login_header span:hover{
+
+    border-bottom: 3px solid #3f7dff;
+}

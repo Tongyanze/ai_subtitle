@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '@/views/Home.vue'
 import Header from "@/components/Header";
+import Login from "@/views/Login";
 
 Vue.use(VueRouter)
 
@@ -11,6 +12,11 @@ Vue.use(VueRouter)
     name: 'Home',
     component: Home
   },
+    {
+      path: '/login',
+      name: 'Login',
+      component: Login
+      },
   {
     path: '/about',
     name: 'About',
