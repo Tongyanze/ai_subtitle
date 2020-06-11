@@ -1,0 +1,183 @@
+
+* {
+    margin: 0px;
+}
+#Login {
+    width: 80%;
+    margin-top: 10%;
+    margin-left: 10%;
+    margin-right: 10%;
+    margin-bottom: 20%;
+    height: 100%;
+   
+}
+#content {
+    
+    margin-left: 30%;
+    margin-right: 30%;
+
+    width: 1000px;
+    height:500px;
+    border-radius: 30px;
+    box-shadow: 10px 10px 5px #000000;
+    
+}
+#leftimg {
+    width: 50%;
+    position: relative;
+    height: 100%;
+    float: left;
+    border-bottom-left-radius: 30px;
+    border-top-left-radius: 30px;
+}
+#box{
+    width: 50%;
+    height: 100%;
+    position: relative;
+    background-color: #fff;
+    text-align: center;
+    border-bottom-right-radius: 30px;
+    border-top-right-radius: 30px;
+    float: left;
+}
+#switch{
+  
+    border: none;
+    color: #000;
+    padding: 10px 30px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    
+}
+
+#switchright{
+  
+
+    padding: 10px 10px;
+  
+    
+}
+
+
+#switchcenter{
+      
+   
+    padding: 10px 10px;
+   
+    
+}
+#switchleft{
+        
+
+    padding: 10px 10px;
+  
+    
+}
+
+#switchlleft{
+      
+
+    padding: 10px 10px;
+
+    
+}
+
+#forgetpass{
+      
+    float: left;
+    padding: 10px 10px;
+
+    
+} 
+#register{
+      
+    float: right;
+    padding: 10px 10px;
+
+    
+} 
+#other{
+      
+color: #999;
+float: left;
+padding: 10px 10px;
+    
+} 
+#logo{
+    float: right;
+    margin-right:5%;
+}
+.Cbody_item{
+	border: 0px solid #999;
+	overflow: hidden;
+}
+
+.title {
+    line-height: 58px;
+    margin-top: 20px;
+    font-size: 36px;
+    color: rgb(107, 88, 216);
+    font-family: fantasy;
+    text-align: center;
+    height: 58px;
+}
+
+.active{
+    color: #3f7dff;
+    padding-bottom: 10px;
+    border-bottom: 3px solid #3f7dff;
+}
+.input {
+    margin-top: 20px;
+}
+
+.login_header{
+	margin-bottom: 20px;
+}
+.login_header span{
+	margin-top: 20px;
+    margin-right: 5%;
+    margin-left: 5%;
+	font-size: 18px;
+	text-align: center;	
+	cursor: pointer;
+}
+input {
+    margin-top: 5px;
+    outline-style: none;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    padding: 13px 14px;
+    width: 70%;
+    font-size: 14px;
+    font-weight: 700;
+    font-family: "Microsoft soft";
+}
+
+#login-button {
+    margin-top: 20px;
+    border: none;
+    color: #000;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    border-radius: 15px;
+    background-color: aquamarine;
+}
+#login-button:hover{
+    background-color: #B721FF;
+    color: #fff;
+}
+#forgetpass{
+    color: #3f7dff;
+    padding-bottom: 10px;
+}
+
+#register{
+    color: #3f7dff;
+    padding-bottom: 10px;
+}
+a{ text-decoration:none} 
