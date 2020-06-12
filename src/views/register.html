@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>注册</title>
+    <style>
+      .text{border:solid 2px #ccc;width:420px;height:40px;background:url(../assets/jpg/phone.png) no-repeat 0 center;background-size: 30px 30px}
+      .text input{float:left;border:none;background:none;height:40px;line-height:30px;width:100%; text-indent:32px;}
+      .text2{border:solid 2px #ccc;width:420px;height:40px;background:url(../assets/jpg/pass.png) no-repeat 0 center;background-size: 30px 30px}
+      .text2 input{float:left;border:none;background:none;height:40px;line-height:30px;width:100%; text-indent:32px;}
+      .text3{border:solid 2px #ccc;width:420px;height:40px;background:url(../assets/jpg/pass.png) no-repeat 0 center;background-size: 30px 30px}
+      .text3 input{float:left;border:none;background:none;height:40px;line-height:30px;width:100%; text-indent:32px;}
+      .text4{border:solid 2px #ccc;width:220px;height:40px;background:url(../assets/jpg/check.png) no-repeat 0 center;background-size: 30px 30px}
+      .text4 input{float:left;border:none;background:none;height:40px;line-height:30px;width:100%; text-indent:32px;}
+      .text5{border:solid 2px #ccc;width:420px;height:40px;background:url(../assets/jpg/meil.png) no-repeat 0 center;background-size: 30px 30px}
+      .text5 input{float:left;border:none;background:none;height:40px;line-height:30px;width:100%; text-indent:32px;}
+      .text6{border:solid 2px #ccc;width:420px;height:40px;background:url(../assets/jpg/user.png) no-repeat 0 center;background-size: 30px 30px}
+      .text6 input{float:left;border:none;background:none;height:40px;line-height:30px;width:100%; text-indent:32px;}
+    .bigbutton{
+      width: 150px;
+      height:40px;
+    }
+    button.bigbigbut{
+      width: 420px;
+      height:40px;
+    }
+      table.local{
+        background: aliceblue;
+        width: 500px;
+        height: 600px;
+        margin:0 auto ;
+        border-spacing: 30px;
+        border-radius: 20px;
+        box-shadow: 10px 10px 5px #092452;
+        position: relative;
+        top:16%;
+      }
+      html, body {
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+      body.bea{
+          background: #5aa4ff;
+        background: url("../assets/jpg/first2.jpg");
+        background-position: center top;
+        opacity: 0.8;
+      }
+    </style>
+</head>
+
+<body class="bea">
+<table class="local">
+  <tr>
+    <td colspan="2">
+      <h1>&emsp;&emsp;&ensp;&ensp;&emsp;&emsp;注册账户</h1>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2">
+      <p1>&ensp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+        已有账号?</p1><a href="#">戳我登入</a>
+    </td>
+  </tr>
+  <tr >
+    <td colspan="2">
+      <div class="text6">
+        <input type="text" value="请输入用户名" onfocus="if(value=='请输入用户名')value=''" onblur="if(!value)value='请输入用户名'" name="keyword">
+      </div>
+    </td>
+  </tr>
+  <tr >
+    <td colspan="2">
+      <div class="text2">
+        <input type="text" value="请输入您的密码" onfocus="if(value=='请输入您的密码')value=''" onblur="if(!value)value='请输入您的密码'" name="keyword">
+      </div>
+    </td>
+  </tr>
+  <tr >
+    <td colspan="2">
+      <div class="text3">
+        <input type="text" value="请再次输入您的密码" onfocus="if(value=='请再次输入您的密码')value=''" onblur="if(!value)value='请再次输入您的密码'" name="keyword">
+      </div>
+    </td>
+  </tr>
+  <tr >
+    <td colspan="2">
+      <div class="text5">
+        <input type="text" value="请输入您的邮箱" onfocus="if(value=='请输入您的邮箱')value=''" onblur="if(!value)value='请输入您的邮箱'" name="keyword" >
+      </div>
+    </td>
+  </tr>
+  <tr >
+    <td >
+      <div class="text4">
+        <input type="text" value="请输入您收到的验证码" onfocus="if(value=='请输入您收到的验证码')value=''" onblur="if(!value)value='请输入您收到的验证码'" name="keyword" >
+      </div>
+    </td>
+    <td>
+      <input type="button" value="&ensp;点击发送验证码&ensp;" class="bigbutton">
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2">
+      <button class="bigbigbut">注册</button>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2">
+      &emsp;&emsp;&emsp;&emsp;<a href="#">隐私条款</a><input type="checkbox" >我已阅读并同意隐私条款
+    </td>
+  </tr>
+</table>
+<script>
+</script>
+</body>
+
+</html>
