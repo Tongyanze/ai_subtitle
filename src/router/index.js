@@ -5,6 +5,7 @@ import Header from "@/components/Header.vue";
 import Login from "@/views/Login.vue";
 import index from "@/views/index.vue";
 import Retrieve from '@/views/retrieve.vue'
+import Register from '@/views/Register.vue'
 
 Vue.use(VueRouter)
 
@@ -23,6 +24,11 @@ Vue.use(VueRouter)
       path: '/retrieve',
       name: 'Retrieve',
       component: Retrieve
+    },
+    {
+      path: '/register',
+      name: 'Register',
+      component: Register
     },
   {
     path: '/about',

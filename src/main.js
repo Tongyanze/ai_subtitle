@@ -6,9 +6,9 @@ import axios from 'axios'
 import VueAxios from 'vue-axios'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-import { faUserSecret } from '@fortawesome/free-solid-svg-icons'
+import { faUser, faLock, faMailBulk, faInfo } from '@fortawesome/free-solid-svg-icons'
 
-library.add(faUserSecret)
+library.add(faUser, faLock, faMailBulk, faInfo)
 
 const apiHost = process.env.NODE_ENV === 'development' ? '/api' : process.env.VUE_APP_BASE_URL
 axios.defaults.baseURL =  apiHost

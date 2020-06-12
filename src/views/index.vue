@@ -21,7 +21,7 @@
                 <div class="left-words">
                     没有账号？
                     <button class="btn">
-                        <router-link to="/login">立即登录</router-link>
+                        <router-link to="/register">立即注册</router-link>
                     </button>
                 </div>
                 <img src="@/assets/0725_11.jpg"/>
@@ -31,6 +31,7 @@
                 <img src="@/assets/0725_12.jpg"/>
             </div>
 
+            <div style="height: 200px"></div>
         </div>
         <Footer/>
 

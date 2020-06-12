@@ -10,7 +10,7 @@
                         <router-link to="/login">登录</router-link>
                     </li>
                     <li>
-                        <a href="javascript:void(0)">注册</a>
+                        <router-link to="/register">注册</router-link>
                     </li>
                     <li>
                         <a href="javascript:void(0)">关于我们</a>
