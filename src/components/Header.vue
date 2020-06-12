@@ -2,12 +2,15 @@
     <div class="header">
         <div class="container">
             <div class="header-logo">
-                AI字幕君
+                <router-link to="/">AI字幕君</router-link>
             </div>
             <div class="header-list">
                 <ul>
                     <li>
-                        <a href="javascript:void(0)">登录/注册</a>
+                        <router-link to="/login">登录</router-link>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)">注册</a>
                     </li>
                     <li>
                         <a href="javascript:void(0)">关于我们</a>
@@ -51,6 +54,10 @@
         margin-right: auto;
     }
 
+    .header-logo a{
+        text-decoration: none;
+        color: white;
+    }
 
 
     .header-list {
@@ -72,13 +79,13 @@
         color: white;
     }
 
-    .header-list a{
+    .header-list a, .header-list router-link{
         text-decoration: none;
         color: white;
         transition: color 1s;
     }
 
-    .header-list a:hover{
+    .header-list a:hover, .header-list router-link:hover{
 
         color: rgb(51, 209, 255);
     }

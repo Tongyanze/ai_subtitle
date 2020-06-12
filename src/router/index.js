@@ -4,6 +4,7 @@ import Home from '@/views/Home.vue'
 import Header from "@/components/Header.vue";
 import Login from "@/views/Login.vue";
 import index from "@/views/index.vue";
+import Retrieve from '@/views/retrieve.vue'
 
 Vue.use(VueRouter)
 
@@ -18,6 +19,11 @@ Vue.use(VueRouter)
       name: 'Login',
       component: Login
       },
+    {
+      path: '/retrieve',
+      name: 'Retrieve',
+      component: Retrieve
+    },
   {
     path: '/about',
     name: 'About',
@@ -29,7 +35,7 @@ Vue.use(VueRouter)
 ]
 
 const router = new VueRouter({
-  mode: 'history',
+  //mode: 'history',
   base: process.env.BASE_URL,
   routes
 })

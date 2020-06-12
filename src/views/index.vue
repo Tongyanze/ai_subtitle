@@ -1,24 +1,40 @@
 <template>
-    <div>
+    <div style="position: relative;">
         <Header/>
         <div class="container">
             <div class="img" id="img1">
                 <div class="mid-words">
                     AI字幕君
+                    <div style="font-weight: normal; font-size: 28px; line-height: 40px">
+                        <p>
+                            一个“聪明”的在线视频编辑器
+                        </p>
+                        <p>
+                            添加字幕，视频变声样样行。
+                        </p>
+                    </div>
                 </div>
                 <img src="@/assets/0725_10.jpg"/>
             </div>
+
             <div class="img" id="img2">
+                <div class="left-words">
+                    没有账号？
+                    <button class="btn">
+                        <router-link to="/login">立即登录</router-link>
+                    </button>
+                </div>
                 <img src="@/assets/0725_11.jpg"/>
             </div>
 
             <div class="img" id="img3">
                 <img src="@/assets/0725_12.jpg"/>
             </div>
+
         </div>
-
-
         <Footer/>
+
+
     </div>
 </template>
 
@@ -89,6 +105,7 @@
         z-index: 2;
         width: 100%;
         height: 100%;
+        flex-flow: column;
         display:flex;
         justify-content: center;
         align-items: center;
@@ -98,8 +115,42 @@
         text-align: center;
         color: white;
     }
-    .container {
 
+    .btn{
+        color: white;
+        background: rgba(255, 255, 255, 0.2);
+        border: solid 2px;
+        font-size: 36px;
+        border-radius: 12px;
+        transition: background 1s;
+    }
+
+    .btn a{
+        text-decoration: none;
+        color: white;
+    }
+
+    .btn:hover{
+        background: rgba(255, 255, 255, 0.5)
+    }
+
+    .left-words{
+        position: absolute;
+        z-index: 2;
+        width: 100%;
+        height: 100%;
+        display:flex;
+        padding-left: 10%;
+        align-items: center;
+        line-height: 100px;
+        font-size: 40px;
+        font-weight: bold;
+        text-align: center;
+        color: white;
+    }
+
+    .container {
+        overflow-x: hidden;
     }
 
     .img{

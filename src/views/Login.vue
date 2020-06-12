@@ -54,7 +54,7 @@
                         </div>
                     </div>
 
-                    <a id="forgetpass" href='http://www.baidu.com'>忘记密码？</a>
+                    <router-link id="forgetpass" to='/retrieve'>忘记密码？</router-link>
                     <a id="register" href='http://www.baidu.com'>注册</a>
                     <br>
                     <br>
@@ -89,8 +89,6 @@
 </script>
 
 
-<style src=../assets/css/login.css>
-
-
+<style scoped src=@/assets/css/login.css>
 </style>
 

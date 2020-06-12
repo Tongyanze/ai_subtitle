@@ -14,6 +14,9 @@
   color: #2c3e50;
 }
 
+body{
+  margin: 0;
+}
 
 #nav {
   padding: 30px;
@@ -28,3 +31,4 @@
   color: #42b983;
 }
 </style>
+<style src="@/assets/css/global.css"></style>
