@@ -4,6 +4,7 @@ created by tyz
 date: 2020-06-11
  */
 const path = require("path");
+const webpack = require('webpack')
 
 function resolve (dir) {
     return path.join(__dirname, dir)
@@ -39,5 +40,6 @@ module.exports = {
             .set("@", resolve("src"))
             .set("assets", resolve("src/assets"))
             .set("components", resolve("src/components"));
+
     }
 };
