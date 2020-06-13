@@ -4,15 +4,12 @@
     <div class="bea">
 
         <table class="local">
+            <div style="width: 60%;">
+
+
             <tr>
                 <td colspan="2">
                     <h1>注册账户</h1>
-                </td>
-            </tr>
-            <tr>
-                <td colspan="2">
-                    <p1>
-                        已有账号?</p1><a href="#">戳我登入</a>
                 </td>
             </tr>
             <tr >
@@ -43,7 +40,7 @@
                 <td colspan="2">
                     <div class="input-box">
                         <font-awesome-icon class="font-awesome-icon" :icon="['fas', 'mail-bulk']"></font-awesome-icon>
-                        <input type="text" placeholder="请输入您的邮箱" name="keyword" >
+                        <input type="email" placeholder="请输入您的邮箱" name="keyword" >
                     </div>
                 </td>
             </tr>
@@ -65,9 +62,22 @@
             </tr>
             <tr>
                 <td colspan="2">
-                    <a href="#">隐私条款</a><input type="checkbox" >我已阅读并同意隐私条款
+                    <a href="#" class="blue-link">隐私条款</a><input type="checkbox" >我已阅读并同意隐私条款
                 </td>
             </tr>
+            </div>
+            <div style="border-left: rgba(0, 0, 0, 0.3) solid 2px; margin: 10% 0;width: 2px">
+
+            </div>
+            <div class="d-right">
+                <div>
+                    <span>
+                        已有账号?
+                    </span>
+                    <router-link to="/login" class="blue-link">戳我登入</router-link>
+                </div>
+
+            </div>
         </table>
 
     </div>
@@ -97,14 +107,14 @@
         height:40px;
     }
     table.local{
-        background: aliceblue;
-        width: 500px;
-        height: 600px;
+        background: white;
+        width: 50%;
         border-spacing: 30px;
-        border-radius: 20px;
+        border-radius: 4px;
         box-shadow: 10px 10px 5px #092452;
         position: relative;
-        opacity: 0.8;
+        display: flex;
+        padding: 12px;
     }
 
     div.bea{
@@ -144,12 +154,31 @@
 
     .input-box input{
         margin-left: 16px;
-        border: solid 2px rgba(0, 0, 0, 0.2);
-        border-radius: 4px;
+        border-bottom: solid 2px rgba(0, 0, 0, 0.2);
         background: none;
+        outline: medium;
+        transition: border-bottom-color 1s;
     }
 
     .input-box input:active, .input-box input:focus{
-        border: none;
+        margin-left: 16px;
+        border-bottom: solid 2px rgba(107, 154, 255, 0.8);
+        background: none;
+        outline: none;
     }
+
+    td {
+        width: 100%;
+    }
+
+    .d-right{
+        width: 40%;
+        padding: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+
+
 </style>

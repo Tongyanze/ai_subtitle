@@ -24,7 +24,13 @@
 
 <script>
     export default {
-        name: "Header"
+        name: "Header",
+        props:{
+            a: {
+                type: Number,
+                default: 0
+            }
+        }
     }
 </script>
 

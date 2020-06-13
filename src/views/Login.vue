@@ -1,6 +1,7 @@
 <template>
     <div>
-        <Header/>
+
+        <Header :a=0></Header>
         <div id="Login" class="login_form">
             <div id="content">
                 <div>

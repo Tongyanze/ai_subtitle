@@ -27,3 +27,21 @@
 .mlink:hover{
 
 }
+
+.white-to-blue-link{
+
+}
+
+.white-to-blue-link:hover{
+
+}
+
+.blue-link{
+    text-decoration: none;
+    color: rgb(107, 154, 255);
+    transition: color 1s;
+}
+
+.blue-link:hover{
+    color: rgb(14, 29, 255)
+}

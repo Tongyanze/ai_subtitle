@@ -14,7 +14,7 @@
             <label for="cname">验证码</label>
             <input type="text" id="cname" name="cname" placeholder="请输入验证码..">
 
-            <input type="submit" class="btn-red" value="点击获取">
+            <input type="submit" class="btn-blue" value="点击获取">
         </form>
         </div>
     </div>
