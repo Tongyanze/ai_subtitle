@@ -10,8 +10,6 @@ import { faUser, faLock, faMailBulk, faInfo } from '@fortawesome/free-solid-svg-
 
 library.add(faUser, faLock, faMailBulk, faInfo)
 
-const apiHost = process.env.NODE_ENV === 'development' ? '/api' : process.env.VUE_APP_BASE_URL
-axios.defaults.baseURL =  apiHost
 
 Vue.use(VueAxios, axios)
 Vue.config.productionTip = false

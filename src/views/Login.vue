@@ -22,8 +22,6 @@
                                 <br>
                                 <input type="password" id="password" placeholder="密码"/>
                                 <br>
-                                <input type="checkword" id="checkword1" placeholder="验证码"/>
-                                <br>
                                 <button type="button" id="login-button">马上登录</button>
                             </div>
                         </div>
@@ -34,8 +32,6 @@
                                 <br>
                                 <input type="password" id="password" placeholder="密码"/>
                                 <br>
-                                <input type="checkword" id="checkword1" placeholder="验证码"/>
-                                <br>
                                 <button type="button" id="login-button">马上登录</button>
                             </div>
 
@@ -44,13 +40,11 @@
                         <div v-show="cur==2" class="Cbody_item">
                             <!--			<div class="qcode"><img src="../../assets/img/qcode.png" width="160" height="160" alt="二维码" /></div> -->
                             <div class="input">
-                                <input type="text" id="username" value="" placeholder="邮箱"/>
+                                <input type="text" v-model="email" value="" placeholder="邮箱"/>
                                 <br>
-                                <input type="password" id="password" placeholder="密码"/>
+                                <input type="password" v-model="password" placeholder="密码"/>
                                 <br>
-                                <input type="checkword" id="checkword1" placeholder="验证码"/>
-                                <br>
-                                <button type="button" id="login-button">马上登录</button>
+                                <button type="button" id="login-button" @click="emailLogin">马上登录</button>
                             </div>
                         </div>
                     </div>
@@ -76,14 +70,30 @@
 <script>
     import Header from "@/components/Header.vue";
     import Footer from "@/components/Footer.vue";
+    import https from "@/https.js";
 
     export default {
         name: 'Login',
         components: {Header, Footer},
         data() {
             return {
+                email: '',
+                password: '',
+
                 cur: 0 //默认选中第一个tab
             }
+        },
+        methods: {
+            emailLogin() {
+                let params = {userPassword: this.password, userEmail: this.email};
+                https.fetchPost('/user/login', params)
+                    .then(data => {
+                        alert(JSON.stringify(data.data))
+                    }).catch(err =>{
+                        alert(err.toString())
+                })
+            }
+            
         }
     }
 

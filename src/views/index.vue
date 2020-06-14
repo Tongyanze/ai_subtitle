@@ -43,6 +43,10 @@
     import $ from 'jquery'
     import Header from "@/components/Header.vue";
     import Footer from "@/components/Footer.vue";
+    import axios from 'axios'
+    import qs from 'qs'
+    import https from "@/https.js";
+
     export default {
         name: "index",
         components: {Footer, Header},
@@ -73,6 +77,19 @@
             });
         },
         methods:{
+            test() {
+                let params = {
+                    userName: 'tttttttt',
+                    userPassword: 'tttttttttttttt',
+                    userEmail: '1231@1.com'
+                }
+
+              https.fetchPost('/user/regist', params).then(data => {
+                  alert(JSON.stringify(data.data))
+              }).catch(err => {
+                  alert(err)
+              })
+            },
             showImg(x) {
 
                 let s = '#img'+x;
