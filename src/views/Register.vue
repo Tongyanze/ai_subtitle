@@ -3,8 +3,8 @@
         <Header/>
     <div class="bea">
 
-        <table class="local">
-            <div style="width: 60%;">
+        <div class="local">
+            <table style="width: 60%;">
 
 
             <tr>
@@ -65,7 +65,7 @@
                     <a href="#" class="blue-link">隐私条款</a><input type="checkbox" >我已阅读并同意隐私条款
                 </td>
             </tr>
-            </div>
+            </table>
             <div style="border-left: rgba(0, 0, 0, 0.3) solid 2px; margin: 10% 0;width: 2px">
 
             </div>
@@ -78,7 +78,7 @@
                 </div>
 
             </div>
-        </table>
+        </div>
 
     </div>
         <div style="clear: both"></div>
@@ -106,15 +106,19 @@
         width: 420px;
         height:40px;
     }
-    table.local{
+    div.local{
         background: white;
         width: 50%;
-        border-spacing: 30px;
+
         border-radius: 4px;
         box-shadow: 10px 10px 5px #092452;
         position: relative;
         display: flex;
         padding: 12px;
+    }
+
+    .local table{
+        border-spacing: 30px;
     }
 
     div.bea{

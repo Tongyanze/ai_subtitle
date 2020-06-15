@@ -7,7 +7,7 @@
 
         <h1>找回密码</h1>
         <div class="container">
-        <form action="/action_page.php">
+        <form>
             <label for="cname">邮箱</label>
             <input type="text" id="cname" name="cname" placeholder="请输入注册邮箱..">
 
