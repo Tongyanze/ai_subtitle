@@ -56,7 +56,6 @@
             }
         },
         mounted() {
-
             $("#img2").css("right", '100%');
             $("#img3").css("left",'100%');
             $("#img2").css("opacity", 0);

@@ -6,15 +6,21 @@
             </div>
             <div class="header-list">
                 <ul>
-                    <li>
-                        <router-link to="/login">登录</router-link>
+                    <li v-if="token != null">
+                        <a href="javascript:void(0)">个人中心</a>
                     </li>
-                    <li>
-                        <router-link to="/register">注册</router-link>
-                    </li>
+                    <div v-if="token == null" style="display: flex">
+                        <li>
+                            <router-link to="/login">登录</router-link>
+                        </li>
+                        <li>
+                            <router-link to="/register">注册</router-link>
+                        </li>
+                    </div>
                     <li>
                         <a href="javascript:void(0)">关于我们</a>
                     </li>
+
                 </ul>
             </div>
         </div>
@@ -25,11 +31,23 @@
 <script>
     export default {
         name: "Header",
+        data() {
+            return {
+                token: ''
+            }
+        },
         props:{
             a: {
                 type: Number,
                 default: 0
             }
+        },
+        mounted() {
+            let tmp = localStorage.getItem('token');
+            this.token = tmp == null || tmp === '' ? null : tmp
+        },
+        methods:{
+
         }
     }
 </script>
