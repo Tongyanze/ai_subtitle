@@ -17,7 +17,7 @@ Vue.component('font-awesome-icon', FontAwesomeIcon);
 
 //拦截器
 router.beforeEach((to, from, next) => {
-  if (to.path ==='/' || to.path === '/register' || to.path === '/retreive' || to.path === '/about') {
+  if (to.path ==='/' || to.path === '/register' || to.path === '/retrieve' || to.path === '/about') {
     next();
   }
   else if (to.path ==='/login') {
