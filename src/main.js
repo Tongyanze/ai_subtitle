@@ -15,6 +15,16 @@ Vue.use(VueAxios, axios)
 Vue.config.productionTip = false
 Vue.component('font-awesome-icon', FontAwesomeIcon);
 
+//拦截器
+router.beforeEach((to, from, next) => {
+  if (to.path ==='/' || to.path === '/login' || to.path === '/register' || to.path === '/retreive' || to.path === '/about') {
+    next();
+  }
+  else {
+    next('/');
+  }
+});
+
 
 new Vue({
   router,
