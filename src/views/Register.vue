@@ -112,7 +112,7 @@
                     email:this.email,
                     vcode:this.vcode
                 };
-                https.fetchPost('/user/register', params).then(data => {
+                https.fetchPost('/user/regist', params).then(data => {
                         alert(JSON.stringify(data.data))
                     }).catch(err =>{
                         alert(err.toString())
