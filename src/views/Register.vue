@@ -16,7 +16,7 @@
                 <td colspan="2">
                     <div class="input-box">
                         <font-awesome-icon class="font-awesome-icon" :icon="['fas', 'user']"></font-awesome-icon>
-                        <input type="text" placeholder="请输入用户名" name="keyword">
+                        <input type="text" placeholder="请输入用户名" name="keyword" v-model="username">
                     </div>
                 </td>
             </tr>
@@ -24,7 +24,7 @@
                 <td colspan="2">
                     <div class="input-box">
                         <font-awesome-icon class="font-awesome-icon" :icon="['fas', 'lock']"></font-awesome-icon>
-                        <input type="password" placeholder="请输入您的密码" name="keyword">
+                        <input type="password" placeholder="请输入您的密码" name="keyword" v-model="password">
                     </div>
                 </td>
             </tr>
@@ -32,7 +32,7 @@
                 <td colspan="2">
                     <div class="input-box">
                         <font-awesome-icon class="font-awesome-icon" :icon="['fas', 'lock']"></font-awesome-icon>
-                        <input type="password" placeholder="请再次输入您的密码" name="keyword">
+                        <input type="password" placeholder="请再次输入您的密码" name="keyword" v-model="repassword">
                     </div>
                 </td>
             </tr>
@@ -40,7 +40,7 @@
                 <td colspan="2">
                     <div class="input-box">
                         <font-awesome-icon class="font-awesome-icon" :icon="['fas', 'mail-bulk']"></font-awesome-icon>
-                        <input type="email" placeholder="请输入您的邮箱" name="keyword" >
+                        <input type="email" placeholder="请输入您的邮箱" name="keyword" v-model="email">
                     </div>
                 </td>
             </tr>
@@ -48,16 +48,18 @@
                 <td >
                     <div class="input-box">
                         <font-awesome-icon class="font-awesome-icon" :icon="['fas', 'info']"></font-awesome-icon>
-                        <input type="text" placeholder="请输入您收到的验证码" name="keyword" >
+                        <input type="text" placeholder="请输入您收到的验证码" name="keyword" v-model="vcode">
                     </div>
                 </td>
                 <td>
-                    <input type="button" value="点击发送验证码" class="bigbutton btn-blue">
+                    <button value="点击发送验证码" class="bigbutton btn-blue" @click="sendvcode">
+                        点击发送验证码
+                    </button>
                 </td>
             </tr>
             <tr>
                 <td colspan="2">
-                    <button class="bigbigbut btn-blue">注册</button>
+                    <button class="bigbigbut btn-blue" @click="register">注册</button>
                 </td>
             </tr>
             <tr>
@@ -89,9 +91,45 @@
 <script>
     import Header from "@/components/Header.vue";
     import Footer from "@/components/Footer.vue";
+    import https from "@/https.js";
     export default {
         name: "Register",
-        components: {Footer, Header}
+        components: {Footer, Header},
+        data(){
+            return{
+                username:'',
+                password:'',
+                repassword:'',
+                email:'',
+                vcode:''
+            }
+        },
+        methods:{
+            register(){
+                let params ={
+                    username:this.username,
+                    password:this.password,
+                    email:this.email,
+                    vcode:this.vcode
+                };
+                https.fetchPost('/user/regist', params).then(data => {
+                        alert(JSON.stringify(data.data))
+                    }).catch(err =>{
+                        alert(err.toString())
+                })
+            },
+            sendvcode(){
+                let params ={
+                    email:this.email
+            }
+            https.fetchPost('/user/sendvcode', params).then(data => {
+                        alert(JSON.stringify(data.data))
+                    }).catch(err =>{
+                        alert(err.toString())
+                })
+            }
+
+        }
     }
 </script>
 
