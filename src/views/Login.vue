@@ -103,3 +103,8 @@
 <style scoped src=@/assets/css/login.css>
 </style>
 
+<style scoped>
+    .footer {
+        position: relative;
+    }
+</style>
