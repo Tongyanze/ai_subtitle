@@ -18,7 +18,7 @@ input[type=text], select, textarea {
     width: 100%;
     padding: 12px;
     border: 1px solid #ccc;
-    border-radius: 100px;
+    border-radius: 4px;
     box-sizing: border-box;
     margin-top: 6px;
     margin-bottom: 16px;
@@ -29,7 +29,7 @@ input[type=text], select, textarea {
 
 .button {
     display: inline-block;
-    border-radius: 10px;
+    border-radius: 4px;
     background-color: rgb(55, 92, 160);
     border: none;
     color: #FFFFFF;
@@ -39,16 +39,16 @@ input[type=text], select, textarea {
     width: 100px;
     transition: all 0.5s;
     cursor: pointer;
-    margin: 2px;
+    margin: 6px;
   }
-  
+
   .button span {
     cursor: pointer;
     display: inline-block;
     position: relative;
     transition: 0.5s;
   }
-  
+
   .button span:after {
     content: '»';
     position: absolute;
@@ -57,19 +57,19 @@ input[type=text], select, textarea {
     right: -20px;
     transition: 0.5s;
   }
-  
+
   .button:hover span {
     padding-right: 10px;
   }
-  
+
   .button:hover span:after {
     opacity: 1;
     right: 0;
   }
-  
+
   .button1 {
-    background-color: white; 
-    color: black; 
+    background-color: white;
+    color: black;
     border: 3px solid #4CAF50;
 }
 

@@ -39,6 +39,14 @@
             <tr >
                 <td colspan="2">
                     <div class="input-box">
+                        <font-awesome-icon class="font-awesome-icon" :icon="['fas', 'mobile']"></font-awesome-icon>
+                        <input type="tel" placeholder="请输入手机号码" name="keyword" v-model="phone">
+                    </div>
+                </td>
+            </tr>
+            <tr >
+                <td colspan="2">
+                    <div class="input-box">
                         <font-awesome-icon class="font-awesome-icon" :icon="['fas', 'mail-bulk']"></font-awesome-icon>
                         <input type="email" placeholder="请输入您的邮箱" name="keyword" v-model="email">
                     </div>
@@ -101,16 +109,18 @@
                 password:'',
                 repassword:'',
                 email:'',
-                vcode:''
+                vcode:'',
+                phone: ''
             }
         },
         methods:{
             register(){
                 let params ={
-                    username:this.username,
-                    password:this.password,
-                    email:this.email,
-                    vcode:this.vcode
+                    userName:this.username,
+                    userPassword:this.password,
+                    userEmail:this.email,
+                    emailCode:this.vcode,
+                    userPhoneNumber: this.phone
                 };
                 https.fetchPost('/user/regist', params).then(data => {
                         alert(JSON.stringify(data.data))
@@ -122,7 +132,7 @@
                 let params ={
                     email:this.email
             }
-            https.fetchPost('/user/sendvcode', params).then(data => {
+            https.fetchPost('/email/sendCode', params).then(data => {
                         alert(JSON.stringify(data.data))
                     }).catch(err =>{
                         alert(err.toString())
@@ -156,7 +166,7 @@
     }
 
     .local table{
-        border-spacing: 30px;
+        border-spacing: 30px 20px;
     }
 
     div.bea{

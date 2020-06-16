@@ -6,9 +6,9 @@ import axios from 'axios'
 import VueAxios from 'vue-axios'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-import { faUser, faLock, faMailBulk, faInfo } from '@fortawesome/free-solid-svg-icons'
+import { faUser, faLock, faMailBulk, faInfo, faMobile} from '@fortawesome/free-solid-svg-icons'
 
-library.add(faUser, faLock, faMailBulk, faInfo)
+library.add(faUser, faLock, faMailBulk, faInfo, faMobile)
 
 
 Vue.use(VueAxios, axios)
