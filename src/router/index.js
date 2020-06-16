@@ -4,8 +4,9 @@ import Home from '@/views/Home.vue'
 import Header from "@/components/Header.vue";
 import Login from "@/views/Login.vue";
 import index from "@/views/index.vue";
-import Retrieve from '@/views/retrieve.vue'
-import Register from '@/views/Register.vue'
+import Retrieve from '@/views/retrieve.vue';
+import Register from '@/views/Register.vue';
+import reset from '@/views/reset.vue';
 
 Vue.use(VueRouter)
 
@@ -29,6 +30,11 @@ Vue.use(VueRouter)
       path: '/register',
       name: 'Register',
       component: Register
+    },
+    {
+      path: '/reset',
+      name: 'reset',
+      component: reset
     },
   {
     path: '/about',
