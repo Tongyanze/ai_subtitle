@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div style="position: relative; min-height: 100%; min-height: 100vh">
 
         <Header :a=0></Header>
         <div id="Login" class="login_form">
@@ -104,10 +104,4 @@
 
 
 <style scoped src=@/assets/css/login.css>
-</style>
-
-<style scoped>
-    .footer {
-        position: relative;
-    }
 </style>

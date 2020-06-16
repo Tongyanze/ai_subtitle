@@ -18,6 +18,7 @@ body{
   margin: 0;
 }
 
+
 #nav {
   padding: 30px;
 }
@@ -30,5 +31,7 @@ body{
 #nav a.router-link-exact-active {
   color: #42b983;
 }
+
+
 </style>
 <style src="@/assets/css/global.css"></style>

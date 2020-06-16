@@ -7,6 +7,8 @@ import VueAxios from 'vue-axios'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { faUser, faLock, faMailBulk, faInfo, faMobile} from '@fortawesome/free-solid-svg-icons'
+import '@/assets/iconfont/iconfont.js'
+import '@/assets/iconfont/iconfont.css'
 
 library.add(faUser, faLock, faMailBulk, faInfo, faMobile)
 
