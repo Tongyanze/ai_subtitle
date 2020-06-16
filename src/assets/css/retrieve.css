@@ -14,7 +14,7 @@ h1
 	font-family: arial;
     margin-bottom: 40px;
   }
-input[type=text], select, textarea {
+.container input, select, textarea {
     width: 100%;
     padding: 12px;
     border: 1px solid #ccc;
@@ -30,7 +30,7 @@ input[type=text], select, textarea {
 .button {
     display: inline-block;
     border-radius: 4px;
-    background-color: rgb(55, 92, 160);
+    /*background-color: rgb(55, 92, 160);*/
     border: none;
     color: #FFFFFF;
     text-align: center;
@@ -49,7 +49,7 @@ input[type=text], select, textarea {
     transition: 0.5s;
   }
 
-  .button span:after {
+  .button[class*="btn-blue"] span:after {
     content: '»';
     position: absolute;
     opacity: 0;
@@ -58,7 +58,7 @@ input[type=text], select, textarea {
     transition: 0.5s;
   }
 
-  .button:hover span {
+  .button[class*="btn-blue"]:hover span {
     padding-right: 10px;
   }
 
@@ -70,11 +70,11 @@ input[type=text], select, textarea {
   .button1 {
     background-color: white;
     color: black;
-    border: 3px solid #4CAF50;
+    border: 3px solid rgb(107, 154, 255);
 }
 
 .button1:hover {
-    background-color: #4CAF50;
+    background-color: rgb(107, 154, 255);
     color: white;
 }
 

@@ -14,6 +14,10 @@ axios.interceptors.request.use((config) => {
     if (config.url === '/user/userModify') {
         config.headers['token'] = localStorage.getItem('token')
     }
+    if (config.url === '/findpassword/update') {
+        config.headers['token'] = sessionStorage.getItem('tmptoken')
+        sessionStorage.removeItem('tmptoken')
+    }
     return config;
 },(error) =>{
     console.log('错误的传参')
