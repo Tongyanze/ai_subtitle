@@ -224,7 +224,7 @@
             }
         },
         mounted(){
-          
+
         },
         methods:{
             register(){
@@ -316,12 +316,12 @@
                 })
                 this.canSend = false
                 let _this = this;
-                let x = 60
+                let x = 59
+                this.sendTip = '('+ 60 +'s)后重新发送'
                 $("#vcode-btn").removeClass("btn-blue").addClass("btn-grey");
                 this.timer = setInterval(() => {
                     _this.mcount(x--);
                 }, 1000);
-                console.log('12312312312313')
             },
             mcount(x) {
 
