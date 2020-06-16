@@ -50,7 +50,7 @@
                     </div>
 
                     <router-link id="forgetpass" to='/retrieve'>忘记密码？</router-link>
-                    <a id="register" href='http://www.baidu.com'>注册</a>
+                    <router-link id="register" to='/register'>注册</router-link>
                     <br>
                     <br>
                     <br>

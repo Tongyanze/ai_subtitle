@@ -9,10 +9,11 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { faUser, faLock, faMailBulk, faInfo, faMobile} from '@fortawesome/free-solid-svg-icons'
 import '@/assets/iconfont/iconfont.js'
 import '@/assets/iconfont/iconfont.css'
+import global from '@/assets/js/global'
 
 library.add(faUser, faLock, faMailBulk, faInfo, faMobile)
 
-
+Vue.prototype.$global = global
 Vue.use(VueAxios, axios)
 Vue.config.productionTip = false
 Vue.component('font-awesome-icon', FontAwesomeIcon);

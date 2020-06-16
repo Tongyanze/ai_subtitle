@@ -122,7 +122,7 @@
                 <td>
                     <div class="input-box">
                         <font-awesome-icon class="font-awesome-icon" :icon="['fas', 'mail-bulk']"></font-awesome-icon>
-                        <input type="email" placeholder="请输入您的邮箱" name="keyword" v-model="email" @blur="emailExist">
+                        <input type="email" placeholder="请输入您的邮箱" name="keyword" v-model="email" @blur="emailExist" @focus="checkemail=0">
                     </div>
                     <div class="hint">
                         <div class="hint-wrong" v-if="checkemail === 1">
@@ -150,18 +150,21 @@
                 </td>
             </tr>
             <tr >
-                <td style="display: flex;">
-                    <div class="input-box" style="margin-right: auto; width: 70%">
+                <td>
+                    <div class="input-box">
                         <font-awesome-icon class="font-awesome-icon" :icon="['fas', 'info']"></font-awesome-icon>
                         <input type="text" placeholder="请输入您收到的验证码" name="keyword" v-model="vcode">
                     </div>
-                    <button value="点击发送验证码" class="bigbutton btn-blue" @click="sendvcode">
-                        点击发送验证码
-                    </button>
+                    <div style="width: 36%">
+                        <button id="vcode-btn" value="点击发送验证码" style="margin-right: auto; margin-left: auto;" class="bigbutton btn-blue" @click="sendvcode">
+                            {{sendTip}}
+                        </button>
+                    </div>
+
                 </td>
             </tr>
             <tr>
-                <td>
+                <td style="width: 88%; margin: 24px 0">
                     <button class="bigbigbut btn-blue" @click="register">注册</button>
                 </td>
             </tr>
@@ -195,6 +198,7 @@
     import Header from "@/components/Header.vue";
     import Footer from "@/components/Footer.vue";
     import https from "@/https.js";
+    import $ from 'jquery'
     export default {
         name: "Register",
         components: {Footer, Header},
@@ -213,8 +217,14 @@
                 passwdTip: '',
                 conf: false,
                 phoneTip: '',
-                emailTip: ''
+                emailTip: '',
+                sendTip: '点击发送验证码',
+                canSend: true,
+                timer: ''
             }
+        },
+        mounted(){
+          
         },
         methods:{
             register(){
@@ -235,10 +245,11 @@
                 };
                 https.fetchPost('/user/regist', params).then(res => {
                         if (res.data.code === 200) {
+                            alert('注册成功')
                             this.$router.push('/login')
                         }
                     }).catch(err =>{
-                        alert(err.toString())
+                        console.log(err.toString())
                 })
             },
             phoneExist() {
@@ -291,14 +302,37 @@
                     })
             },
             sendvcode(){
+                if (this.checkemail !== 2 || this.canSend === false) {
+                    return;
+                }
+
                 let params ={
                     email:this.email
             };
             https.fetchPost('/email/sendCode', params).then(data => {
-                        alert(JSON.stringify(data.data))
+
                     }).catch(err =>{
-                        alert(err.toString())
+                        console.log(err.toString())
                 })
+                this.canSend = false
+                let _this = this;
+                let x = 60
+                $("#vcode-btn").removeClass("btn-blue").addClass("btn-grey");
+                this.timer = setInterval(() => {
+                    _this.mcount(x--);
+                }, 1000);
+                console.log('12312312312313')
+            },
+            mcount(x) {
+
+                this.sendTip = '('+ x +'s)后重新发送'
+                if (x === 0) {
+                    clearInterval(this.timer)
+                    this.canSend = true
+                    this.sendTip = '点击发送验证码'
+                    $("#vcode-btn").removeClass("btn-grey").addClass("btn-blue");
+                    return;
+                }
             },
             checkpasswdFunc() {
                 if (this.password.length < 8) {
@@ -320,6 +354,9 @@
                 this.conf = this.conf !== true;
 
             }
+        },
+        beforeDestroy() {
+            clearInterval(this.timer);
         }
     }
 </script>
@@ -331,6 +368,7 @@
         height:40px;
         border: none;
         border-radius: 4px;
+        min-width: 105px;
     }
     button.bigbigbut{
         width: 100%;
@@ -346,7 +384,7 @@
         box-shadow: 10px 10px 5px #092452;
         position: relative;
         display: flex;
-        padding: 12px;
+        padding: 12px 12px 12px 40px;
     }
 
     .local table{
@@ -379,7 +417,7 @@
         font-size: 20px;
         display: flex;
         line-height: 40px;
-        width: 72%;
+        width: 64%;
     }
 
     .input-box .font-awesome-icon{
@@ -424,7 +462,7 @@
 
     .hint {
         text-align: center;
-        width: 28%;
+        width: 36%;
         text-overflow: clip;
         position: relative;
         display: flex;

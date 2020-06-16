@@ -19,6 +19,17 @@
     background-color: rgb(255, 27, 16);
 }
 
+.btn-grey {
+    color: white;
+    background-color: rgb(156, 156, 156);
+    outline: none;
+}
+
+.btn-grey {
+    color: white;
+    background-color: rgb(156, 156, 156);
+}
+
 /*超级链接*/
 .mlink {
 
