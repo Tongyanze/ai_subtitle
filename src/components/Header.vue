@@ -21,6 +21,10 @@
                         <a href="javascript:void(0)">关于我们</a>
                     </li>
 
+                    <li v-if="token != null" >
+                        <a href="javascript:void(0)" @click="quit">退出登录</a>
+                    </li>
+
                 </ul>
             </div>
         </div>
@@ -29,6 +33,7 @@
 </template>
 
 <script>
+    import https from "@/https.js";
     export default {
         name: "Header",
         data() {
@@ -36,7 +41,7 @@
                 token: ''
             }
         },
-        props:{
+        props: {
             a: {
                 type: Number,
                 default: 0
@@ -46,8 +51,11 @@
             let tmp = localStorage.getItem('token');
             this.token = tmp == null || tmp === '' ? null : tmp
         },
-        methods:{
-
+        methods: {
+            quit() {
+                this.token = null
+                localStorage.removeItem('token')
+            }
         }
     }
 </script>

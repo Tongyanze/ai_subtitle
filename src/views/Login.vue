@@ -88,7 +88,10 @@
                 let params = {userPassword: this.password, userEmail: this.email};
                 https.fetchPost('/user/login', params)
                     .then(data => {
-                        alert(JSON.stringify(data.data))
+                        let cookies = document.cookie;
+                        let st = cookies.indexOf('token') + 6;
+                        let token = unescape(cookies.substring(st, cookies.toString().length))
+                        localStorage.setItem('token', token)
                     }).catch(err =>{
                         alert(err.toString())
                 })
