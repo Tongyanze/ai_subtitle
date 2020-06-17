@@ -103,5 +103,5 @@
 </script>
 
 
-<style lang="scss" scoped src=@/assets/css/login.scss>
+<style lang="scss" scoped src=@/assets/scss/login.scss>
 </style>
