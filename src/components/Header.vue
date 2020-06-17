@@ -68,7 +68,7 @@
         right: 0;
         left: 0;
         top: 0;
-        background: rgb(107, 154, 255);
+        background-color: rgb(55, 92, 160);
         box-shadow: 0 1px 10px -6px rgba(0,0,0,0.42), 0 1px 10px 0 rgba(0,0,0,0.12), 0 4px 5px -2px rgba(0,0,0,0.1);
     }
 

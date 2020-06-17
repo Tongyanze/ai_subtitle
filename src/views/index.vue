@@ -111,12 +111,12 @@
 
 <style scoped>
     .header{
-        background: rgba(107, 154, 255, 0.2);
+        background-color: rgba(55, 92, 160, 0.2);
         transition: background 1s;
     }
 
     .header:hover{
-        background: rgb(107, 154, 255);
+        background-color: rgb(55, 92, 160);
     }
     .mid-words{
         position: absolute;

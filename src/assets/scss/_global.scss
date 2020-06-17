@@ -1,0 +1,63 @@
+//按钮请添加该选项
+
+$dark-blue: rgb(55, 92, 160);
+$fade-blue: rgb(107, 154, 255);
+
+.btn-blue {
+  color: white;
+  /*background-color: rgb(107, 154, 255);*/
+  background-color: rgb(55, 92, 160);
+  transition: background-color 1s;
+}
+
+.btn-blue:hover {
+  background-color: rgb(56, 106, 255);
+}
+
+.btn-red{
+  color: white;
+  background-color: rgb(255, 98, 59);
+  transition: background-color 1s;
+}
+
+.btn-red:hover{
+  background-color: rgb(255, 27, 16);
+}
+
+.btn-grey {
+  color: white;
+  background-color: rgb(156, 156, 156);
+  outline: none;
+}
+
+.btn-grey {
+  color: white;
+  background-color: rgb(156, 156, 156);
+}
+
+/*超级链接*/
+.mlink {
+
+}
+
+.mlink:hover{
+
+}
+
+.white-to-blue-link{
+
+}
+
+.white-to-blue-link:hover{
+
+}
+
+.blue-link{
+  text-decoration: none;
+  color: rgb(107, 154, 255);
+  transition: color 1s;
+}
+
+.blue-link:hover{
+  color: rgb(14, 29, 255)
+}

@@ -19,9 +19,10 @@
         position: absolute;
         bottom: 0;
         height: 200px;
-        background: rgb(107, 154, 255);
+        background-color: rgb(55, 92, 160);
         width: 100%;
         box-sizing:border-box;
+        color: rgb(217, 217, 217);
     }
 
     .copy-right{

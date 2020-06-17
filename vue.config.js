@@ -13,7 +13,7 @@ function resolve (dir) {
 module.exports = {
     publicPath: process.env.NODE_ENV === 'production'
         ? '/production-sub-path/' //如果生产环境的目录有子子路径，这里就要设置
-        : './',
+        : '/',
 
     assetsDir: "public",
 
@@ -41,5 +41,15 @@ module.exports = {
             .set("assets", resolve("src/assets"))
             .set("components", resolve("src/components"));
 
+    },
+
+    pluginOptions: {
+        'style-resources-loader': {
+            preProcessor: 'scss',
+            patterns: [
+                //加上自己的文件路径，不能使用别名
+                path.resolve(__dirname, 'src/assets/scss/_global.scss'),
+            ]
+        }
     }
 };

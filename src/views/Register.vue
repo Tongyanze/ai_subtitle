@@ -361,7 +361,7 @@
     }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
     div>input{float:left;border:none;height:40px;line-height:30px;width:100%; text-indent:16px;}
 
     .bigbutton{
@@ -369,6 +369,7 @@
         border: none;
         border-radius: 4px;
         min-width: 105px;
+        background: $dark-blue;
     }
     button.bigbigbut{
         width: 100%;

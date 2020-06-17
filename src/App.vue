@@ -33,4 +33,4 @@ body{
 
 
 </style>
-<style src="@/assets/css/global.css"></style>
+

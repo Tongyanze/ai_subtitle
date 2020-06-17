@@ -1,7 +1,7 @@
 <template>
     <div style="position: relative; min-height: 100%; min-height: 100vh">
 
-        <Header :a=0></Header>
+        <Header a=1></Header>
         <div id="Login" class="login_form">
             <div id="content">
                 <div>
