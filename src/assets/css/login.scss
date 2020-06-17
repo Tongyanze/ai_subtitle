@@ -161,13 +161,10 @@ input {
     text-decoration: none;
     display: inline-block;
     font-size: 16px;
-    border-radius: 15px;
-    background-color: rgb(107, 154, 255);
+    border-radius: 8px;
     transition: background-color 1s;
 }
-#login-button:hover{
-    background-color: rgb(56, 106, 255);
-}
+
 #forgetpass{
     color: #3f7dff;
     padding-bottom: 10px;

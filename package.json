@@ -4,10 +4,10 @@
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
-    "test": "vue-cli-service build --mode test",
-    "preview": "vue-cli-service build --mode preview",
     "build": "vue-cli-service build --mode production",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "preview": "vue-cli-service build --mode preview",
+    "test": "vue-cli-service build --mode test"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.28",
@@ -31,6 +31,8 @@
     "@vue/cli-service": "~4.4.0",
     "node-sass": "^4.14.1",
     "sass-loader": "^8.0.2",
+    "style-resources-loader": "^1.3.2",
+    "vue-cli-plugin-style-resources-loader": "~0.1.4",
     "vue-template-compiler": "^2.6.11"
   }
 }

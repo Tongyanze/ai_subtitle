@@ -22,7 +22,7 @@
                                 <br>
                                 <input type="password" id="password" placeholder="密码"/>
                                 <br>
-                                <button type="button" id="login-button">马上登录</button>
+                                <button type="button" class="btn-blue" id="login-button">马上登录</button>
                             </div>
                         </div>
                         <!-- 在cur==1时此板块显示 其他时候此板块不显 -->
@@ -32,7 +32,7 @@
                                 <br>
                                 <input type="password" id="password" placeholder="密码"/>
                                 <br>
-                                <button type="button" id="login-button">马上登录</button>
+                                <button type="button" id="login-button" class="btn-blue">马上登录</button>
                             </div>
 
                         </div>
@@ -44,7 +44,7 @@
                                 <br>
                                 <input type="password" v-model="password" placeholder="密码"/>
                                 <br>
-                                <button type="button" id="login-button" @click="emailLogin">马上登录</button>
+                                <button type="button" id="login-button" class="btn-blue" @click="emailLogin">马上登录</button>
                             </div>
                         </div>
                     </div>
@@ -103,5 +103,5 @@
 </script>
 
 
-<style scoped src=@/assets/css/login.css>
+<style lang="scss" scoped src=@/assets/css/login.scss>
 </style>

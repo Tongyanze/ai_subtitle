@@ -369,7 +369,6 @@
         border: none;
         border-radius: 4px;
         min-width: 105px;
-        background: $dark-blue;
     }
     button.bigbigbut{
         width: 100%;

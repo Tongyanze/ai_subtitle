@@ -43,7 +43,7 @@
     </div>
 </template>
 
-<style scoped src= @/assets/css/retrieve.css>
+<style lang="scss" scoped src= @/assets/css/retrieve.scss>
 </style>
 <script>
     import Header from "@/components/Header.vue";

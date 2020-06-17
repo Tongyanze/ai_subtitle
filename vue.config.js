@@ -38,8 +38,8 @@ module.exports = {
     chainWebpack: config => {
         config.resolve.alias
             .set("@", resolve("src"))
-            .set("assets", resolve("src/assets"))
-            .set("components", resolve("src/components"));
+            .set("@assets", resolve("src/assets"))
+            .set("@components", resolve("src/components"));
 
     },
 
@@ -47,8 +47,7 @@ module.exports = {
         'style-resources-loader': {
             preProcessor: 'scss',
             patterns: [
-                //加上自己的文件路径，不能使用别名
-                path.resolve(__dirname, 'src/assets/scss/_global.scss'),
+                path.resolve(__dirname, "src/assets/scss/_global.scss")
             ]
         }
     }
