@@ -56,5 +56,5 @@
 	}
 	</script>
 
-	<style lang = "scss" scoped src=@/assets/css/message.scss>
+	<style lang = "scss" scoped src=@/assets/scss/message.scss>
 </style>
