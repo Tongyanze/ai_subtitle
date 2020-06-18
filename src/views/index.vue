@@ -32,7 +32,7 @@
                 <img src="@/assets/0725_12.jpg"/>
             </div>
 
-            <div style="height: 200px"></div>
+            <div class="for-footer"></div>
         </div>
         <Footer/>
 
@@ -42,8 +42,8 @@
 
 <script>
     import $ from 'jquery'
-    import Header from "@/components/Header.vue";
-    import Footer from "@/components/Footer.vue";
+    import Header from "@/components/Header";
+    import Footer from "@/components/Footer";
     import axios from 'axios'
     import qs from 'qs'
     import https from "@/https.js";
@@ -109,7 +109,7 @@
 
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
     .header{
         background-color: rgba(55, 92, 160, 0.2);
         transition: background 1s;
@@ -190,6 +190,10 @@
 
     #img3{
         transition: left 0.8s ease-in-out, opacity 1s ease-in-out;
+    }
+
+    .for-footer{
+        height: $footer-height;
     }
 
 </style>

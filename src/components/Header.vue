@@ -18,7 +18,7 @@
                         </li>
                     </div>
                     <li>
-                        <a href="javascript:void(0)">关于我们</a>
+                        <router-link to="/about">关于我们</router-link>
                     </li>
 
                     <li v-if="token != null" >
@@ -49,6 +49,7 @@
         },
         mounted() {
             let tmp = localStorage.getItem('token');
+            console.log(this.token)
             this.token = tmp == null || tmp === '' ? null : tmp
         },
         methods: {
@@ -64,7 +65,7 @@
     .header{
         position: fixed;
         z-index: 1000;
-        height: 60px;
+        height: $header-height;
         right: 0;
         left: 0;
         top: 0;

@@ -13,13 +13,13 @@
     }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
     .footer{
         padding: 12px 0;
         position: absolute;
         bottom: 0;
-        height: 200px;
-        background-color: rgb(55, 92, 160);
+        height: $footer-height;
+        background-color: $dark-blue;
         width: 100%;
         box-sizing:border-box;
         color: rgb(217, 217, 217);
