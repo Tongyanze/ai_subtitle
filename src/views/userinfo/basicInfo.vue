@@ -80,7 +80,7 @@
         name: "basicinfo",
         data() {
             return {
-                username:"冬冬",
+                username:"",
                 accountNum:631570777,
                 usersign: "我想去学校。。",
                 userage:9,
@@ -91,6 +91,20 @@
                 userphone:10086,
                 userbirth:"1840年9月7日",
                 cur: 0 //默认选中第一个tab
+            }
+        },
+        mounted() {
+            this.getUserInfo()
+        },
+        methods:{
+            getUserInfo() {
+                let userinfo = JSON.parse(localStorage.getItem('userinfo'))
+                console.log(userinfo)
+                this.username = userinfo.userName
+                this.usergender = userinfo.userGender === 'male' ? '男' : '女'
+                this.userbirth = userinfo.userBirthday
+                this.useremail = userinfo.userEmail
+                this.userphone = userinfo.userPhoneNumber
             }
         }
     }

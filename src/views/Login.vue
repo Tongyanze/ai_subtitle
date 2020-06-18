@@ -79,7 +79,7 @@
             return {
                 email: '',
                 password: '',
-
+                userinfo: '',
                 cur: 0 //默认选中第一个tab
             }
         },
@@ -92,6 +92,8 @@
                         let st = cookies.indexOf('token') + 6;
                         let token = unescape(cookies.substring(st, cookies.toString().length))
                         localStorage.setItem('token', token)
+                        this.userinfo = data.data.data
+                        localStorage.setItem('userinfo', JSON.stringify(this.userinfo))
                         this.$router.push('/userinfo')
                     }).catch(err =>{
                         alert(err.toString())

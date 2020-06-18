@@ -5,11 +5,7 @@
 </template>
 <script>
   export default {
-    mounted() {
-      window.onbeforeunload = function (e) {
-        localStorage.removeItem('token')
-      }
-    },
+
   }
 
 </script>

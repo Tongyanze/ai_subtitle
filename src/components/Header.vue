@@ -56,6 +56,7 @@
             quit() {
                 this.token = null
                 localStorage.removeItem('token')
+                localStorage.removeItem('userinfo')
                 this.$router.push('/')
             }
         },
