@@ -1,5 +1,5 @@
 <template>
-  
+
 	<div  class="body_item">
 					<div class = "space-right-top">
 					   <div class = "headline">@我的</div>
@@ -7,12 +7,12 @@
                     <div class = "space-right-bottom">
 					    <div class = "content">
 						   <div>
-                                <img class="img" src="../assets/dong.png">
+                                <img class="img" src="../../assets/dong.png">
                             </div>
 					   </div>
 				    </div>
 				</div>
- 
+
 </template>
 
 <script>
@@ -29,7 +29,7 @@
                 cur: 0 //默认选中第一个tab
             }
 		}
-	
+
 	}
 	</script>
 

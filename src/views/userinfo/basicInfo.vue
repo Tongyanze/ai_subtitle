@@ -1,11 +1,11 @@
 <template>
 <div  class="Cbody_item">
                         <div class="mainInfo">
-                        <span id="headIcon">     
-                            <img   width=80px height=80px src="../assets/dong.png">
+                        <span id="headIcon">
+                            <img   width=80px height=80px src="../../assets/dong.png">
                         </span>
-                         <span class="accountInfo">     
-                            <div id="username">                         
+                         <span class="accountInfo">
+                            <div id="username">
                              {{username}}
                             </div>
                              <div id="useraccount" class="subInfo">
@@ -27,8 +27,8 @@
                         </span>
                         </div>
                         <div class="mainInfo">
-                         <span >   
-                             <span id="left">  
+                         <span >
+                             <span id="left">
                             <div id="usersex" class="basicInfo">
                                 性别：<span>{{usergender}}</span>
                             </div>
@@ -55,21 +55,21 @@
                          <span class="beforeline">账号设置</span>
                          <hr class="cutline">
                           <div class="mainInfo">
-                          <span class="basicInfo">   
-                             <span id="left">  
+                          <span class="basicInfo">
+                             <span id="left">
                             <div id="userphone" class="basicInfo">
-                                绑定手机号：<span>{{userphone}}</span> <router-link :to="{name: 'changephone'}" id="changebind" >修改手机</router-link> 
-                            </div>                            
-                           
+                                绑定手机号：<span>{{userphone}}</span> <router-link :to="{name: 'changephone'}" id="changebind" >修改手机</router-link>
+                            </div>
+
                              </span>
                             <span id="right">
                              <div id="useremail" class="basicInfo">
-                                绑定邮箱：<span>{{useremail}}</span><router-link :to="{name: 'changemail'}" id="changebind" >修改邮箱</router-link> 
+                                绑定邮箱：<span>{{useremail}}</span><router-link :to="{name: 'changemail'}" id="changebind" >修改邮箱</router-link>
                             </div>
                             </span>
                         </span>
                         </div>
-                        
+
                          <span class="beforeline">更多玩法尽情期待</span>
                          <hr class="cutline">
                         </div>
@@ -94,7 +94,7 @@
             }
         }
     }
-   
+
 </script>
 
 <style  scoped lang = "scss" src=@/assets/scss/userinfo.scss >

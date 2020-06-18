@@ -3,6 +3,16 @@
     <router-view/>
   </div>
 </template>
+<script>
+  export default {
+    mounted() {
+      window.onbeforeunload = function (e) {
+        localStorage.removeItem('token')
+      }
+    },
+  }
+
+</script>
 <style>
 #app {
   width: 100%;
@@ -39,4 +49,5 @@ html {
 
 
 </style>
+
 

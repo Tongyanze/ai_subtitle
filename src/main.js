@@ -19,22 +19,25 @@ Vue.config.productionTip = false
 Vue.component('font-awesome-icon', FontAwesomeIcon);
 
 //拦截器
-// router.beforeEach((to, from, next) => {
-//   if (to.path ==='/' || to.path === '/register' || to.path === '/retrieve' || to.path === '/about') {
-//     next();
-//   }
-//   else if (to.path ==='/login') {
-//     if (localStorage.getItem('token') != null && localStorage.getItem('token') !== '') {
-//       next(from.path);
-//     }
-//     else {
-//       next();
-//     }
-//   }
-//   else {
-//     next('/');
-//   }
-// });
+router.beforeEach((to, from, next) => {
+  if (to.path ==='/' || to.path === '/register' || to.path === '/retrieve' || to.path === '/about') {
+    next();
+  }
+  else if (to.path ==='/login') {
+    if (localStorage.getItem('token') != null && localStorage.getItem('token') !== '') {
+      next(from.path);
+    }
+    else {
+      next();
+    }
+  }
+  else if(localStorage.getItem('token') != null && localStorage.getItem('token') !== ''){
+    next();
+  }
+  else {
+    next('/')
+  }
+});
 
 
 new Vue({

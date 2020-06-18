@@ -1,9 +1,11 @@
 <template>
+    <div class="global-container">
+        <Header/>
 <div id="UserInfo" class="Info_form" >
     <div id="content">
         <div id="left_part">
         <div id= "head">
-            <img   width=30px height=30px src="../assets/usericon.png">
+            <img   width=30px height=30px>
             个人中心
         </div>
         <div class="list">
@@ -11,7 +13,7 @@
             <div >我的作品</div>
             <div >我的收藏</div>
             <div >我的消息</div>
-             
+
         </div>
         </div>
         <div id="right_part">
@@ -23,11 +25,18 @@
         </div>
     </div>
 </div>
+        <Footer/>
+    </div>
 </template>
 
 <script>
+    import Header from "@/components/Header";
+    import Footer from "@/components/Footer";
     export default {
         name: "UserInfo",
+        components: {
+          Header, Footer
+        },
         data() {
             return {
                 username:"冬冬",
@@ -44,7 +53,7 @@
             }
         }
     }
-   
+
 </script>
 
 <style  scoped lang = "scss" src=@/assets/scss/userinfo.scss >

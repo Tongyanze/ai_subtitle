@@ -6,11 +6,11 @@ import index from "@/views/index.vue";
 import About from '@/views/About.vue'
 import Retrieve from '@/views/retrieve.vue'
 import Register from '@/views/Register.vue'
-import UserInfo from '@/views/UserInfo.vue'
-import basicInfo from '@/views/basicInfo.vue'
-import changeinfo from '@/views/changeinfo.vue'
-import changemail from '@/views/changeinfo.vue'
-import changephone from '@/views/changephone.vue'
+import UserInfo from '@/views/userinfo/UserInfo.vue'
+import basicInfo from '@/views/userinfo/basicInfo.vue'
+import changeinfo from '@/views/userinfo/changeinfo.vue'
+import changemail from '@/views/userinfo/changeinfo.vue'
+import changephone from '@/views/userinfo/changephone.vue'
 
 Vue.use(VueRouter)
 

@@ -64,3 +64,10 @@ $footer-height: 200px;
 .blue-link:hover{
   color: rgb(14, 29, 255)
 }
+
+.global-container{
+  min-height: 100%;
+  position: relative;
+  padding-bottom: $footer-height;
+  height: inherit;
+}

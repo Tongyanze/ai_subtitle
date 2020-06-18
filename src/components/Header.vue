@@ -7,7 +7,7 @@
             <div class="header-list">
                 <ul>
                     <li v-if="token != null">
-                        <a href="javascript:void(0)">个人中心</a>
+                        <router-link to="/userinfo">个人中心</router-link>
                     </li>
                     <div v-if="token == null" style="display: flex">
                         <li>
@@ -56,8 +56,10 @@
             quit() {
                 this.token = null
                 localStorage.removeItem('token')
+                this.$router.push('/')
             }
-        }
+        },
+
     }
 </script>
 

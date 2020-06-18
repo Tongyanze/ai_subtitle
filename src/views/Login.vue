@@ -92,6 +92,7 @@
                         let st = cookies.indexOf('token') + 6;
                         let token = unescape(cookies.substring(st, cookies.toString().length))
                         localStorage.setItem('token', token)
+                        this.$router.push('/userinfo')
                     }).catch(err =>{
                         alert(err.toString())
                 })
