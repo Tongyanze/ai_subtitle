@@ -156,16 +156,6 @@
                 this.checkpasswd = 0
             },
 
-            /*emailLogin() {
-                let params = {userPassword: this.vcode, userEmail: this.email};
-                https.fetchPost('/user/login', params)
-                    .then(data => {
-                        alert(JSON.stringify(data.data))
-                    }).catch(err =>{
-                        alert(err.toString())
-                })
-            }*/
-
         },
         beforeDestroy() {
             clearInterval(this.timer);
