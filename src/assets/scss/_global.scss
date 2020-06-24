@@ -4,10 +4,12 @@ $dark-blue: rgb(55, 92, 160);
 $fade-blue: rgb(107, 154, 255);
 $header-height: 60px;
 $footer-height: 200px;
+$theme-white: rgb(217, 217, 217);
 //按钮请添加该选项
 
 .btn-blue {
   color: white;
+  cursor: pointer;
   /*background-color: rgb(107, 154, 255);*/
   background-color: rgb(55, 92, 160);
   transition: background-color 1s;
@@ -19,6 +21,7 @@ $footer-height: 200px;
 
 .btn-red{
   color: white;
+  cursor: pointer;
   background-color: rgb(255, 98, 59);
   transition: background-color 1s;
 }
@@ -31,6 +34,7 @@ $footer-height: 200px;
   color: white;
   background-color: rgb(156, 156, 156);
   outline: none;
+  cursor: not-allowed;
 }
 
 .btn-grey {

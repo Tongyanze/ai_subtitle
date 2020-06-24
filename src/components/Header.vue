@@ -6,8 +6,21 @@
             </div>
             <div class="header-list">
                 <ul>
-                    <li v-if="token != null">
-                        <router-link to="/userinfo">个人中心</router-link>
+                    <li v-if="token != null" id="me">
+                        <router-link style="display: block; height: 20px" to="/userinfo">
+                            <img :src="headicon" style="height: 20px; width: 20px">
+                        </router-link>
+                        <div class="me-colla">
+                            <div><router-link to="/userinfo">个人中心</router-link></div>
+                            <div>视频编辑</div>
+                        </div>
+                    </li>
+                    <li v-if="token != null" id="video">
+                        视频
+                        <div class="video-colla">
+                            <div><router-link to="/uploader">视频上传</router-link></div>
+                            <div>视频编辑</div>
+                        </div>
                     </li>
                     <div v-if="token == null" style="display: flex">
                         <li>
@@ -38,7 +51,8 @@
         name: "Header",
         data() {
             return {
-                token: ''
+                token: '',
+                headicon: ''
             }
         },
         props: {
@@ -51,6 +65,15 @@
             let tmp = localStorage.getItem('token');
             console.log(this.token)
             this.token = tmp == null || tmp === '' ? null : tmp
+            if (this.token != null) {
+                let userinfo = JSON.parse(localStorage.getItem('userinfo'))
+
+                if (process.env.VUE_APP_MODE !== 'production') {
+                    this.headicon = 'api'+userinfo.image
+                } else {
+                    this.headicon = userinfo.image
+                }
+            }
         },
         methods: {
             quit() {
@@ -67,7 +90,7 @@
 <style lang="scss" scoped>
     .header{
         position: fixed;
-        z-index: 1000;
+        z-index: 100;
         height: $header-height;
         right: 0;
         left: 0;
@@ -124,6 +147,35 @@
     .header-list a:hover, .header-list router-link:hover{
 
         color: rgb(51, 209, 255);
+    }
+
+    .video-colla, .me-colla{
+        visibility: hidden;
+        position: absolute;
+        z-index: 99;
+        width: 84px;
+        left: -5px;
+        padding-top: 20px;
+    }
+
+
+    .video-colla div, .me-colla div{
+        background: $dark-blue;
+        padding: 12px 4px;
+    }
+
+    #video:hover .video-colla{
+        visibility: visible;
+    }
+
+    #me:hover .me-colla{
+        visibility: visible;
+    }
+
+
+    #video, #me{
+        position: relative;
+        cursor: pointer;
     }
 
 </style>

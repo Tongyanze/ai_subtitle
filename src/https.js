@@ -1,8 +1,12 @@
 import axios from 'axios'
 import qs from 'qs'
 
-axios.defaults.timeout = 5000;                        //响应时间 //配置请求头
-axios.defaults.baseURL = 'api';   //配置接口地址
+//响应时间 //配置请求头
+axios.defaults.timeout = 5000;
+
+if (process.env.VUE_APP_MODE !== 'production') {
+    axios.defaults.baseURL = 'api';   //配置接口地址
+}
 axios.defaults.withCredentials = true;
 
 //POST传参序列化(添加请求拦截器)
@@ -11,7 +15,7 @@ axios.interceptors.request.use((config) => {
     if(config.method === 'post' && config.headers['Content-Type']  === 'application/x-www-form-urlencoded;charset=UTF-8'){
         config.data = qs.stringify(config.data);
     }
-    if (config.url === '/user/userModify') {
+    if (config.url === '/user/userModify' || config.url === '/uploader/mergeFile') {
         config.headers['token'] = localStorage.getItem('token')
     }
     if (config.url === '/findpassword/update') {

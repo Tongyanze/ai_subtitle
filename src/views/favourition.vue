@@ -11,7 +11,7 @@
                                     <div class="ih-item2">
                                         <a href="#" >
                                         <div class="img2">
-                                        <img src="./assets/test.png">
+                                        <img src="@/assets/test.png">
                                         </div>
                                         <div class="info2">
                                             <h2>更换头像</h2>
@@ -67,9 +67,9 @@
                                     <li class="small-item">
                                         <div class="ih-item">
                                             <a href="https://www.hao123.com" target="_blank">
-                                            
+
                                                 <div class="img">
-                                                    <img src="./assets/test.png" alt="img">
+                                                    <img src="@/assets/test.png" alt="img">
                                                 </div>
                                                 <span class="time-length">12:30</span>
                                                 <div class="info">
@@ -84,9 +84,9 @@
                                     <li class="small-item">
                                         <div class="ih-item">
                                             <a href="https://www.hao123.com" target="_blank">
-                                            
+
                                                 <div class="img">
-                                                    <img src="./assets/test.png" alt="img">
+                                                    <img src="@/assets/test.png" alt="img">
                                                 </div>
                                                 <span class="time-length">12:30</span>
                                                 <div class="info">
@@ -101,9 +101,9 @@
                                     <li class="small-item">
                                         <div class="ih-item">
                                             <a href="https://www.hao123.com" target="_blank">
-                                            
+
                                                 <div class="img">
-                                                    <img src="./assets/test.png" alt="img">
+                                                    <img src="@/assets/test.png" alt="img">
                                                 </div>
                                                 <span class="time-length">12:30</span>
                                                 <div class="info">
@@ -118,9 +118,9 @@
                                     <li class="small-item">
                                         <div class="ih-item">
                                             <a href="https://www.hao123.com" target="_blank">
-                                            
+
                                                 <div class="img">
-                                                    <img src="./assets/test.png" alt="img">
+                                                    <img src="@/assets/test.png" alt="img">
                                                 </div>
                                                 <span class="time-length">12:30</span>
                                                 <div class="info">
@@ -160,7 +160,7 @@
             detail_div--;
         }*/
     </script>
-   
+
     <style lang="scss" scoped>
         body{
             font-family: "Microsoft YaHei", serif;
@@ -190,7 +190,7 @@
             position: relative;
         }
         div.h-inner{
-            background-image: url(../src/assets/preview.png);
+            background-image: url("../assets/preview.png");
             background-position: 50%;
             background-size: cover;
             transition: background-image .2s ease,background-size 1s ease;
@@ -216,7 +216,7 @@
             padding-left: 20px;
             line-height: 20px;
         }
-        div.beazb{          
+        div.beazb{
             position: relative;
             float: left;
             width: 180px;
@@ -233,7 +233,7 @@
             border-bottom: 1px solid #eee;
 
         }
-        div.beayb{             
+        div.beayb{
             position: relative;                   /*这是修改右边总体布局的-*//*左边你可以建一个table加一个li或者button就行,现在先不用添加*/                                    /*and我是真的不会写布局,靠你了*//*看这里!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
             float: left;
             width: 920px;
@@ -271,7 +271,7 @@
             height: 30px;
             vertical-align: middle;
             display: inline-block;
-            background-image: url(./assets/preview.png);/*加一个“+”号的图标*/
+            background-image: url("../assets/preview.png");/*加一个“+”号的图标*/
         }
         .icon-huaban{
             color: #999;
@@ -325,7 +325,7 @@
             left: 0;
             width: 100%;
             height: 84px;
-            background-image: url(./assets/shadow.png);
+            background-image: url(../assets/shadow.png);
             background-repeat: repeat-x;
         }
         .fav-info{
@@ -375,14 +375,14 @@
             width: 220px;
             height: 220px;
         }
-        
+
         .fav-video{
             margin: 20px 20px 50px;
             display: block;
             list-style: none;
         }
         .cover{
-            background: url(./assets/preview.png) 50%;
+            background: url("../assets/preview.png") 50%;
             background-size: cover;
             border-radius: 4px;
             display: block;
@@ -424,7 +424,7 @@
             height: 100px;
         }
         .ih-item .img img{
-            background-image: url("./assets/test.png");
+
             position: relative;
             width: 220px;
             height: 180px;

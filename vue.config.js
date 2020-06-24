@@ -12,8 +12,8 @@ function resolve (dir) {
 
 module.exports = {
     publicPath: process.env.NODE_ENV === 'production'
-        ? '/production-sub-path/' //如果生产环境的目录有子子路径，这里就要设置
-        : '/',
+        ? '/' //如果生产环境的目录有子子路径，这里就要设置
+        : './',
 
     assetsDir: "public",
 

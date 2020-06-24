@@ -12,6 +12,9 @@ import changeinfo from '@/views/userinfo/changeinfo.vue'
 import changemail from '@/views/userinfo/changeinfo.vue'
 import changephone from '@/views/userinfo/changephone.vue'
 import contribute from '@/views/userinfo/contribute.vue'
+import favourition from '@/views/favourition.vue'
+import uploader from "@/views/uploader";
+import VideoModify from "@/views/VideoModify";
 
 Vue.use(VueRouter)
 
@@ -30,6 +33,16 @@ Vue.use(VueRouter)
       path: '/retrieve',
       name: 'Retrieve',
       component: Retrieve
+    },
+    {
+      path: '/favourition',
+      name: 'favourition',
+      component: favourition
+    },
+    {
+      path: '/videomodify',
+      name: 'VideoModify',
+      component: VideoModify
     },
     {
       path: '/register',
@@ -69,15 +82,20 @@ Vue.use(VueRouter)
         }
       ]
     },
-  {
-    path: '/about',
-    name: 'About',
-    component: About
-  }
+    {
+      path: '/about',
+      name: 'About',
+      component: About
+    },
+    {
+      path: '/uploader',
+      name: 'uploader',
+      component: uploader
+    }
 ]
 
 const router = new VueRouter({
-  //mode: 'history',
+  mode: 'hash',
   base: process.env.BASE_URL,
   routes
 })
