@@ -29,9 +29,9 @@
 
         <div class="container" v-if="step1">
             <label for="cname"><p align="left"><svg t="1592242809077" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2073" width="20" height="20"><path d="M861.157959 446.149948l-574.103933-0.934c-0.225-76.547991-21.025998-195.146977 44.895995-267.129969a261.217969 261.217969 0 0 1 180.143979-89.004989c106.739987 0 186.540978 79.576991 225.188974 178.085979 11.223999 28.395997 21.175998 43.697995 44.895994 44.520994 59.859993 1.796 56.119993-60.645993 44.894995-89.042989C771.25397 80.474991 666.533982 0.037 511.794 0.037c-105.167988 0-163.082981 21.325998-225.189974 89.04399-95.027989 103.446988-90.313989 270.719968-90.089989 356.134958l-33.671996 0.972a55.894993 55.894993 0 0 0-56.567993 55.184993v467.325945a55.894993 55.894993 0 0 0 56.567993 55.296994h697.454918a55.894993 55.894993 0 0 0 56.568994-55.296994V501.372941a55.819993 55.819993 0 0 0-56.531994-55.184993z m-32.099996 443.869948a42.388995 42.388995 0 0 1-13.244999 31.538996 43.623995 43.623995 0 0 1-31.875996 13.093998H242.420032a43.211995 43.211995 0 0 1-31.837997-13.093998 42.762995 42.762995 0 0 1-13.281998-31.539996V577.808932a44.895995 44.895995 0 0 1 45.119995-44.521994H783.899968a44.895995 44.895995 0 0 1 45.119995 44.521994V890.019896z" p-id="2074"></path></svg>&nbsp&nbsp&nbsp新密码</p></label>
-            <input type="text" id="cname" name="cname" style="width:100%" v-model="passwd" placeholder="请输入新密码(不少于8位)..">
+            <input type="password" id="cname" name="cname" style="width:100%" v-model="passwd" placeholder="请输入新密码(不少于8位)..">
 
-            <input type="text" id="cname" name="cname" style="width:100%" v-model="repasswd" placeholder="请再次输入密码.." @blur="checkPasswd">
+            <input type="password" id="cname" name="cname" style="width:100%" v-model="repasswd" placeholder="请再次输入密码.." @blur="checkPasswd">
             <div class="passwd-hint" v-if="checkpasswd === 1">
                 {{passwdTip}}
             </div>
@@ -128,6 +128,9 @@
                 })
            },
             pwVerify(){
+               if (this.checkpasswd === 1) {
+                   return
+               }
                 if (this.passwd === this.repasswd) {
                     let params = {newpassword: this.passwd}
                     https.fetchPost('/findpassword/update', params)

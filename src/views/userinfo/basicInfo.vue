@@ -2,7 +2,7 @@
 <div  class="Cbody_item">
                         <div class="mainInfo">
                         <span id="headIcon">
-                            <img   width=80px height=80px src="../../assets/dong.png">
+                            <img   width=80px height=80px :src="headiconurl">
                         </span>
                          <span class="accountInfo">
                             <div id="username">
@@ -90,7 +90,8 @@
                 useremail:"631570777@qq.com",
                 userphone:10086,
                 userbirth:"1840年9月7日",
-                cur: 0 //默认选中第一个tab
+                cur: 0, //默认选中第一个tab,
+                headiconurl: '',
             }
         },
         mounted() {
@@ -105,6 +106,13 @@
                 this.userbirth = userinfo.userBirthday
                 this.useremail = userinfo.userEmail
                 this.userphone = userinfo.userPhoneNumber
+                if (process.env.VUE_APP_MODE !== 'production') {
+                    this.headiconurl = 'api'+userinfo.image
+                } else {
+                    this.headiconurl = userinfo.image
+                }
+
+                this.usersign = userinfo.userSignature
             }
         }
     }

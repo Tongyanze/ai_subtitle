@@ -1,5 +1,5 @@
 <template>
-    <div style="position: relative;">
+    <div style="position: relative;" class="d1">
         <Header/>
         <div class="container">
             <div class="img" id="img1">
@@ -195,5 +195,28 @@
     .for-footer{
         height: $footer-height;
     }
+
+    .d1 {
+        /deep/ .video-colla {
+            opacity: 0.2;
+            transition: opacity 0.5s;
+        }
+
+        /deep/ #video:hover .video-colla{
+            opacity: 1;
+        }
+
+        /deep/ .me-colla {
+            opacity: 0.2;
+            transition: opacity 0.5s;
+        }
+
+        /deep/ #me:hover .me-colla{
+            opacity: 1;
+        }
+    }
+
+
+
 
 </style>

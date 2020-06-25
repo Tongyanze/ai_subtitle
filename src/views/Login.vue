@@ -88,6 +88,14 @@
                 let params = {userPassword: this.password, userEmail: this.email};
                 https.fetchPost('/user/login', params)
                     .then(data => {
+                        if (data.data.code === 605){
+                            alert('邮箱或密码错误')
+                            return
+                        }
+                        if (data.data.code === 604){
+                            alert('账户不存在')
+                            return
+                        }
                         let cookies = document.cookie;
                         let st = cookies.indexOf('token') + 6;
                         let token = unescape(cookies.substring(st, cookies.toString().length))
