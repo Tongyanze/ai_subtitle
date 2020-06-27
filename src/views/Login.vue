@@ -18,21 +18,21 @@
                         <!-- 在cur==0时此板块显示 其他时候此板块不显 -->
                         <div v-show="cur==0" class="Cbody_item">
                             <div class="input">
-                                <input type="text" id="username" value="" placeholder="账号"/>
+                                <input type="text" id="username" value="" placeholder="账号" v-model="id"/>
                                 <br>
-                                <input type="password" id="password" placeholder="密码"/>
+                                <input type="password" id="password" v-model="password" placeholder="密码"/>
                                 <br>
-                                <button type="button" class="btn-blue" id="login-button">马上登录</button>
+                                <button type="button" class="btn-blue" id="login-button" @click="idLogin" >马上登录</button>
                             </div>
                         </div>
                         <!-- 在cur==1时此板块显示 其他时候此板块不显 -->
                         <div v-show="cur==1" class="Cbody_item">
                             <div class="input">
-                                <input type="text" id="username" value="" placeholder="手机号"/>
+                                <input type="text" id="username" value="" placeholder="手机号" v-model="phone"/>
                                 <br>
-                                <input type="password" id="password" placeholder="密码"/>
+                                <input type="password" id="password" v-model="password" placeholder="密码"/>
                                 <br>
-                                <button type="button" id="login-button" class="btn-blue">马上登录</button>
+                                <button type="button" id="login-button" class="btn-blue" @click="phoneLogin">马上登录</button>
                             </div>
 
                         </div>
@@ -77,7 +77,9 @@
         components: {Header, Footer},
         data() {
             return {
+                id:'',
                 email: '',
+                phone:'',
                 password: '',
                 userinfo: '',
                 cur: 0 //默认选中第一个tab
@@ -88,14 +90,36 @@
                 let params = {userPassword: this.password, userEmail: this.email};
                 https.fetchPost('/user/login', params)
                     .then(data => {
-                        if (data.data.code === 605){
-                            alert('邮箱或密码错误')
-                            return
-                        }
-                        if (data.data.code === 604){
-                            alert('账户不存在')
-                            return
-                        }
+                        let cookies = document.cookie;
+                        let st = cookies.indexOf('token') + 6;
+                        let token = unescape(cookies.substring(st, cookies.toString().length))
+                        localStorage.setItem('token', token)
+                        this.userinfo = data.data.data
+                        localStorage.setItem('userinfo', JSON.stringify(this.userinfo))
+                        this.$router.push('/userinfo')
+                    }).catch(err =>{
+                        alert(err.toString())
+                })
+            },
+             phoneLogin() {
+                let params = {userPassword: this.password, userPhoneNumber: this.phone};
+                https.fetchPost('/user/login', params)
+                    .then(data => {
+                        let cookies = document.cookie;
+                        let st = cookies.indexOf('token') + 6;
+                        let token = unescape(cookies.substring(st, cookies.toString().length))
+                        localStorage.setItem('token', token)
+                        this.userinfo = data.data.data
+                        localStorage.setItem('userinfo', JSON.stringify(this.userinfo))
+                        this.$router.push('/userinfo')
+                    }).catch(err =>{
+                        alert(err.toString())
+                })
+            },
+             idLogin() {
+                let params = {userPassword: this.password, userId: this.id};
+                https.fetchPost('/user/login', params)
+                    .then(data => {
                         let cookies = document.cookie;
                         let st = cookies.indexOf('token') + 6;
                         let token = unescape(cookies.substring(st, cookies.toString().length))
