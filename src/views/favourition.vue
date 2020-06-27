@@ -58,82 +58,38 @@
 
                             </div>
                         </div>
-                        <div class="beayb">
+                    <div style="display: none">
+                        <ul class="form-group" id="details">    <!--addda-->
+                            <ul class="fav-video" >
+                                <li class="small-item" >
+                                    <div class="ih-item">
+                                        <a id="mubiaovideo" href="https://www.hao123.com" target="_blank">
+
+                                            <div class="img">
+                                                <img  id="fengmianpic" src="@/assets/test.png" alt="img">
+
+                                            </div>
+                                            <span class="time-length" id="videotime" >12:30</span>
+                                            <div class="info">
+                                                <h3 id="bofl">播放量</h3>
+                                                <h3 id="dianzl">点赞量</h3>
+                                                <h3 id="shoucl">收藏量</h3>
+                                                <h3 id="pingll">评论数</h3>
+                                            </div>
+                                            <p class="videotitle" id="videoname">视频名称</p>
+                                        </a>
+                                    </div>
+                                </li>
+                            </ul>
+
+                        </ul>
+                    </div>
+                        <div class="beayb"  id="adform">
                             <div class="fav-info">
                                 <p>这里是收藏夹基本信息栏</p>
                             </div>
-                            <div class="form-group" id="details">    <!--addda-->
-                                <ul class="fav-video">
-                                    <li class="small-item">
-                                        <div class="ih-item">
-                                            <a href="https://www.hao123.com" target="_blank">
 
-                                                <div class="img">
-                                                    <img src="@/assets/test.png" alt="img">
-                                                </div>
-                                                <span class="time-length">12:30</span>
-                                                <div class="info">
-                                                    <h3>点赞数252</h3>
-                                                    <h3>播放数5542</h3>
-                                                    <h3>转发数1235</h3>
-                                                    <h3>浏览量1214</h3>
-                                                </div>
-                                            </a>
-                                        </div>
-                                    </li>
-                                    <li class="small-item">
-                                        <div class="ih-item">
-                                            <a href="https://www.hao123.com" target="_blank">
 
-                                                <div class="img">
-                                                    <img src="@/assets/test.png" alt="img">
-                                                </div>
-                                                <span class="time-length">12:30</span>
-                                                <div class="info">
-                                                    <h3>点赞数252</h3>
-                                                    <h3>播放数5542</h3>
-                                                    <h3>转发数1235</h3>
-                                                    <h3>浏览量1214</h3>
-                                                </div>
-                                            </a>
-                                        </div>
-                                    </li>
-                                    <li class="small-item">
-                                        <div class="ih-item">
-                                            <a href="https://www.hao123.com" target="_blank">
-
-                                                <div class="img">
-                                                    <img src="@/assets/test.png" alt="img">
-                                                </div>
-                                                <span class="time-length">12:30</span>
-                                                <div class="info">
-                                                    <h3>点赞数252</h3>
-                                                    <h3>播放数5542</h3>
-                                                    <h3>转发数1235</h3>
-                                                    <h3>浏览量1214</h3>
-                                                </div>
-                                            </a>
-                                        </div>
-                                    </li>
-                                    <li class="small-item">
-                                        <div class="ih-item">
-                                            <a href="https://www.hao123.com" target="_blank">
-
-                                                <div class="img">
-                                                    <img src="@/assets/test.png" alt="img">
-                                                </div>
-                                                <span class="time-length">12:30</span>
-                                                <div class="info">
-                                                    <h3>点赞数252</h3>
-                                                    <h3>播放数5542</h3>
-                                                    <h3>转发数1235</h3>
-                                                    <h3>浏览量1214</h3>
-                                                </div>
-                                            </a>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -141,29 +97,78 @@
         </div>
 
 </template>
+
 <script type="text/javascript">
-        var detail_div = 1;
-        function add_div() {
-            var e = document.getElementById("details");
-            var div = document.createElement("div");
-            div.className = "form-group";
-            div.id = "details" + detail_div;
-            div.innerHTML = e.innerHTML;
-            document.getElementById("form").appendChild(div);
-            detail_div++;
-        }
-
-        /*function del_div() {
-            var id = "details" + (detail_div - 1).toString();
-            var e = document.getElementById(id);
-            document.getElementById("form").removeChild(e);
-            detail_div--;
-        }*/
+    /*var detail_div = 1;
+    /*fution addiv() {
+        var e = document.getElementById("details");
+        var div = document.createElement("div");
+        div.className = "form-group";
+        div.id = "details" + detail_div;
+        div.innerHTML = e.innerHTML;
+        document.getElementById("adform").appendChild(div);
+        detail_div++;
+    }
+    function del_div() {
+        var id = "details" + (detail_div - 1).toString();
+        var e = document.getElementById(id);
+        document.getElementById("form").removeChild(e);
+        detail_div--;
+    }*/
     </script>
+<script>
+    import https from "@/https.js";
+    export default {
 
+        data() {
+            let ade=100;
+
+            return {
+                begin: 1,
+                end: 8,
+                userList:[],
+
+            }
+        },
+        mounted:function(){
+            let params ={begin: this.begin,end:this.end};
+            let detaildiv = 1;
+            https.fetchPost('/video/all',params)
+                .then(data =>{
+                    console.log(data.data)
+                    this.userList = data.data.data
+                    for( var i=0 ;i<this.userList.length;i++){
+                    let e = document.getElementById("details");
+                    let div = document.createElement("div");
+                    div.className = "form-group";
+                    div.id = "details" + detaildiv;
+                    document.getElementById("dianzl").innerText="点赞量:"+this.userList[i].videoFavors;
+                    document.getElementById("bofl").innerText="播放量:"+this.userList[i].videoBrowses;
+                    document.getElementById("shoucl").innerText="收藏量:"+this.userList[i].videoCollections;
+                    document.getElementById("pingll").innerText="评论数:"+this.userList[i].videoComments;
+                    document.getElementById("videotime").innerText="12:35";//视频时长参数没找到,再说吧,困了睡觉
+                    document.getElementById("fengmianpic").src='api'+this.userList[i].videoCover;
+                    document.getElementById("mubiaovideo").href='api'+this.userList[i].videoPath;
+                    document.getElementById("videoname").innerText=this.userList[i].videoName;
+                    div.innerHTML = e.innerHTML;
+                    document.getElementById("adform").appendChild(div);
+                        detaildiv++;
+                    console.log(this.userList[i].videoCollections)
+                    }
+                })
+
+        },
+
+
+    }
+</script>
     <style lang="scss" scoped>
         body{
             font-family: "Microsoft YaHei", serif;
+        }
+        .videotitle{
+            size: 15px;
+            color: #111111;
         }
         h2{
             padding: 10px;
@@ -226,7 +231,7 @@
             font-size: 14px;
             color: #222;
             right: 15px;
-            border-right: 1px solid #eee;
+            border-right: 10px solid #eee;
             box-sizing: border-box;
         }
         div.fav-siden{
@@ -406,11 +411,6 @@
         }
         h3{
             color: #f4f4f4;
-        }
-        .ih-item{
-            position: relative;
-            width: 220px;
-            height: 200px;
         }
         .ih-item2 .img2 img {
             position: absolute;
