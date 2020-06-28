@@ -7,14 +7,14 @@ import VueAxios from 'vue-axios'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { faUser, faLock, faMailBulk, faInfo, faMobile, faMinus, faTimes, faAngleUp, faChevronLeft, faChevronRight,
-faHeart, faStar, faShare} from '@fortawesome/free-solid-svg-icons'
+faHeart, faStar, faShare, faEdit, faMagic, faMusic} from '@fortawesome/free-solid-svg-icons'
 import '@/assets/iconfont/iconfont.js'
 import '@/assets/iconfont/iconfont.css'
 import global from '@/assets/js/global'
 import uploader from 'vue-simple-uploader'
 
 library.add(faUser, faLock, faMailBulk, faInfo, faMobile, faMinus, faTimes, faAngleUp, faChevronLeft, faChevronRight,
-    faHeart, faStar, faShare)
+    faHeart, faStar, faShare, faEdit, faMagic, faMusic)
 
 Vue.use(uploader)
 Vue.prototype.$global = global
@@ -24,7 +24,7 @@ Vue.component('font-awesome-icon', FontAwesomeIcon);
 
 //拦截器
 router.beforeEach((to, from, next) => {
-  if (to.path ==='/' || to.path === '/register' || to.path === '/retrieve' || to.path === '/about') {
+  if (to.path ==='/' || to.path === '/register' || to.path === '/retrieve' || to.path === '/about' || to.path === '/videodetail') {
     next();
   }
   else if (to.path ==='/login') {

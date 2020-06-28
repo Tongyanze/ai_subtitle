@@ -14,13 +14,19 @@
 
                 <div class="dynamic-box">
                     <div>
-                        <font-awesome-icon class="font-awesome-icon like" :icon="['fas', 'heart']"></font-awesome-icon>
+                        <font-awesome-icon class="font-awesome-icon like" :class="{'pink': isLike}"
+                                           :icon="['fas', 'heart']" @click.stop="add('like')">
+
+                        </font-awesome-icon>
                         <div>
                             {{likeNum}}
                         </div>
                     </div>
                     <div>
-                        <font-awesome-icon class="font-awesome-icon star" :icon="['fas', 'star']"></font-awesome-icon>
+                        <font-awesome-icon class="font-awesome-icon star" :class="{'yellow': isInterest}"
+                                           :icon="['fas', 'star']" @click.stop="add('interest')">
+
+                        </font-awesome-icon>
                         <div>
                             {{interestNum}}
                         </div>
@@ -58,23 +64,85 @@
                 isInterest: false,
                 likeNum: 0,
                 interestNum: 0,
-                shareNum: 0
+                shareNum: 0,
+                videoId: 0
             }
         },
         mounted() {
+
             this.getInfo()
         },
         methods: {
+            add(s) {
+                let tmp = localStorage.getItem('token');
+                console.log(this.token)
+                if (tmp == null || tmp === '') {
+                    alert('点赞、收藏请先登录')
+                    return
+                }
+                this.checkSome(this.videoId)
+                if  (s === 'like') {
+                    if (this.isLike) {
+                        https.fetchPost('/userOpVideo/delete', {type: 'favor', videoId: this.videoId})
+                            .then(res => {})
+                            .catch(err => {})
+                    } else {
+                        https.fetchPost('/userOpVideo/add', {type: 'favor', videoId: this.videoId})
+                            .then(res => {})
+                            .catch(err => {})
+                    }
+
+                    this.isLike = this.isLike === false;
+
+                } else if  (s === 'interest') {
+                    if (this.isInterest) {
+                        https.fetchPost('/userOpVideo/delete', {type: 'collection', videoId: this.videoId})
+                            .then(res => {})
+                            .catch(err => {})
+                    } else {
+                        https.fetchPost('/userOpVideo/add', {type: 'collection', videoId: this.videoId})
+                            .then(res => {})
+                            .catch(err => {})
+                    }
+
+                    this.isInterest = this.isInterest  === false;
+                }
+
+                https.fetchPost('/findVideoInfo', {videoId: this.videoId})
+                    .then(res => {
+                        let data = res.data.data
+                        this.likeNum = data.videoFavors
+                        this.interestNum = data.videoCollections
+                    })
+                    .catch(err => {
+
+                    })
+
+            },
+            checkSome(videoId) {
+                https.fetchPost('/userOpVideo/search', {videoId: videoId})
+                    .then(res => {
+                        let data = JSON.parse(res.data.data)
+                        this.isLike = data.favor === 1
+                        this.isInterest = data.collection === 1
+                    })
+                    .catch(err => {
+
+                    })
+            },
             getInfo() {
                 this.videoinfo = JSON.parse(this.$route.query.videoinfo)
                 this.videoName = this.videoinfo.videoName
+                this.videoId = this.videoinfo.videoId
+                this.likeNum = this.videoinfo.videoFavors
+                this.interestNum = this.videoinfo.videoCollections
                 console.log(this.videoName)
                 if (process.env.VUE_APP_MODE !== 'production') {
                     this.videoUrl = 'api'+this.videoinfo.videoPath
                 } else {
                     this.videoUrl = this.videoinfo.videoPath
                 }
-
+                this.checkSome(this.videoId)
             }
         }
     }
@@ -124,21 +192,21 @@
     }
 
     .dynamic-box {
-        margin-top: 12px;
-        height: 48px;
+        margin-top: 8px;
+        height: 40px;
         display: flex;
-        line-height: 48px;
-        font-size: 24px;
+        line-height: 40px;
+        font-size: 20px;
     }
 
     .dynamic-box .font-awesome-icon {
-        height: 30px;
-        width: 30px;
+        height: 24px;
+        width: 24px;
     }
 
     .dynamic-box div {
-        width: 30%;
-        margin: 0 auto;
+        width: 10%;
+        margin: 0 12px;
         display: flex;
         align-items: center;
     }
