@@ -5,6 +5,8 @@ $fade-blue: rgb(107, 154, 255);
 $header-height: 60px;
 $footer-height: 200px;
 $theme-white: rgb(217, 217, 217);
+$pink: rgb(255, 80, 141);
+$yellow: rgb(255, 238, 0);
 //按钮请添加该选项
 
 .btn-blue {
@@ -73,5 +75,6 @@ $theme-white: rgb(217, 217, 217);
   min-height: 100%;
   position: relative;
   padding-bottom: $footer-height;
+  padding-top: $header-height;
   height: inherit;
 }

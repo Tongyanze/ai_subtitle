@@ -98,24 +98,6 @@
 
 </template>
 
-<script type="text/javascript">
-    /*var detail_div = 1;
-    /*fution addiv() {
-        var e = document.getElementById("details");
-        var div = document.createElement("div");
-        div.className = "form-group";
-        div.id = "details" + detail_div;
-        div.innerHTML = e.innerHTML;
-        document.getElementById("adform").appendChild(div);
-        detail_div++;
-    }
-    function del_div() {
-        var id = "details" + (detail_div - 1).toString();
-        var e = document.getElementById(id);
-        document.getElementById("form").removeChild(e);
-        detail_div--;
-    }*/
-    </script>
 <script>
     import https from "@/https.js";
     export default {

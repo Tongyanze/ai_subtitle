@@ -167,7 +167,6 @@
     .container {
         min-height: 100%;
         height: inherit;
-        padding-top: $header-height;
     }
 
     .right-tools-box {

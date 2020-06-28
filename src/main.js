@@ -6,13 +6,15 @@ import axios from 'axios'
 import VueAxios from 'vue-axios'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-import { faUser, faLock, faMailBulk, faInfo, faMobile, faMinus, faTimes, faAngleUp, faChevronLeft, faChevronRight} from '@fortawesome/free-solid-svg-icons'
+import { faUser, faLock, faMailBulk, faInfo, faMobile, faMinus, faTimes, faAngleUp, faChevronLeft, faChevronRight,
+faHeart, faStar, faShare} from '@fortawesome/free-solid-svg-icons'
 import '@/assets/iconfont/iconfont.js'
 import '@/assets/iconfont/iconfont.css'
 import global from '@/assets/js/global'
 import uploader from 'vue-simple-uploader'
 
-library.add(faUser, faLock, faMailBulk, faInfo, faMobile, faMinus, faTimes, faAngleUp, faChevronLeft, faChevronRight)
+library.add(faUser, faLock, faMailBulk, faInfo, faMobile, faMinus, faTimes, faAngleUp, faChevronLeft, faChevronRight,
+    faHeart, faStar, faShare)
 
 Vue.use(uploader)
 Vue.prototype.$global = global

@@ -15,6 +15,7 @@ import contribute from '@/views/userinfo/contribute.vue'
 import favourition from '@/views/favourition.vue'
 import uploader from "@/views/uploader";
 import VideoModify from "@/views/VideoModify";
+import VideoDetail from "@/views/VideoDetail";
 
 Vue.use(VueRouter)
 
@@ -91,6 +92,11 @@ Vue.use(VueRouter)
       path: '/uploader',
       name: 'uploader',
       component: uploader
+    },
+    {
+      path: '/videodetail',
+      name: 'videodetail',
+      component: VideoDetail
     }
 ]
 

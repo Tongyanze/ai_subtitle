@@ -38,6 +38,10 @@
                         <a href="javascript:void(0)" @click="quit">退出登录</a>
                     </li>
 
+                    <li>
+                        <a href="javascript:void(0)" @click="test">测试</a>
+                    </li>
+
                 </ul>
             </div>
         </div>
@@ -81,6 +85,10 @@
                 localStorage.removeItem('token')
                 localStorage.removeItem('userinfo')
                 this.$router.push('/')
+            },
+            test() {
+                let a = {"code":1003,"data":[{"videoId":3,"userId":3,"videoName":"123","videoPath":"/video/821554ef97546946f22e116140c78234/821554ef97546946f22e116140c78234.mp4","videoSize":1.30025892E8,"videoFormat":"mp4","videoCover":"/image/Default_video_cover.jpg","videoDuration":6835.0,"videoFavors":0,"videoBrowses":0,"videoShares":0,"videoComments":0,"videoCollections":0,"videoZHSubtitle":null,"videoENSubtitle":null,"videoENZHSubtitle":null,"videoENZHSubtitleJSON":null,"identifier":"821554ef97546946f22e116140c78234","createTime":"2020-06-25T08:47:20.418+00:00"},{"videoId":2,"userId":3,"videoName":"[高清 720P] 壮观！120秒航拍！你好，港珠澳大桥！.mp4","videoPath":"/video/6c2dc32e87fa09c146e0dbe71bd41324/6c2dc32e87fa09c146e0dbe71bd41324.null","videoSize":2.2679153E7,"videoFormat":null,"videoCover":"/image/Default_video_cover.jpg","videoDuration":2071.0,"videoFavors":0,"videoBrowses":0,"videoShares":0,"videoComments":0,"videoCollections":0,"videoZHSubtitle":null,"videoENSubtitle":null,"videoENZHSubtitle":null,"videoENZHSubtitleJSON":null,"identifier":"6c2dc32e87fa09c146e0dbe71bd41324","createTime":"2020-06-25T08:42:31.151+00:00"},{"videoId":1,"userId":1,"videoName":"ddtql","videoPath":"/video/50fd72f7edf6f92c1d7735ad79c72d50/50fd72f7edf6f92c1d7735ad79c72d50.mov","videoSize":1512443.0,"videoFormat":"mov","videoCover":"/image/Default_video_cover.jpg","videoDuration":193.0,"videoFavors":0,"videoBrowses":0,"videoShares":0,"videoComments":0,"videoCollections":0,"videoZHSubtitle":null,"videoENSubtitle":null,"videoENZHSubtitle":null,"videoENZHSubtitleJSON":null,"identifier":"50fd72f7edf6f92c1d7735ad79c72d50","createTime":"2020-06-25T07:53:42.127+00:00"}]}
+                this.$router.push({path:'videodetail', query:{videoinfo: JSON.stringify(a.data[0])}})
             }
         },
 

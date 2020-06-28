@@ -132,9 +132,14 @@
             onFileSuccess(rootFile, file, response, chunk) {
                 let res = JSON.parse(response);
                 console.log(response)
+                let t = ''
+                for (let i = file.name.length-1; i>=0;--i) {
+                    if (file.name[i] === '.') break;
+                    t = file.name[i]+t;
+                }
                 if (res.code === 200 && this.needMerge) {
                     this.statusSet(file.id, 'success');
-                    https.fetchPost('/uploader/mergeFile', {videoName: this.params.videoName, identifier: this.identifier})
+                    https.fetchPost('/uploader/mergeFile', {videoName: this.params.videoName, identifier: this.identifier, format: t})
                         .then(res => {
                             console.log(res.data)
                         })
@@ -229,11 +234,12 @@
             },
 
             computeMD5Success(md5, file) {
+
                 // 将自定义参数直接加载uploader实例的opts上
                 Object.assign(this.uploader.opts, {
                     query: {
                         // ...this.params,
-                        videoName: this.videoName
+                        videoName: this.videoName,
                     }
                 })
 
