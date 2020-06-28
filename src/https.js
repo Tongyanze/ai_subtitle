@@ -15,7 +15,7 @@ axios.interceptors.request.use((config) => {
     if(config.method === 'post' && config.headers['Content-Type']  === 'application/x-www-form-urlencoded;charset=UTF-8'){
         config.data = qs.stringify(config.data);
     }
-    if (config.url === '/user/userModify') {
+    if (config.url === '/user/userModify'|| config.url === '/uploader/mergeFile') {
         config.headers['token'] = localStorage.getItem('token')
     }
     if (config.url === '/user/userModifyEPP') {
