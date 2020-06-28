@@ -1,6 +1,6 @@
 <template>
   <div class="global-container">
-    <!--<Header/>-->
+    <Header/>
     <div class="content">
       <div class="search-box">
         <input class="search-text" type="text" v-model="data" placeholder="请输入作品名称或关键词">
@@ -19,7 +19,7 @@
             </ul>
 
           </li>
-          <div class="para" v-if="realList.length==0"><img id="not-found" src="../assets/notfound.png" alt="什么都没找到啊..."></div>
+          <div class="para" v-if="realList.length==0"><img id="not-found" src="" alt="什么都没找到啊..."></div>
         </ul>
       </div>
 
@@ -44,7 +44,7 @@
       </div>
       -->
     </div>
-    <!--<Footer/>-->
+    <Footer/>
   </div>
 </template>
 
@@ -201,18 +201,18 @@ export default {
     prevPage() {
       console.log(this.currentPage);
         if (this.currentPage == 1) return;
-         
+
           this.currentPage--;
           this.setCurrentPageData();
-            
+
     },
     // 下一页
     nextPage() {
       if (this.currentPage == this.totalPage)return ;
- 
+
         this.currentPage++;
         this.setCurrentPageData();
-            
+
     }
   }
 }

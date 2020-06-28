@@ -16,6 +16,7 @@ import favourition from '@/views/favourition.vue'
 import uploader from "@/views/uploader";
 import VideoModify from "@/views/VideoModify";
 import VideoDetail from "@/views/VideoDetail";
+import Search from "@/views/Search";
 
 Vue.use(VueRouter)
 
@@ -97,6 +98,11 @@ Vue.use(VueRouter)
       path: '/videodetail',
       name: 'videodetail',
       component: VideoDetail
+    },
+    {
+      path: '/search',
+      name: 'search',
+      component: Search
     }
 ]
 
