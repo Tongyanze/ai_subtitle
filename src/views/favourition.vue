@@ -59,36 +59,40 @@
                             </div>
                         </div>
                     <div style="display: none">
-                        <ul class="form-group" id="details">    <!--addda-->
-                            <ul class="fav-video" >
-                                <li class="small-item" >
-                                    <div class="ih-item">
-                                        <a id="mubiaovideo" href="https://www.hao123.com" target="_blank">
 
-                                            <div class="img">
-                                                <img  id="fengmianpic" src="@/assets/test.png" alt="img">
-
-                                            </div>
-                                            <span class="time-length" id="videotime" >12:30</span>
-                                            <div class="info">
-                                                <h3 id="bofl">播放量</h3>
-                                                <h3 id="dianzl">点赞量</h3>
-                                                <h3 id="shoucl">收藏量</h3>
-                                                <h3 id="pingll">评论数</h3>
-                                            </div>
-                                            <p class="videotitle" id="videoname">视频名称</p>
-                                        </a>
-                                    </div>
-                                </li>
-                            </ul>
-
-                        </ul>
                     </div>
                         <div class="beayb"  id="adform">
                             <div class="fav-info">
                                 <p>这里是收藏夹基本信息栏</p>
                             </div>
+                            <div v-for="(item,index) in userList":key="index">
+                                <ul class="form-group" id="details">    <!--addda-->
+                                    <ul class="fav-video" >
+                                        <li class="small-item" >
+                                            <div class="ih-item">
+                                                <a id="mubiaovideo" @click="videoplay(item)" target="_blank">
 
+
+                                                        <div class="img">
+                                                            <img :src="'api'+item.videoCover"  alt="img">
+
+                                                        </div>
+                                                        <span class="time-length" id="videotime" >{{Math.floor(item.videoDuration/60)+":"+(item.videoDuration%60)}}</span>
+                                                        <div class="info">
+                                                            <h3 >播放量{{item.videoBrowses}}</h3>
+                                                            <h3 >点赞量{{item.videoFavors}}</h3>
+                                                            <h3 >收藏量{{item.videoCollections}}</h3>
+                                                            <h3 >评论数{{item.videoComments}}</h3>
+                                                        </div>
+                                                        <p class="videotitle" id="videoname">{{item.videoName}}</p>
+
+                                                </a>
+                                            </div>
+                                        </li>
+                                    </ul>
+
+                                </ul>
+                            </div>
 
                         </div>
                     </div>
@@ -109,7 +113,7 @@
                 begin: 1,
                 end: 8,
                 userList:[],
-
+                env:'',
             }
         },
         mounted:function(){
@@ -119,30 +123,23 @@
                 .then(data =>{
                     console.log(data.data)
                     this.userList = data.data.data
-                    for( var i=0 ;i<this.userList.length;i++){
-                    let e = document.getElementById("details");
-                    let div = document.createElement("div");
-                    div.className = "form-group";
-                    div.id = "details" + detaildiv;
-                    document.getElementById("dianzl").innerText="点赞量:"+this.userList[i].videoFavors;
-                    document.getElementById("bofl").innerText="播放量:"+this.userList[i].videoBrowses;
-                    document.getElementById("shoucl").innerText="收藏量:"+this.userList[i].videoCollections;
-                    document.getElementById("pingll").innerText="评论数:"+this.userList[i].videoComments;
-                    document.getElementById("videotime").innerText="12:35";//视频时长参数没找到,再说吧,困了睡觉
-                    document.getElementById("fengmianpic").src='api'+this.userList[i].videoCover;
-                    document.getElementById("mubiaovideo").href='api'+this.userList[i].videoPath;
-                    document.getElementById("videoname").innerText=this.userList[i].videoName;
-                    div.innerHTML = e.innerHTML;
-                    document.getElementById("adform").appendChild(div);
-                        detaildiv++;
-                    console.log(this.userList[i].videoCollections)
-                    }
                 })
 
         },
+        methods:{
+            videoplay(videoMsg)
+            {
+                console.log('videoMsg:'+videoMsg)
+                this.$router.push({path:'videodetail',query:{videoinfo:JSON.stringify(videoMsg)}})
+            }
+        }
+
+
+
 
 
     }
+
 </script>
     <style lang="scss" scoped>
         body{
@@ -221,7 +218,7 @@
 
         }
         div.beayb{
-            position: relative;                   /*这是修改右边总体布局的-*//*左边你可以建一个table加一个li或者button就行,现在先不用添加*/                                    /*and我是真的不会写布局,靠你了*//*看这里!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
+            position: relative;
             float: left;
             width: 920px;
             min-height: 600px;
