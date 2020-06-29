@@ -40,7 +40,10 @@
                 </div>
             </div>
             <div class="right-container">
-
+                <div v-if="userId === localuserId" class="edit-box" title="编辑视频" @click="edit">
+                    <font-awesome-icon class="font-awesome-icon" :icon="['fas', 'edit']"></font-awesome-icon>
+                    <span>编辑视频</span>
+                </div>
             </div>
         </div>
         <Footer/>
@@ -65,7 +68,9 @@
                 likeNum: 0,
                 interestNum: 0,
                 shareNum: 0,
-                videoId: 0
+                videoId: 0,
+                localuserId: -1,
+                userId: -1
             }
         },
         mounted() {
@@ -73,6 +78,9 @@
             this.getInfo()
         },
         methods: {
+            edit() {
+                this.$router.push({path:'/videomodify', query:{videoinfo: JSON.stringify(this.videoinfo)}})
+            },
             add(s) {
                 let tmp = localStorage.getItem('token');
                 console.log(this.token)
@@ -131,11 +139,16 @@
                     })
             },
             getInfo() {
+                if (localStorage.getItem('token') != null && localStorage.getItem('token') !== '') {
+                    let userinfo = JSON.parse(localStorage.getItem('userinfo'))
+                    this.localuserId = userinfo.userId
+                }
                 this.videoinfo = JSON.parse(this.$route.query.videoinfo)
                 this.videoName = this.videoinfo.videoName
                 this.videoId = this.videoinfo.videoId
                 this.likeNum = this.videoinfo.videoFavors
                 this.interestNum = this.videoinfo.videoCollections
+                this.userId = this.videoinfo.userId
                 console.log(this.videoName)
                 if (process.env.VUE_APP_MODE !== 'production') {
                     this.videoUrl = 'api'+this.videoinfo.videoPath
@@ -150,7 +163,7 @@
 
 <style lang="scss" scoped>
     .container {
-        padding-top: 24px;
+        padding-top: 40px;
         height: inherit;
         display: flex;
         margin: 0 10%;
@@ -185,7 +198,6 @@
     }
 
     .title {
-        margin-top: 24px;
         font-size: 24px;
         text-align: start;
         margin-bottom: 12px;
@@ -234,6 +246,25 @@
     .like, .star, .share{
         cursor: pointer;
         transition: color 0.3s linear;
+    }
+
+    .edit-box{
+        transition: color 0.5s linear;
+        cursor: pointer;
+        color: grey;
+        font-size: 30px;
+        .font-awesome-icon {
+            width: 30px;
+            height: 30px;
+        }
+
+        .font-awesome-icon:hover {
+            color: $dark-blue;
+        }
+    }
+
+    .edit-box:hover {
+        color: $dark-blue;
     }
 
 </style>

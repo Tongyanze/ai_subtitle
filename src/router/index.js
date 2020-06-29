@@ -17,6 +17,7 @@ import uploader from "@/views/uploader";
 import VideoModify from "@/views/VideoModify";
 import VideoDetail from "@/views/VideoDetail";
 import Search from "@/views/Search";
+import Message from "../views/Message";
 
 Vue.use(VueRouter)
 
@@ -103,6 +104,11 @@ Vue.use(VueRouter)
       path: '/search',
       name: 'search',
       component: Search
+    },
+    {
+      path: '/message',
+      name: 'message',
+      component: Message
     }
 ]
 

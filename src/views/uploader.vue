@@ -10,7 +10,6 @@
             <GlobalUploader></GlobalUploader>
             <button @click="upload" class="btn-blue" style="cursor: pointer">点击此处上传文件</button>
             <button @click="conf" class="btn-red" style="margin-top: 24px">确认上传</button>
-            <input type="file">
         </div>
 
         <Footer/>

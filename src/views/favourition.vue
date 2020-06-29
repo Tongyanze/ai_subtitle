@@ -1,38 +1,34 @@
 <template>
-    <div class="body">
-        <div class="overall">
-            <div class="header">
-                <div class="wrapper" >
-                    <div class="h-inner">
-                        <div class="h-gradient"></div>
-                        <div class="h-user">
-                            <div class="h-info">
-                                <div class="h-avatar">
-                                    <div class="ih-item2">
-                                        <a href="#" >
-                                        <div class="img2">
-                                        <img src="@/assets/test.png">
+    <div class="global-container">
+        <Header/>
+
+        <div class="body">
+            <div class="overall">
+                <div class="header">
+                    <div class="wrapper" >
+                        <div class="h-inner">
+                            <div class="h-gradient"></div>
+                            <div class="h-user">
+                                <div class="h-info">
+                                    <div class="h-avatar">
+                                        <div class="ih-item2">
+
                                         </div>
-                                        <div class="info2">
-                                            <h2>更换头像</h2>
-                                        </div>
-                                        </a>
+                                        <span class="avatar-m"></span>
                                     </div>
-                                    <span class="avatar-m"></span>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="s-space">
-                <div class="wrapper" id="page-fav">
-                    <div class="toc">
-                        <div class="beazb">
-                            <div class="fav-siden">
-                                <div class="Collect-bar">
-                                    <h2>我的创建</h2>
-                                </div>
+                <div class="s-space">
+                    <div class="wrapper" id="page-fav">
+                        <div class="toc">
+                            <div class="beazb">
+                                <div class="fav-siden">
+                                    <div class="Collect-bar">
+                                        <h2>我的创建</h2>
+                                    </div>
 
                                     <div class="favadd">
                                         <span title="创建收藏夹" class="icon-add"></span>
@@ -42,48 +38,48 @@
                                         <a href="" class="fav-link" title="默认收藏夹">默认收藏夹</a>
                                         <span class="num">378</span>
                                     </div>
-                                <div class="favadd">
-                                    <li class='fav-item'>
-                                        <a href="" class="fav-link">新建收藏夹1</a>
-                                        <span class="num">378</span>
-                                    </li>
+                                    <div class="favadd">
+                                        <li class='fav-item'>
+                                            <a href="" class="fav-link">新建收藏夹1</a>
+                                            <span class="num">378</span>
+                                        </li>
+                                    </div>
+                                    <div class="favadd">
+                                        <li class='fav-item'>
+                                            <a href="" class="fav-link">新建收藏夹2</a>
+                                            <span class="num">378</span>
+                                        </li>
+                                    </div>
                                 </div>
-                                <div class="favadd">
-                                    <li class='fav-item'>
-                                        <a href="" class="fav-link">新建收藏夹2</a>
-                                        <span class="num">378</span>
-                                    </li>
-                                </div>
-                            </div>
 
                             </div>
                         </div>
-                    <div style="display: none">
-                        <ul class="form-group" id="details">    <!--addda-->
-                            <ul class="fav-video" >
-                                <li class="small-item" >
-                                    <div class="ih-item">
-                                        <a id="mubiaovideo" href="https://www.hao123.com" target="_blank">
+                        <div style="display: none">
+                            <ul class="form-group" id="details">    <!--addda-->
+                                <ul class="fav-video" >
+                                    <li class="small-item" >
+                                        <div class="ih-item">
+                                            <a id="mubiaovideo" href="https://www.hao123.com" target="_blank">
 
-                                            <div class="img">
-                                                <img  id="fengmianpic" src="@/assets/test.png" alt="img">
+                                                <div class="img">
+                                                    <img  id="fengmianpic" src="@/assets/test.png" alt="img">
 
-                                            </div>
-                                            <span class="time-length" id="videotime" >12:30</span>
-                                            <div class="info">
-                                                <h3 id="bofl">播放量</h3>
-                                                <h3 id="dianzl">点赞量</h3>
-                                                <h3 id="shoucl">收藏量</h3>
-                                                <h3 id="pingll">评论数</h3>
-                                            </div>
-                                            <p class="videotitle" id="videoname">视频名称</p>
-                                        </a>
-                                    </div>
-                                </li>
+                                                </div>
+                                                <span class="time-length" id="videotime" >12:30</span>
+                                                <div class="info">
+                                                    <h3 id="bofl">播放量</h3>
+                                                    <h3 id="dianzl">点赞量</h3>
+                                                    <h3 id="shoucl">收藏量</h3>
+                                                    <h3 id="pingll">评论数</h3>
+                                                </div>
+                                                <p class="videotitle" id="videoname">视频名称</p>
+                                            </a>
+                                        </div>
+                                    </li>
+                                </ul>
+
                             </ul>
-
-                        </ul>
-                    </div>
+                        </div>
                         <div class="beayb"  id="adform">
                             <div class="fav-info">
                                 <p>这里是收藏夹基本信息栏</p>
@@ -95,13 +91,20 @@
                 </div>
             </div>
         </div>
+        <Footer/>
+
+    </div>
+
 
 </template>
 
 <script>
     import https from "@/https.js";
+    import Header from "../components/Header";
+    import Footer from "../components/Footer";
+    import $ from 'jquery'
     export default {
-
+        components: {Footer, Header},
         data() {
             let ade=100;
 
@@ -119,10 +122,12 @@
                 .then(data =>{
                     console.log(data.data)
                     this.userList = data.data.data
+                    console.log(this.userList)
                     for( var i=0 ;i<this.userList.length;i++){
                     let e = document.getElementById("details");
                     let div = document.createElement("div");
-                    div.className = "form-group";
+                    $(div).css({'float': 'left', 'width': '30%'})
+
                     div.id = "details" + detaildiv;
                     document.getElementById("dianzl").innerText="点赞量:"+this.userList[i].videoFavors;
                     document.getElementById("bofl").innerText="播放量:"+this.userList[i].videoBrowses;
@@ -164,25 +169,42 @@
             font-size: 12px;
             line-height: 1.7em;
             margin: 0;
-            overflow-y: scroll;
-            height: 100%;
+            height: inherit;
+            min-height: 100%;
+            padding-bottom: 12px;
         }
-        div.header{
-            position: relative;
+        .body .header{
             z-index: 10;
+            padding-top: 24px;
         }
         div.wrapper{
             width: 1100px;
             margin: 0 auto;
             position: relative;
+            height: 100%;
         }
-        div.h-inner{
+        .s-space {
+            height: 100%;
+        }
+
+        .overall {
+            height: inherit;
+            min-height: 100%;
+        }
+
+        .h-inner{
             background-image: url("../assets/preview.png");
             background-position: 50%;
             background-size: cover;
             transition: background-image .2s ease,background-size 1s ease;
             padding-top: 116px;
             position: relative;
+        }
+
+        div:after {
+            clear: both;
+            display: table;
+            content: "";
         }
         div.minitype{
             position: relative;
@@ -203,11 +225,22 @@
             padding-left: 20px;
             line-height: 20px;
         }
+        .toc {
+            height: 100%;
+            float: left;
+            min-height: 90vh;
+        }
+
+        .toc:after {
+            clear: both;
+            display: table;
+            content: "";
+        }
         div.beazb{
-            position: relative;
             float: left;
             width: 180px;
-            height: 700px;
+            height: inherit;
+            min-height: 90vh;
             background-color: #ffffff;
             margin-right: -1px;
             font-size: 14px;
@@ -225,11 +258,14 @@
             float: left;
             width: 920px;
             min-height: 600px;
-            height: 700px;
+            height: inherit;
             background-color: #ffffff;
             border-left: 1px solid #eee;
             border-bottom: none;
             margin-bottom: 0;
+        }
+        div.beayb:after{
+            clear: both;
         }
         div.favadd{
         position: relative;
@@ -334,15 +370,16 @@
             right: 0;
             bottom: 0;
         }
-        div.form-group
-        {
+        .form-group {
             width: 100%;
             height: 100%;
             border-bottom: none;
             background-color: #ffffff;
             margin-bottom: 0;
             position: relative;
+            float: left;
         }
+
         .small-item{
             padding: 0;
             margin: 0 20px 20px 0;
@@ -351,10 +388,15 @@
             background-color: #ffffff;
             box-sizing: border-box;
             display: block;
-            float: left;
             width: 160px;
             height: 100%;
             position: relative;
+        }
+
+        .small-item:after {
+            clear: both;
+            display: table;
+            content: "";
         }
 
         .ih-item{
@@ -363,8 +405,8 @@
             height: 220px;
         }
 
+
         .fav-video{
-            margin: 20px 20px 50px;
             display: block;
             list-style: none;
         }
@@ -385,7 +427,6 @@
         }
         .small-item{
             display: block;
-            float:left ;
             width: auto;
             position: relative;
             margin: 0 0 4px;
@@ -482,5 +523,9 @@
         }
         .ih-item a:hover .info {
             opacity: 1;    /*有opacity有0变成1*/
+        }
+
+        .global-container {
+            height: auto;
         }
     </style>
