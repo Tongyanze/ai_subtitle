@@ -1,19 +1,13 @@
 
-.global{
-    //margin: 0;
-    background-color: rgb(107, 154, 255);
-}
-
 .content{
     font-family: 'Lucida Console', Monaco, monospace;
-    background-color:#f1f1f1;
-    border: 2px dashed yellow;
+    //background-color:rgb(107, 154, 255);
     //margin: 0 10%;
     width: 100%;
     height: inherit;
     min-height: 100%;
     margin: 0 auto;
-    padding-top: 4%;
+    padding-top: 1%;
     box-sizing: border-box;
 }
 
@@ -47,7 +41,7 @@
     margin-top: 1px;
     font-size: 15px;
     //line-height:35px;
-    width:  330px;
+    width:  320px;
     height: 34px;
 
 }
@@ -61,7 +55,8 @@ h1, h2 {
     width: 1300px;
     height: 600px;
     margin:0 auto;
-    border: 2px dashed red;
+    padding: 10px;
+    background-color:#f1f1f1;
 }
 img {
     width: 280px;
@@ -94,6 +89,9 @@ li.show-msg {
     //position: absolute;
     color: #aa4b6b;
     text-align: center;
+}
+.videoCover {
+    cursor: pointer;
 }
 
 //分页
