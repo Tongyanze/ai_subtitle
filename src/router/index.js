@@ -54,13 +54,13 @@ Vue.use(VueRouter)
          {
          path:'subm1',
          name:'subm1',
-         component:subm1 
-         }, 
+         component:subm1
+         },
           {
             path:'subm2',
          name:'subm2',
-         component:subm2 
-          },        
+         component:subm2
+          },
           {
             path:'subm3',
          name:'subm3',
@@ -135,6 +135,11 @@ Vue.use(VueRouter)
       path: '/search',
       name: 'search',
       component: Search
+    },
+    {
+      path: '/message',
+      name: 'message',
+      component: Message
     }
 ]
 

@@ -150,10 +150,9 @@
                     return
                 }
                 // 服务器自定义的错误（即虽返回200，但是是错误的情况），这种错误是Uploader无法拦截的
-                if (!res.result) {
-                    // 文件状态设为“失败”
-                    this.statusSet(file.id, 'failed');
-                    return
+
+                if (res.code === 200) {
+                    this.statusSet(file.id, 'success');
                 }
 
 

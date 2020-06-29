@@ -27,9 +27,9 @@
             <div class="left-container">
                 <div class="video-container">
                     <video ref="video" id="video" class="video" :src="videoUrl" controls></video>
-                    <div class="subtitle">{{text}}</div>
+                    <div class="subtitle">{{text}}<br><span v-show="isEn">{{enText}}</span></div>
                 </div>
-                <div class="add-subtitle">
+                <div v-show="part === 1" class="add-subtitle">
                     <div style="font-size: 28px; margin-bottom: 12px">
                         新增字幕
                     </div>
@@ -38,22 +38,41 @@
                         <input type="text" placeholder="HH:MM:SS,mmm" v-model="newStart">
                         <span style="margin-left: 32px">结束时间<span style="color: red">*</span>：</span>
                         <input type="text" placeholder="HH:MM:SS,mmm" v-model="newEnd">
+                        <span style="margin-left: 32px">显示英文</span>
+                        <input type="checkbox" v-model="isEn">
                     </div>
                     <div style="display: flex; align-items: center;justify-content: center">
                         <span>字幕内容：</span>
-                        <textarea v-model="newSub"></textarea>
+                        <textarea v-model="newSub" placeholder="中文字幕"></textarea>
+                        <textarea v-model="newEnSub" placeholder="英文字幕"></textarea>
                     </div>
                     <div>
                         <button class="btn-blue" @click="addNewSub">添加</button>
                         <button class="btn-blue" @click="clearSub">重置</button>
+
                     </div>
                 </div>
             </div>
 
 
             <div class="right-container">
-                <div class="subtitle-edit">
-                    <div  v-for='(item, index) in testtime' :key="index">
+                <div class="tools">
+                    <div>
+                        <font-awesome-icon title="保存" class="font-awesome-icon save" :class="[canSave ? '': 'dis']" :icon="['fas', 'save']" @click="save">
+                        </font-awesome-icon>
+                    </div>
+                    <div>
+                        <font-awesome-icon title="视频转换" class="font-awesome-icon convert" :class="[canConvert ? '': 'dis']" :icon="['fas', 'spinner']">
+                        </font-awesome-icon>
+                    </div>
+                    <div>
+                        <font-awesome-icon title="下载" class="font-awesome-icon download" :class="[canDownload ? '': 'dis']" :icon="['fas', 'download']">
+                        </font-awesome-icon>
+                    </div>
+                </div>
+                <span v-show="part === 1" style="font-size: 20px">字幕内容可更改，时间不可修改</span>
+                <div v-show="part === 1" class="subtitle-edit">
+                    <div  v-for='(item, index) in testtime' :key="index" @click="jump(index)">
                         <span>字幕起止时间:</span>
                         <span>{{item.begin}}</span>
                         <span style="margin: 0 12px">-</span>
@@ -61,7 +80,8 @@
                         <font-awesome-icon title="删除此项" class="font-awesome-icon del" :icon="['fas', 'times']" @click="del(index)">
 
                         </font-awesome-icon>
-                        <textarea type="text" v-model="item.text" @blur="subtitleChange(index)" @click="pause"></textarea>
+                        <textarea type="text" v-model="item.texts[0]" @blur="subtitleChange(index)" @click="pause"></textarea>
+                        <textarea type="text" v-model="item.texts[1]" @blur="subtitleChange(index)" @click="pause"></textarea>
                     </div>
 
 
@@ -77,22 +97,15 @@
     import Footer from "@/components/Footer";
     import $ from 'jquery';
     import https from "@/https";
+    import Index from "./index";
 
     export default {
         name: "VideoModify",
-        components: {Footer, Header},
+        components: {Index, Footer, Header},
         data() {
             return {
                 a: true,
                 testtime: [
-                    {'begin': '00:00:06', 'end': '00:00:07', 'text': '刘先生'},
-                    {'begin': '00:00:07', 'end': '00:00:08', 'text': '你好你好你好'},
-                    {'begin': '00:00:10', 'end': '00:00:11', 'text': '有什么事情我们能帮到你'},
-                    {'begin': '00:00:13', 'end': '00:00:14', 'text': '我要说的事'},
-                    {'begin': '00:00:16', 'end': '00:00:17.0', 'text': '你们千万别害怕'},
-                    {'begin': '00:00:17,5', 'end': '00:00:18,5', 'text': '我们是警察'},
-                    {'begin': '00:00:19', 'end': '00:00:20', 'text': '我们不会怕'},
-                    {'begin': '00:00:20', 'end': '00:00:21', 'text': '你请说'},
                 ],
                 testtt: [],
                 timer: '',
@@ -113,7 +126,13 @@
                 now: -1,
                 newStart: '',
                 newEnd: '',
-                newSub: ''
+                newSub: '',
+                enText: '',
+                newEnSub: '',
+                isEn: true,
+                canSave: true,
+                canConvert: true,
+                canDownload: true
             }
         },
         mounted() {
@@ -125,51 +144,39 @@
             //     .catch(err => {
             //
             //     })
-
             $('#arrow').addClass('arrow-turn')
 
-            for (var i = 0;i < this.testtime.length; ++i) {
-                let tmp = this.testtime[i]
-                let be = tmp.begin.split(':')
-                let en = tmp.end.split(':')
-                let st = parseInt(be[0])*3600 + parseInt(be[1]) * 60 + parseInt(be[2].split(',')[0]) + parseFloat('0.'+be[2].split(',')[1])
-                let een = parseInt(en[0])*3600 + parseInt(en[1]) * 60 + parseInt(en[2].split(',')[0]) + parseFloat('0.'+en[2].split(',')[1])
-                let itm = {'begin': st, 'end': een, 'text': tmp.text}
-                this.testtt[i] = itm
-            }
+
             console.log(this.testtt)
-            const video = this.$refs.video
-            const _this = this
-            this.$refs.video.addEventListener("timeupdate",function(){
-                // _this.nowtime = Math.floor(video.currentTime)
-                // this.timer = setInterval(() => {
-                //     _this.nowtime = Math.floor(video.currentTime)
-                //     console.log(_this.nowtime)
-                // }, 500)
 
-                var timeDisplay;
-                //用秒数来显示当前播放进度
-                // timeDisplay = Math.floor(video.currentTime);
-                timeDisplay = video.currentTime
-                console.log(video.currentTime)
-                let flag = false
-                let t = _this.binarySearch(timeDisplay)
-                if (t === -1) {
-                    _this.text = ''
-                } else {
-                    _this.text = _this.testtt[t].text
-                }
-
-            },false);
 
 
         },
         methods: {
+            save() {
+                if (!this.canSave) {
+                    return
+                }
+                https.fetchPost('/SubtitleSupport/json2srt', {videoId: this.videoId, subtitle: JSON.stringify(this.testtime)})
+                    .then(res => {})
+                    .catch(err => {})
+            },
             addNewSub() {
+                this.newStart = this.newStart.replace('：', ':').replace('，', ',').replace(' ', '');
+                this.newEnd = this.newEnd.replace('：', ':').replace('，', ',').replace(' ', '');
+                let reg = /^[0-9]{2}:[0-5][0-9]:[0-5][0-9](,[0-9]+)*$/
+                if (reg.test(this.newStart) === false ) {
+                    alert('开始时间格式有误')
+                    return
+                }
+                if (reg.test(this.newEnd) === false ) {
+                    alert('结束时间格式有误')
+                    return
+                }
                 this.testtime.push({
                     'begin': this.newStart,
                     'end': this.newEnd,
-                    'text': this.newSub
+                    'texts': [this.newSub, this.newEnSub]
                 });
                 this.clearSub()
                 this.testtime.sort(function (a, b) {
@@ -192,7 +199,7 @@
                     let en = tmp.end.split(':')
                     let st = parseInt(be[0])*3600 + parseInt(be[1]) * 60 + parseInt(be[2].split(',')[0]) + parseFloat('0.'+be[2].split(',')[1])
                     let een = parseInt(en[0])*3600 + parseInt(en[1]) * 60 + parseInt(en[2].split(',')[0]) + parseFloat('0.'+en[2].split(',')[1])
-                    let itm = {'begin': st, 'end': een, 'text': tmp.text}
+                    let itm = {'begin': st, 'end': een, 'texts': tmp.texts}
                     this.testtt[i] = itm
                 }
             },
@@ -200,19 +207,61 @@
                 this.newStart = this.newEnd = this.newSub = ''
             },
             del(x) {
-                this.testtime.splice(x, 1)
+                $('.subtitle-edit div:eq('+x+')').css('opacity', 0)
+                const _this = this
+                let t = setInterval(() => {
+                    _this.testtime.splice(x, 1)
+                    $('.subtitle-edit div:eq('+x+')').css('opacity', 1)
+                    clearInterval(t)
+                }, 300)
+
             },
             pause() {
                 this.$refs.video.pause();
             },
             subtitleChange(x) {
 
-                this.testtt[x].text = this.testtime[x].text
-
+                this.testtt[x].texts = this.testtime[x].texts
 
             },
             select(x) {
                 this.part = x
+            },
+            init() {
+                for (var i = 0;i < this.testtime.length; ++i) {
+                    let tmp = this.testtime[i]
+                    let be = tmp.begin.split(':')
+                    let en = tmp.end.split(':')
+                    let st = parseInt(be[0])*3600 + parseInt(be[1]) * 60 + parseInt(be[2].split(',')[0]) + parseFloat('0.'+be[2].split(',')[1])
+                    let een = parseInt(en[0])*3600 + parseInt(en[1]) * 60 + parseInt(en[2].split(',')[0]) + parseFloat('0.'+en[2].split(',')[1])
+                    let itm = {'begin': st, 'end': een, 'texts': tmp.texts}
+                    this.testtt[i] = itm
+                }
+                const video = this.$refs.video
+                const _this = this
+                video.addEventListener("timeupdate",function(){
+                    // _this.nowtime = Math.floor(video.currentTime)
+                    // this.timer = setInterval(() => {
+                    //     _this.nowtime = Math.floor(video.currentTime)
+                    //     console.log(_this.nowtime)
+                    // }, 500)
+
+                    var timeDisplay;
+                    //用秒数来显示当前播放进度
+                    // timeDisplay = Math.floor(video.currentTime);
+                    timeDisplay = video.currentTime
+                    console.log(video.currentTime)
+                    let flag = false
+                    let t = _this.binarySearch(timeDisplay)
+                    if (t === -1) {
+                        _this.text = ''
+                        _this.enText = ''
+                    } else {
+                        _this.text = _this.testtt[t].texts[0]
+                        _this.enText = _this.testtt[t].texts[1]
+                    }
+
+                },false);
             },
             getInfo() {
                 this.videoinfo = JSON.parse(this.$route.query.videoinfo)
@@ -224,6 +273,20 @@
                 } else {
                     this.videoUrl = this.videoinfo.videoPath
                 }
+
+                https.fetchPost('/SubtitleSupport/getSubjson/', {videoId: this.videoId})
+                    .then(res => {
+                        if (res.data.code === 500) {
+                            alert('当前视频正在生成字幕，字幕编辑暂不可用')
+                            this.canSave = this.canConvert = this.canDownload = false
+                            return
+                        }
+                        this.testtime = res.data.data
+                        this.init()
+                    })
+                    .catch(err => {
+                        console.log(err)
+                    })
             },
             binarySearch(x) {
                 let arr = this.testtt
@@ -274,9 +337,8 @@
                     this.a = true
                 }
             },
-            jump() {
-                let v = {'code': 200, 'name': '123123'}
-                console.log(v)
+            jump(x) {
+                this.$refs.video.currentTime = this.testtt[x].begin
             }
         },
         beforeDestroy() {
@@ -309,6 +371,90 @@
 
     }
 
+    .tools{
+        height: 10%;
+        display: flex;
+        width: 100%;
+        padding: 12px 8px;
+        box-sizing: border-box;
+
+        div {
+            width: 48px;
+            height: 48px;
+            margin: auto auto;
+            position: relative;
+            .font-awesome-icon {
+                width: 48px;
+                height: 48px;
+            }
+        }
+    }
+
+    .save, .convert, .download {
+        color: $icon-grey;
+        cursor: pointer;
+        transition: color 0.5s linear;
+    }
+
+    .save.dis, .convert.dis, .download.dis {
+        cursor: not-allowed;
+
+    }
+
+    .convert {
+        transform-origin: center center;
+    }
+
+    .convert:not([class*="dis"]):hover {
+        animation:mround 0.6s linear 1;
+    }
+
+    .download:not([class*="dis"]):hover{
+        animation:up-down 0.6s linear 1;
+    }
+
+    .save {
+        transform-origin: center center;
+    }
+
+    .save:not([class*="dis"]):hover {
+        animation:left-right 0.6s linear 1;
+    }
+
+    @keyframes mround {
+        0%{transform: rotate(0deg)}
+        25%{transform: rotate(90deg)}
+        50%{transform: rotate(180deg)}
+        75%{transform: rotate(270deg)}
+        100%{transform: rotate(360deg)}
+    }
+
+    @keyframes up-down {
+        0%{transform: translateY(0);}
+        20%{transform: translateY(-8px);}
+        40%{transform: translateY(8px);}
+        60%{transform: translateY(-8px);}
+        80%{transform: translateY(8px);}
+        100%{transform: translateY(0);}
+    }
+
+    @keyframes left-right {
+        0%{transform: rotate(0deg)}
+        20%{transform: rotate(-30deg)}
+        40%{transform: rotate(30deg)}
+        60%{transform: rotate(-30deg)}
+        80%{transform: rotate(30deg)}
+        100%{transform: rotate(0deg)}
+    }
+
+
+
+    .save:not([class*="dis"]):hover, .convert:not([class*="dis"]):hover, .download:not([class*="dis"]):hover{
+        color: $dark-blue;
+    }
+
+
+
     .left-container {
         min-height: 100%;
         width: 70%;
@@ -337,18 +483,24 @@
     }
 
     .subtitle-edit {
-        height: 80%;
+        height: 70%;
         width: 100%;
         overflow: scroll;
         overflow-x: hidden;
         border: black 1px solid;
         z-index: 20;
         padding: 12px 4px;
-
+        background: $theme-white;
+        position: relative;
         >div {
-            margin-bottom: 8px;
-            background: $theme-white;
+            cursor: pointer;
+            margin: 0 12px 20px 12px;
+            padding: 20px 0;
+            background: white;
             outline: none;
+            border-radius: 4px;
+            box-shadow: 0 1px 10px -6px rgba(0,0,0,0.42), 0 1px 10px 0 rgba(0,0,0,0.12), 0 4px 5px -2px rgba(0,0,0,0.1);
+            transition: all 0.5s ease-in-out ;
         }
 
         textarea {
@@ -358,7 +510,7 @@
             height: 60px;
             line-height: 20px;
             font-size: 18px;
-            background: $theme-white;
+            background: white;
             border: 2px solid grey;
         }
 
@@ -446,7 +598,9 @@
             height: 64px;
             padding: 4px 8px;
             margin-top: 12px;
-            width: 50%;
+            width: 30%;
+            margin-left: 12px;
+            margin-right: 12px;
         }
 
         button {
@@ -460,10 +614,10 @@
 
     .subtitle {
         position: absolute;
-        bottom: 8%;
-        height: 48px;
-        font-size: 36px;
-        line-height: 48px;
+        bottom: 12%;
+        height: 32px;
+        font-size: 28px;
+        line-height: 32px;
         text-align: center;
         -webkit-text-stroke: 2px black;
         -webkit-text-fill-color: white;

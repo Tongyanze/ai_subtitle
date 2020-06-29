@@ -2,7 +2,7 @@ import axios from 'axios'
 import qs from 'qs'
 
 //响应时间 //配置请求头
-axios.defaults.timeout = 5000;
+axios.defaults.timeout = 60000;
 
 if (process.env.VUE_APP_MODE !== 'production') {
     axios.defaults.baseURL = 'api';   //配置接口地址
@@ -15,7 +15,8 @@ axios.interceptors.request.use((config) => {
     if(config.method === 'post' && config.headers['Content-Type']  === 'application/x-www-form-urlencoded;charset=UTF-8'){
         config.data = qs.stringify(config.data);
     }
-    if (config.url === '/user/userModify'|| config.url === '/uploader/mergeFile' || config.url.includes('userOpVideo')) {
+    if (config.url === '/user/userModify'|| config.url === '/uploader/mergeFile' || config.url.includes('userOpVideo')
+        || config.url.includes('SubtitleSupport')) {
         config.headers['token'] = localStorage.getItem('token')
     }
     if (config.url === '/user/userModifyEPP') {
