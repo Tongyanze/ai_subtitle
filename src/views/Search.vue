@@ -7,7 +7,7 @@
         <button class="search-btn" @click="search(data),getPage()">搜索</button>
       </div>
       <div class="show1">
-        <div class="para" v-if="realList.length==0"><img id="not-found" src="../assets/notfound.png" alt="什么都没找到啊..."></div>
+        <div class="para" v-if="realList.length==0"><img id="not-found" src="../assets/test.png" alt="什么都没找到啊..."></div>
         <ul v-else>
           <li class="show-video" v-for="(item,index) in realList" :key="index">
             <ul>

@@ -168,7 +168,7 @@
     },
     mounted:function(){
       let params ={begin: this.begin,end:this.end};
-        https.fetchPost('/video/all',params)
+        https.fetchPost('/video/own',params)
           .then(data =>{
             console.log(data.data.data)
             this.userList = data.data.data
