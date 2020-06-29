@@ -16,7 +16,8 @@ axios.interceptors.request.use((config) => {
         config.data = qs.stringify(config.data);
     }
     if (config.url === '/user/userModify'|| config.url === '/uploader/mergeFile' || config.url.includes('userOpVideo')
-        || config.url.includes('SubtitleSupport')) {
+        || config.url.includes('SubtitleSupport') || config.url.includes('msg') || config.url === '/video/own' ||
+        config.url === '/video/collections' || config.url === '/process') {
         config.headers['token'] = localStorage.getItem('token')
     }
     if (config.url === '/user/userModifyEPP') {

@@ -1,4 +1,7 @@
 <template>
+    <div class="global-container">
+
+    <Header/>
     <div class="body">
         <div class="overall">
             <div class="header">
@@ -9,14 +12,6 @@
                             <div class="h-info">
                                 <div class="h-avatar">
                                     <div class="ih-item2">
-                                        <a href="#" >
-                                            <div class="img2">
-                                                <img src="@/assets/test.png">
-                                            </div>
-                                            <div class="info2">
-                                                <h2>更换头像</h2>
-                                            </div>
-                                        </a>
                                     </div>
                                     <span class="avatar-m"></span>
                                 </div>
@@ -65,8 +60,8 @@
                         <div class="fav-info">
                             <p>这里是收藏夹基本信息栏</p>
                         </div>
-                        <div v-for="(item,index) in userList":key="index">
-                            <ul class="form-group" id="details">    <!--addda-->
+                        <div v-for="(item,index) in userList":key="index" style="cursor: pointer; float: left; width: 30%">
+                            <ul class="form-group details">    <!--addda-->
                                 <ul class="fav-video" >
                                     <li class="small-item" >
                                         <div class="ih-item">
@@ -93,19 +88,26 @@
 
                             </ul>
                         </div>
+                        <div class="page-control">
 
+                        </div>
                     </div>
+
                 </div>
             </div>
         </div>
+    </div>
+        <Footer/>
     </div>
 
 </template>
 
 <script>
     import https from "@/https.js";
+    import Footer from "@/components/Footer";
+    import Header from "@/components/Header";
     export default {
-
+        components: {Header, Footer},
         data() {
             let ade=100;
 
@@ -119,10 +121,11 @@
         mounted:function(){
             let params ={begin: this.begin,end:this.end};
             let detaildiv = 1;
-            https.fetchPost('/video/all',params)
+            https.fetchPost('/video/collections',params)
                 .then(data =>{
                     console.log(data.data)
                     this.userList = data.data.data
+
                 })
 
         },
@@ -142,6 +145,10 @@
 
 </script>
 <style lang="scss" scoped>
+    .global-container {
+        height: auto;
+    }
+
     body{
         font-family: "Microsoft YaHei", serif;
     }
@@ -161,10 +168,9 @@
         font-size: 12px;
         line-height: 1.7em;
         margin: 0;
-        overflow-y: scroll;
         height: 100%;
     }
-    div.header{
+    .overall .header{
         position: relative;
         z-index: 10;
     }
@@ -200,8 +206,16 @@
         padding-left: 20px;
         line-height: 20px;
     }
+
+    .page-control {
+        width: 100%;
+        height: 60px;
+        position: absolute;
+        bottom: -60px;
+        background: white;
+    }
+
     div.beazb{
-        position: relative;
         float: left;
         width: 180px;
         height: 700px;
@@ -222,7 +236,7 @@
         float: left;
         width: 920px;
         min-height: 600px;
-        height: 700px;
+        height: auto;
         background-color: #ffffff;
         border-left: 1px solid #eee;
         border-bottom: none;
@@ -312,12 +326,23 @@
         background-image: url(../assets/shadow.png);
         background-repeat: repeat-x;
     }
+
+    div:after {
+        clear: both;
+        display: table;
+        content: "";
+    }
     .fav-info{
         padding: 20px 0;
         margin: 0 20px;
         box-sizing: border-box;
         border-bottom: 1px solid #e5e9ef;
     }
+
+    .toc {
+        float: left;
+    }
+
     .time-length{
         background: #111111;
         display: block;
@@ -348,7 +373,6 @@
         background-color: #ffffff;
         box-sizing: border-box;
         display: block;
-        float: left;
         width: 160px;
         height: 100%;
         position: relative;
@@ -360,8 +384,11 @@
         height: 220px;
     }
 
+    .details {
+        margin: 0;
+    }
+
     .fav-video{
-        margin: 20px 20px 50px;
         display: block;
         list-style: none;
     }
@@ -382,7 +409,6 @@
     }
     .small-item{
         display: block;
-        float:left ;
         width: auto;
         position: relative;
         margin: 0 0 4px;

@@ -3,7 +3,7 @@
                         <div class="mainInfo">
                         <span id="headIcon">
                             <img   width=80px height=80px :src="userIcon">
-                             
+
                         </span>
                          <span class="accountInfo">
                             <div id="username">
@@ -38,8 +38,8 @@
                             <div id="usersex" class="basicInfo">
                                 性别：<span>{{usergender}}</span>
                             </div>
-                         
-                           
+
+
                              </span>
                             <span id="right">
                         <div id="userage" class="basicInfo">
@@ -95,7 +95,8 @@ import qs from 'qs'
                 userbirth:new Date("1840-09-07"),
                 file: '',
                 filename: '',
-                cur: 0 //默认选中第一个tab
+                cur: 0, //默认选中第一个tab,
+                env: ''
             }
         },
         mounted() {
@@ -111,7 +112,13 @@ import qs from 'qs'
                 this.useremail = userinfo.userEmail
                 this.accountNum=userinfo.userId
                 this.userphone = userinfo.userPhoneNumber
-                this.userIcon = 'api' + userinfo.image
+
+                this.env = process.env.VUE_APP_MODE
+                if (process.env.VUE_APP_MODE !== 'production') {
+                    this.userIcon = 'api' + userinfo.image
+                } else {
+                    this.userIcon = userinfo.image
+                }
                 console.log(this.userIcon)
                 this.usersign = userinfo.userSignature
             },
@@ -137,11 +144,11 @@ import qs from 'qs'
                             localStorage.setItem('userinfo', JSON.stringify(userinfo))
                             this.getUserInfo()
                             location.reload();
-                            
+
                         }
                         else{
                             alert('错误码:'+data.data.data)
-                        } 
+                        }
                 }, err => {
                     alert(err);
                 })

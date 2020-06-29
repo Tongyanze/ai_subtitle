@@ -13,13 +13,17 @@
                         <div class="me-colla">
                             <div><router-link to="/userinfo">个人中心</router-link></div>
                             <div><router-link to="/favourition">收藏夹</router-link></div>
+                            <div><router-link to="/Message/subm1">消息中心</router-link></div>
                         </div>
+                    </li>
+                    <li>
+                        <router-link to="/search">视频搜索</router-link>
                     </li>
                     <li v-if="token != null" id="video">
                         视频
                         <div class="video-colla">
                             <div><router-link to="/uploader">视频上传</router-link></div>
-                            <div>视频编辑</div>
+<!--                            <div>视频编辑</div>-->
                         </div>
                     </li>
                     <div v-if="token == null" style="display: flex">
@@ -37,12 +41,6 @@
                     <li v-if="token != null" >
                         <a href="javascript:void(0)" @click="quit">退出登录</a>
                     </li>
-
-                    <li>
-                        <a href="javascript:void(0)" @click="test">测试</a>
-                    </li>
-
-
 
                 </ul>
             </div>
@@ -88,10 +86,6 @@
                 localStorage.removeItem('userinfo')
                 this.$router.push('/')
             },
-            test() {
-                let a = {"code":1001,"data":[{"videoId":2,"userId":3,"videoName":"美人鱼名场面","videoPath":"/video/fcb5eefd2d3b1e540283fc231e699281/fcb5eefd2d3b1e540283fc231e699281.mp4","videoSize":1.22251213E8,"videoFormat":"mp4","videoCover":"/image/Default_video_cover.jpg","videoDuration":3591.0,"videoFavors":0,"videoBrowses":0,"videoShares":0,"videoComments":0,"videoCollections":0,"videoZHSubtitle":null,"videoENSubtitle":null,"videoENZHSubtitle":null,"videoENZHSubtitleJSON":null,"processProgress":null,"identifier":"fcb5eefd2d3b1e540283fc231e699281","createTime":"2020-06-29T08:53:38.472+00:00"}]}
-                this.$router.push({path:'/videodetail', query:{videoinfo: JSON.stringify(a.data[0])}})
-            }
         },
 
     }

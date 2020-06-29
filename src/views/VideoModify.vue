@@ -1,18 +1,20 @@
 <template>
     <div class="global-container">
         <Header/>
-
+        <div class="popwindow">
+            {{tip}}
+        </div>
         <div class="right-tools-box">
             <div class="right-tools">
-                <div v-show="showright" class="right-item" @click="select(1)" :class="[part === 1 ? 'clicked'  : '']">
+                <div class="right-item" @click="select(1)" :class="[part === 1 ? 'clicked'  : '']">
                     <font-awesome-icon class="font-awesome-icon" :icon="['fas', 'edit']"></font-awesome-icon>
                     <span>字幕</span>
                 </div>
-                <div v-show="showright" class="right-item" @click="select(2)" :class="[part === 2 ? 'clicked'  : '']">
+                <div class="right-item" @click="select(2)" :class="[part === 2 ? 'clicked'  : '']">
                     <font-awesome-icon class="font-awesome-icon" :icon="['fas', 'magic']"></font-awesome-icon>
                     <span>特效</span>
                 </div>
-                <div v-show="showright" class="right-item" @click="select(3)" :class="[part === 3 ? 'clicked'  : '']">
+                <div class="right-item" @click="select(3)" :class="[part === 3 ? 'clicked'  : '']">
                     <font-awesome-icon class="font-awesome-icon" :icon="['fas', 'music']"></font-awesome-icon>
                     <span>声音</span>
                 </div>
@@ -52,17 +54,53 @@
 
                     </div>
                 </div>
+                <div v-show="part === 2" class="tx-control">
+                    <div style="width: 60%">
+                        <div>
+                            <span>美白程度：</span>
+                            <input type="range" min="0" max="100" step="1" v-model="mb" class="slider" ref="mb">
+                            <span style="width: 28px; display: inline-block">{{mb}}</span>
+                        </div>
+                        <div>
+                            <span>磨皮程度：</span>
+                            <input type="range" min="0" max="100" step="1" v-model="mp" class="slider">
+                            <span style="width: 28px; display: inline-block">{{mp}}</span>
+                        </div>
+                        <div>
+                            <span>瘦脸程度：</span>
+                            <input type="range" min="0" max="100" step="1" v-model="sl" class="slider">
+                            <span style="width: 28px; display: inline-block">{{sl}}</span>
+                        </div>
+                        <div>
+                            <span>大眼程度：</span>
+                            <input type="range" min="0" max="100" step="1" v-model="dy" class="slider">
+                            <span style="width: 28px; display: inline-block">{{dy}}</span>
+                        </div>
+                    </div>
+                    <div style="width: 40%">
+                        <div style="height: 44px">
+                            <input type="checkbox" style="width: 14px; height: 14px; margin: 15px 0" v-model="addCh">
+                            <span>添加中文字幕</span>
+                        </div>
+                        <div style="height: 44px">
+                            <input type="checkbox" style="width: 14px; height: 14px; margin: 15px 0" v-model="addEn">
+                            <span>添加英文字幕</span>
+                        </div>
+                    </div>
+
+                </div>
             </div>
 
 
             <div class="right-container">
                 <div class="tools">
                     <div>
-                        <font-awesome-icon title="保存" class="font-awesome-icon save" :class="[canSave ? '': 'dis']" :icon="['fas', 'save']" @click="save">
+                        <font-awesome-icon title="保存字幕" class="font-awesome-icon save" :class="[canSave ? '': 'dis']" :icon="['fas', 'save']" @click="save">
                         </font-awesome-icon>
                     </div>
                     <div>
-                        <font-awesome-icon title="视频转换" class="font-awesome-icon convert" :class="[canConvert ? '': 'dis']" :icon="['fas', 'spinner']">
+                        <font-awesome-icon title="视频合成" class="font-awesome-icon convert"
+                                           :class="[canConvert ? '': 'dis']" :icon="['fas', 'spinner']" @click="hcsp">
                         </font-awesome-icon>
                     </div>
                     <div>
@@ -77,7 +115,7 @@
                         <span>{{item.begin}}</span>
                         <span style="margin: 0 12px">-</span>
                         <span>{{item.end}}</span>
-                        <font-awesome-icon title="删除此项" class="font-awesome-icon del" :icon="['fas', 'times']" @click="del(index)">
+                        <font-awesome-icon title="删除此项" class="font-awesome-icon del" :icon="['fas', 'times']" @click.stop="del(index)">
 
                         </font-awesome-icon>
                         <textarea type="text" v-model="item.texts[0]" @blur="subtitleChange(index)" @click="pause"></textarea>
@@ -85,6 +123,65 @@
                     </div>
 
 
+                </div>
+                <div v-show="part === 2" class="lvjing-list">
+                    <h2>滤镜选择</h2>
+                    <div class="radio-group">
+                        <div class="radio" @click="chooseLj(this, -1)" :class="{'radio-clicked': lj === -1}">
+                            不添加
+                        </div>
+                        <div class="radio" @click="chooseLj(this, 0)" :class="{'radio-clicked': lj === 0}">
+                            黑白
+                        </div>
+                        <div class="radio" @click="chooseLj(this, 1)" :class="{'radio-clicked': lj === 1}">
+                            和风
+                        </div>
+                        <div class="radio" @click="chooseLj(this, 2)" :class="{'radio-clicked': lj === 2}">
+                            摩卡
+                        </div>
+                        <div class="radio" @click="chooseLj(this, 3)" :class="{'radio-clicked': lj === 3}">
+                            极地
+                        </div>
+                        <div class="radio" @click="chooseLj(this, 4)" :class="{'radio-clicked': lj === 4}">
+                            电影
+                        </div>
+                        <div class="radio" @click="chooseLj(this, 5)" :class="{'radio-clicked': lj === 5}">
+                            自然
+                        </div>
+                    </div>
+                </div>
+
+                <div v-show="part === 3" class="bianshen-list">
+                    <h2>变声器选择</h2>
+                    <div class="radio-group">
+                        <div class="radio" @click="chooseSy(this, 0)" :class="{'radio-clicked': sy === 0}">
+                            不变声
+                        </div>
+                        <div class="radio" @click="chooseSy(this, 1)" :class="{'radio-clicked': sy === 1}">
+                            萝莉
+                        </div>
+                        <div class="radio" @click="chooseSy(this, 2)" :class="{'radio-clicked': sy === 2}">
+                            大叔
+                        </div>
+                        <div class="radio" @click="chooseSy(this, 3)" :class="{'radio-clicked': sy === 3}">
+                            肥仔
+                        </div>
+                        <div class="radio" @click="chooseSy(this, 4)" :class="{'radio-clicked': sy === 4}">
+                            熊孩子
+                        </div>
+                        <div class="radio" @click="chooseSy(this, 5)" :class="{'radio-clicked': sy === 5}">
+                            困兽
+                        </div>
+                        <div class="radio" @click="chooseSy(this, 6)" :class="{'radio-clicked': sy === 6}">
+                            重机械
+                        </div>
+                        <div class="radio" @click="chooseSy(this, 7)" :class="{'radio-clicked': sy === 7}">
+                            感冒
+                        </div>
+                        <div class="radio" @click="chooseSy(this, 8)" :class="{'radio-clicked': sy === 8}">
+                            空灵
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -97,11 +194,10 @@
     import Footer from "@/components/Footer";
     import $ from 'jquery';
     import https from "@/https";
-    import Index from "./index";
 
     export default {
         name: "VideoModify",
-        components: {Index, Footer, Header},
+        components: {Footer, Header},
         data() {
             return {
                 a: true,
@@ -132,34 +228,94 @@
                 isEn: true,
                 canSave: true,
                 canConvert: true,
-                canDownload: true
+                canDownload: true,
+                tip: '',
+                reque: [],
+                mb:0, //美白
+                mp:0, //磨皮
+                sl:0, //瘦脸
+                dy:0, //大眼
+                addCh: true,
+                addEn: true,
+                lj: -1, //滤镜
+                sy: 0, //声音
             }
         },
         mounted() {
-            this.getInfo()
-            // https.fetchPost('/video/own', {begin: 1, end: 10})
-            //     .then(res => {
-            //         console.log(res.data)
-            //     })
-            //     .catch(err => {
-            //
-            //     })
             $('#arrow').addClass('arrow-turn')
-
-
-            console.log(this.testtt)
-
-
+            $('.popwindow').css('height', 0)
+            this.getInfo()
+            const _this = this
+            let sliders = $('.slider')
+            for (let i=0;i < sliders.length; ++i) {
+                sliders[i].addEventListener("input", ()=>{
+                    $(sliders[i]).css('background', 'linear-gradient(to right, #375CA0, white ' + sliders[i].value + '%, white)' )
+                })
+            }
 
         },
         methods: {
+            hcsp() {
+
+                let tmp = {operationType: 'beauty', videoId: this.videoId, whiter: this.mb, smooth: this.mp,
+                    facelift: this.sl, eye: this.dy}
+                this.reque.push(tmp)
+                if (this.sy !== 0) {
+                    tmp = {operationType: 'voiceChanger', videoId: this.videoId, audioType: this.sy}
+                    this.reque.push(tmp)
+                }
+
+                if (this.lj !== -1) {
+                    tmp = {operationType: 'filter', videoId: this.videoId, table: this.lj}
+                    this.reque.push(tmp)
+                }
+
+                let x = 0
+                if (this.addCh) {
+                    x += 1
+                }
+                if (this.addEn) {
+                    x += 2
+                }
+                tmp = {operationType: 'importSubtitle', videoId: this.videoId, type: x}
+                this.reque.push(tmp)
+
+                https.fetchPost('/process', {jsonArray: JSON.stringify(this.reque)})
+                    .then(res => {})
+                    .catch(err => {})
+            },
+            chooseSy(e, id){
+                this.sy = id
+            },
+            chooseLj(e, id) {
+                this.lj = id
+            },
+            showpop() {
+                $('.popwindow').css('height', 100)
+
+                let t = setInterval(() => {
+                    $('.popwindow').css('height', 0)
+                    clearInterval(t)
+                }, 3000)
+            },
             save() {
                 if (!this.canSave) {
                     return
                 }
-                https.fetchPost('/SubtitleSupport/json2srt', {videoId: this.videoId, subtitle: JSON.stringify(this.testtime)})
-                    .then(res => {})
-                    .catch(err => {})
+                if (this.part === 1) {
+                    https.fetchPost('/SubtitleSupport/json2srt', {
+                        videoId: this.videoId,
+                        subtitle: JSON.stringify(this.testtime)
+                    })
+                        .then(res => {
+                            this.tip = '保存成功'
+                            const _this = this
+                            this.showpop()
+
+                        })
+                        .catch(err => {
+                        })
+                }
             },
             addNewSub() {
                 this.newStart = this.newStart.replace('：', ':').replace('，', ',').replace(' ', '');
@@ -211,6 +367,7 @@
                 const _this = this
                 let t = setInterval(() => {
                     _this.testtime.splice(x, 1)
+                    _this.testtt.splice(x, 1)
                     $('.subtitle-edit div:eq('+x+')').css('opacity', 1)
                     clearInterval(t)
                 }, 300)
@@ -250,7 +407,6 @@
                     //用秒数来显示当前播放进度
                     // timeDisplay = Math.floor(video.currentTime);
                     timeDisplay = video.currentTime
-                    console.log(video.currentTime)
                     let flag = false
                     let t = _this.binarySearch(timeDisplay)
                     if (t === -1) {
@@ -267,7 +423,6 @@
                 this.videoinfo = JSON.parse(this.$route.query.videoinfo)
                 this.videoName = this.videoinfo.videoName
                 this.videoId = this.videoinfo.videoId
-                console.log(this.videoName)
                 if (process.env.VUE_APP_MODE !== 'production') {
                     this.videoUrl = 'api'+this.videoinfo.videoPath
                 } else {
@@ -277,7 +432,8 @@
                 https.fetchPost('/SubtitleSupport/getSubjson/', {videoId: this.videoId})
                     .then(res => {
                         if (res.data.code === 500) {
-                            alert('当前视频正在生成字幕，字幕编辑暂不可用')
+                            this.tip = '当前视频正在生成字幕，字幕编辑暂不可用'
+                            this.showpop()
                             this.canSave = this.canConvert = this.canDownload = false
                             return
                         }
@@ -285,7 +441,9 @@
                         this.init()
                     })
                     .catch(err => {
-                        console.log(err)
+                        this.tip = '当前视频正在生成字幕，字幕编辑暂不可用'
+                        this.showpop()
+                        this.canSave = this.canConvert = this.canDownload = false
                     })
             },
             binarySearch(x) {
@@ -317,20 +475,8 @@
                     $('.right-tools-box').css('z-index', 0)
                     arrow.removeClass('arrow-turn').addClass('arrow-turn1')
                     this.a = false
-                    const _this = this
-                    let t = setInterval(() => {
-                        _this.showright = !_this.showright
-                        clearInterval(t)
-                    }, 500)
-
-
 
                 } else {
-                    const _this = this
-                    let t = setInterval(() => {
-                        _this.showright = !_this.showright
-                        clearInterval(t)
-                    }, 200)
                     $('.right-tools-box').css('z-index', 100)
                     s.css('width', '84%')
                     arrow.removeClass('arrow-turn1').addClass('arrow-turn')
@@ -388,6 +534,25 @@
                 height: 48px;
             }
         }
+    }
+
+    .popwindow {
+        position: fixed;
+        background: white;
+        border-radius: 0 0 12px 12px;
+        width: 20%;
+        left: 40%;
+        height: 100px;
+        top: 0;
+        box-shadow: 0 1px 10px -6px rgba(0,0,0,0.42), 0 1px 10px 0 rgba(0,0,0,0.12), 0 4px 5px -2px rgba(0,0,0,0.1);
+        z-index: 1000;
+        transition: height 0.3s linear;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 24px;
+        text-align: center;
+        overflow: hidden;
     }
 
     .save, .convert, .download {
@@ -480,6 +645,55 @@
         flex-direction: column;
         justify-content: center;
         position: relative;
+        overflow: hidden;
+    }
+
+    .lvjing-list, .bianshen-list {
+        height: 70%;
+        width: 100%;
+        border: black 1px solid;
+        z-index: 20;
+
+        h2 {
+            height: 10%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0;
+        }
+    }
+
+    .radio-group {
+        position: relative;
+        width: 100%;
+        height: 90%;
+        background: $theme-white;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        cursor: pointer;
+        .radio {
+            width: 90%;
+            flex: 1;
+            margin: 8px 0;
+            border-radius: 8px;
+            transition: background-color 0.3s linear;
+            background: white;
+            box-shadow: 1px 3px 10px -6px rgba(0,0,0,0.42), 1px 3px 10px 0 rgba(0,0,0,0.12), 0 6px 7px -2px rgba(0,0,0,0.1);
+            font-size: 24px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .radio:hover {
+            background: $sky-blue;
+        }
+
+        .radio-clicked {
+            background: $sky-blue;
+        }
+
     }
 
     .subtitle-edit {
@@ -612,6 +826,14 @@
         }
     }
 
+    .tx-control {
+        margin-top: 12px;
+        width: 100%;
+        height: 30%;
+        font-size: 20px;
+        display: flex;
+    }
+
     .subtitle {
         position: absolute;
         bottom: 12%;
@@ -646,7 +868,33 @@
         color: $dark-blue;
     }
 
+    .slider {
+        margin: 16px 12px;
+        -webkit-appearance: none;
+        width: 300px;
+        border-radius: 10px; /*这个属性设置使填充进度条时的图形为圆角*/
+    }
+    .slider::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        height: 25px;
+        width: 25px;
+        margin-top: -5px; /*使滑块超出轨道部分的偏移量相等*/
+        background: #ffffff;
+        border-radius: 50%; /*外观设置为圆形*/
+        border: solid 0.125em rgba(205, 224, 230, 0.5); /*设置边框*/
+        box-shadow: 0 .125em .125em #3b4547; /*添加底部阴影*/
+        cursor: pointer;
 
+    }
 
+    .slider::-webkit-slider-runnable-track {
+        height: 12px;
+        border-radius: 10px; /*将轨道设为圆角的*/
+        box-shadow: 0 1px 1px #def3f8, inset 0 .125em .125em #0d1112; /*轨道内置阴影效果*/
+    }
+
+    .slider:focus {
+        outline: none;
+    }
 
 </style>
