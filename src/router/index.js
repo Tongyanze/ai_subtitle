@@ -17,8 +17,11 @@ import uploader from "@/views/uploader";
 import VideoModify from "@/views/VideoModify";
 import VideoDetail from "@/views/VideoDetail";
 import Search from "@/views/Search";
-import Message from "../views/Message";
-
+import Message from'@/views/Message.vue';
+import subm1 from'@/views/subm1.vue';
+import subm2 from'@/views/subm2.vue';
+import subm3 from'@/views/subm3.vue';
+import subm4 from'@/views/subm4.vue';
 Vue.use(VueRouter)
 
   const routes = [
@@ -41,6 +44,34 @@ Vue.use(VueRouter)
       path: '/favourition',
       name: 'favourition',
       component: favourition
+    },
+    {
+      path: '/message',
+      name: 'Message',
+      component: Message,
+      redirect:'Message/subm1',
+       children:[
+         {
+         path:'subm1',
+         name:'subm1',
+         component:subm1
+         },
+          {
+            path:'subm2',
+         name:'subm2',
+         component:subm2
+          },
+          {
+            path:'subm3',
+         name:'subm3',
+         component:subm3
+          },
+          {
+            path:'subm4',
+         name:'subm4',
+         component:subm4
+          }
+        ]
     },
     {
       path: '/videomodify',

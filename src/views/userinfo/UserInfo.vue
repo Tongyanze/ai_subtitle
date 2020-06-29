@@ -12,7 +12,8 @@
             <div ><router-link :to="{name: 'basicinfo'}" class="blue-link" >基本信息</router-link></div>
             <div ><router-link :to="{name: 'contribute'}" class="blue-link" >我的作品</router-link></div>
 <!--            <div ><router-link :to="{name: 'favourition'}" class="blue-link" >我的收藏</router-link></div>-->
-            <div >我的消息</div>
+            <div ><router-link to="/Message" class="blue-link" >我的消息</router-link></div>
+
 
         </div>
         </div>

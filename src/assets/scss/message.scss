@@ -1,16 +1,24 @@
+.all{
+	background-color: rgb(42, 151, 224);
+	width: 100%;
+    height:100%;
+	margin-left: auto;
+	margin-right: auto;
+}
+
 .container{
 	margin-left: 18%;
 	margin-right: 18%;
 	margin-top: 60px;
 	width: 64%;
-	background-color: deepskyblue;
-	height: 800px;
+	
+	height: 1000px;
 }
 
 .space-left{
 	width:15%;
 	position: relative;
-	height: 800px;
+	height: 1000px;
 	float: left;
 	background-color: rgba(255,255,255,0.65);
 	
@@ -18,7 +26,7 @@
 
 .space-right{
 	width:85%;
-	height: 800px;
+	height: 1000px;
 	float:right;
 	background-color: rgba(255,255,255,0.8);
 }
@@ -94,13 +102,14 @@
 	border-radius: 10%;
 	text-align:left;
 	padding: 15px;
-	overflow-y: scroll;
+	padding: red;
+	
 }
 
 .space-right-bottom{
 	height: 800px;
 	padding: 10px;
-	
+	overflow-y: scroll;
 	
 }
 
