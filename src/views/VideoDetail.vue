@@ -10,7 +10,7 @@
                 <div class="video-container">
 
                     <video ref="video" id="video" class="video" :src="videoUrl" controls></video>
-                    <div class="subtitle"><span v-if="isCh">{{text}}</span><br><span v-if="isEn">{{enText}}</span></div>
+                    <div class="subtitle"><span v-if="isCh">{{text}}</span><br><span v-if="isEn" style="font-size: 24px">{{enText}}</span></div>
                 </div>
 
                 <div class="dynamic-box">
@@ -223,6 +223,11 @@
                         let data = res.data.data
                         this.likeNum = data.videoFavors
                         this.interestNum = data.videoCollections
+                        if (process.env.VUE_APP_MODE !== 'production') {
+                            this.videoUrl = 'api'+data.videoPath
+                        } else {
+                            this.videoUrl = data.videoPath
+                        }
                     })
                     .catch(err => {
 
@@ -237,6 +242,7 @@
                 this.videoName = this.videoinfo.videoName
                 this.videoId = this.videoinfo.videoId
                 this.getNum()
+
                 https.fetchPost('/SubtitleSupport/getSubjson/', {videoId: this.videoId})
                     .then(res => {
                         if (res.data.code === 500) {
@@ -250,11 +256,7 @@
 
                 this.userId = this.videoinfo.userId
                 console.log(this.videoName)
-                if (process.env.VUE_APP_MODE !== 'production') {
-                    this.videoUrl = 'api'+this.videoinfo.videoPath
-                } else {
-                    this.videoUrl = this.videoinfo.videoPath
-                }
+
                 this.checkSome(this.videoId)
             }
         }

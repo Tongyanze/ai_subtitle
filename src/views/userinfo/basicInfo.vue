@@ -135,10 +135,10 @@ import qs from 'qs'
                 var formData= new FormData();
                 formData.append('file',document.querySelector('input[type=file]').files[0])
                 let params = {file:this.file}
-                console.log(this.file)
-                axios.post('/uploader/image', formData, {headers: {'Content-Type': 'multipart/form-data'}})
-                 .then(data => {
-                        if(data.data.code==200){
+                console.log(formData)
+                https.fetchFilePost('/uploader/image', {file: document.querySelector('input[type=file]').files[0]})
+                    .then(data => {
+                        if(data.data.code===200){
                             let userinfo=data.data.data
                             console.log(userinfo)
                             localStorage.setItem('userinfo', JSON.stringify(userinfo))
@@ -149,12 +149,9 @@ import qs from 'qs'
                         else{
                             alert('错误码:'+data.data.data)
                         }
-                }, err => {
-                    alert(err);
-                })
-                .catch((error) => {
-                    alert(error)
-                })
+                    })
+                    .catch(err => {})
+                
                 // https.fetchPost('/uploader/image', formData)
                 //     .then(data => {
                 //         if(data.data.code==200){

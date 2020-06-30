@@ -29,7 +29,7 @@
             <div class="left-container">
                 <div class="video-container">
                     <video ref="video" id="video" class="video" :src="videoUrl" controls></video>
-                    <div class="subtitle">{{text}}<br><span v-show="isEn">{{enText}}</span></div>
+                    <div class="subtitle">{{text}}<br><span v-show="isEn" style="font-size: 24px">{{enText}}</span></div>
                 </div>
                 <div v-show="part === 1" class="add-subtitle">
                     <div style="font-size: 28px; margin-bottom: 12px">
@@ -99,13 +99,14 @@
                         </font-awesome-icon>
                     </div>
                     <div>
-                        <font-awesome-icon title="视频合成" class="font-awesome-icon convert"
+                        <font-awesome-icon :title="convertTip" id="convert-icon" class="font-awesome-icon convert"
                                            :class="[canConvert ? '': 'dis']" :icon="['fas', 'spinner']" @click="hcsp">
                         </font-awesome-icon>
                     </div>
                     <div>
-                        <font-awesome-icon title="下载" class="font-awesome-icon download" :class="[canDownload ? '': 'dis']" :icon="['fas', 'download']">
+                        <a :href="videoUrl"><font-awesome-icon title="下载" class="font-awesome-icon download" :class="[canDownload ? '': 'dis']" :icon="['fas', 'download']">
                         </font-awesome-icon>
+                        </a>
                     </div>
                 </div>
                 <span v-show="part === 1" style="font-size: 20px">字幕内容可更改，时间不可修改</span>
@@ -125,8 +126,18 @@
 
                 </div>
                 <div v-show="part === 2" class="lvjing-list">
-                    <h2>滤镜选择</h2>
-                    <div class="radio-group">
+                    <div class="tx-btn-group">
+                        <div :class="{'tx-btn-clicked': txPart === 1}" class="tx-btn" @click="txPart=1">
+                            视频滤镜
+                        </div>
+                        <div :class="{'tx-btn-clicked': txPart === 2}" class="tx-btn" @click="txPart=2">
+                            自定封面
+                        </div>
+                        <div :class="{'tx-btn-clicked': txPart === 3}" class="tx-btn" @click="txPart=3">
+                            AI换脸封面
+                        </div>
+                    </div>
+                    <div class="radio-group" v-show="txPart === 1">
                         <div class="radio" @click="chooseLj(this, -1)" :class="{'radio-clicked': lj === -1}">
                             不添加
                         </div>
@@ -148,6 +159,16 @@
                         <div class="radio" @click="chooseLj(this, 5)" :class="{'radio-clicked': lj === 5}">
                             自然
                         </div>
+                    </div>
+
+                    <div class="radio-group" v-show="txPart === 2">
+
+                        <input type="file" id="file" ref="cover" @change="coverInit">
+                        <button class="btn-blue" @click="test">提交</button>
+
+                    </div>
+                    <div class="radio-group" v-show="txPart === 3">
+
                     </div>
                 </div>
 
@@ -239,9 +260,14 @@
                 addEn: true,
                 lj: -1, //滤镜
                 sy: 0, //声音
+                convertTip: '视频合成',
+                txPart: 1,
+                file: ''
+
             }
         },
         mounted() {
+
             $('#arrow').addClass('arrow-turn')
             $('.popwindow').css('height', 0)
             this.getInfo()
@@ -255,9 +281,38 @@
 
         },
         methods: {
-            hcsp() {
 
-                let tmp = {operationType: 'beauty', videoId: this.videoId, whiter: this.mb, smooth: this.mp,
+            coverInit(e) {
+                let that = this;
+                let file = e.target.files[0];
+                let reader = new FileReader();
+                reader.onload = function(e){
+                    that.file  = e.target.result;
+                }
+                reader.readAsDataURL(file);
+            },
+
+            test() {
+                let params = {
+                    videoId: this.videoId,
+                    file: this.$refs.cover.files[0]
+                }
+
+                console.log(params)
+                https.fetchFilePost('/uploader/image', params)
+                    .then(res => {
+
+                    })
+                    .catch(err => {
+
+                    })
+            },
+            hcsp() {
+                if (!this.canConvert) {
+                    return
+                }
+
+                let tmp = {operationType: 'beautify', videoId: this.videoId, white: this.mb, smooth: this.mp,
                     facelift: this.sl, eye: this.dy}
                 this.reque.push(tmp)
                 if (this.sy !== 0) {
@@ -277,18 +332,58 @@
                 if (this.addEn) {
                     x += 2
                 }
-                tmp = {operationType: 'importSubtitle', videoId: this.videoId, type: x}
-                this.reque.push(tmp)
+                if (x > 0) {
+                    tmp = {operationType: 'importSubtitle', videoId: this.videoId, type: x}
+                    this.reque.push(tmp)
+                }
 
-                https.fetchPost('/process', {jsonArray: JSON.stringify(this.reque)})
-                    .then(res => {})
-                    .catch(err => {})
+                this.canConvert = false
+                this.convertTip = '视频合成中...'
+                let t = setInterval(() => {
+                    $('#convert-icon').addClass('convert-infinite')
+
+                    clearInterval(t)
+                }, 100)
+
+
+                https.fetchPost('/process', {jsonString: JSON.stringify(this.reque)})
+                    .then(res => {
+
+                    })
+                    .catch(err => {
+
+                    })
             },
             chooseSy(e, id){
                 this.sy = id
             },
             chooseLj(e, id) {
                 this.lj = id
+                let video = this.$refs.video
+                switch (id) {
+                    case -1:
+                        $(video).attr('class', 'video')
+                        break;
+                    case 0:
+                        $(video).attr('class', 'video black-white-filter')
+                        break;
+                    case 1:
+                        $(video).attr('class', 'video wind-filter')
+                        break;
+                    case 2:
+                        $(video).attr('class', 'video moka-filter')
+                        break;
+                    case 3:
+                        $(video).attr('class', 'video ice-filter')
+                        break;
+                    case 4:
+                        $(video).attr('class', 'video film-filter')
+                        break;
+                    case 5:
+                        $(video).attr('class', 'video nature-filter')
+                        break;
+                }
+
             },
             showpop() {
                 $('.popwindow').css('height', 100)
@@ -360,7 +455,7 @@
                 }
             },
             clearSub() {
-                this.newStart = this.newEnd = this.newSub = ''
+                this.newStart = this.newEnd = this.newSub = this.newEnSub = ''
             },
             del(x) {
                 $('.subtitle-edit div:eq('+x+')').css('opacity', 0)
@@ -369,8 +464,20 @@
                     _this.testtime.splice(x, 1)
                     _this.testtt.splice(x, 1)
                     $('.subtitle-edit div:eq('+x+')').css('opacity', 1)
+                    var timeDisplay;
+                    //用秒数来显示当前播放进度
+                    // timeDisplay = Math.floor(video.currentTime);
+                    timeDisplay = _this.$refs.video.currentTime
+                    let tt = _this.binarySearch(timeDisplay)
+                    if (tt === -1) {
+                        _this.text = ''
+                        _this.enText = ''
+                    } else {
+                        _this.text = _this.testtt[tt].texts[0]
+                        _this.enText = _this.testtt[tt].texts[1]
+                    }
                     clearInterval(t)
-                }, 300)
+                }, 500)
 
             },
             pause() {
@@ -407,7 +514,6 @@
                     //用秒数来显示当前播放进度
                     // timeDisplay = Math.floor(video.currentTime);
                     timeDisplay = video.currentTime
-                    let flag = false
                     let t = _this.binarySearch(timeDisplay)
                     if (t === -1) {
                         _this.text = ''
@@ -419,15 +525,22 @@
 
                 },false);
             },
-            getInfo() {
+            async getInfo() {
                 this.videoinfo = JSON.parse(this.$route.query.videoinfo)
                 this.videoName = this.videoinfo.videoName
                 this.videoId = this.videoinfo.videoId
-                if (process.env.VUE_APP_MODE !== 'production') {
-                    this.videoUrl = 'api'+this.videoinfo.videoPath
-                } else {
-                    this.videoUrl = this.videoinfo.videoPath
-                }
+                await https.fetchPost('/findVideoInfo', {videoId: this.videoId})
+                    .then(res => {
+                        let data = res.data.data
+                        if (process.env.VUE_APP_MODE !== 'production') {
+                            this.videoUrl = 'api'+data.videoPath
+                        } else {
+                            this.videoUrl = data.videoPath
+                        }
+                    })
+                    .catch(err => {
+
+                    })
 
                 https.fetchPost('/SubtitleSupport/getSubjson/', {videoId: this.videoId})
                     .then(res => {
@@ -438,6 +551,19 @@
                             return
                         }
                         this.testtime = res.data.data
+
+                        https.fetchPost('/getProgress', {videoId: this.videoId})
+                            .then(res => {
+                                if (res.data.data > 0 && res.data.data < 1) {
+                                    this.canConvert = this.canDownload = false;
+                                    this.convertTip = '视频合成中...'
+                                    $('#convert-icon').addClass('convert-infinite')
+                                }
+                            })
+                            .catch(err => {
+
+                            })
+
                         this.init()
                     })
                     .catch(err => {
@@ -445,6 +571,8 @@
                         this.showpop()
                         this.canSave = this.canConvert = this.canDownload = false
                     })
+
+
             },
             binarySearch(x) {
                 let arr = this.testtt
@@ -542,7 +670,6 @@
         border-radius: 0 0 12px 12px;
         width: 20%;
         left: 40%;
-        height: 100px;
         top: 0;
         box-shadow: 0 1px 10px -6px rgba(0,0,0,0.42), 0 1px 10px 0 rgba(0,0,0,0.12), 0 4px 5px -2px rgba(0,0,0,0.1);
         z-index: 1000;
@@ -563,11 +690,15 @@
 
     .save.dis, .convert.dis, .download.dis {
         cursor: not-allowed;
-
     }
 
     .convert {
         transform-origin: center center;
+    }
+
+    .convert-infinite{
+        color: $dark-blue;
+        animation:mround 0.6s linear infinite;
     }
 
     .convert:not([class*="dis"]):hover {
@@ -655,6 +786,14 @@
         z-index: 20;
 
         h2 {
+            height: 10%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0;
+        }
+
+        .tx-btn-group {
             height: 10%;
             display: flex;
             align-items: center;
@@ -845,7 +984,9 @@
         -webkit-text-fill-color: white;
         width: 100%;
         font-weight: bold;
+        z-index: 20;
     }
+
 
     .right-item {
         cursor: pointer;
@@ -895,6 +1036,50 @@
 
     .slider:focus {
         outline: none;
+    }
+
+    .black-white-filter {
+        filter: grayscale(100%);
+    }
+
+    .film-filter {
+        filter: contrast(120%) saturate(160%) sepia(30%) ;
+    }
+
+    .ice-filter{
+        filter:grayscale(0.2) brightness(90%) saturate(200%);
+    }
+
+    .wind-filter {
+        filter: brightness(102%) saturate(130%);
+    }
+
+    .nature-filter {
+        filter: grayscale(0.1) sepia(10%);
+    }
+
+    .moka-filter {
+        filter: saturate(120%) sepia(36%)
+    }
+
+    .tx-btn{
+        flex: 1;
+        height: 100%;
+        cursor: pointer;
+        transition: background 0.3s linear;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 18px;
+    }
+
+    .tx-btn:hover, .tx-btn-clicked{
+        background: $sky-blue;
+    }
+
+    .tx-btn:nth-child(2) {
+        border-left: 1px solid black;
+        border-right: 1px solid black;
     }
 
 </style>

@@ -2,7 +2,7 @@ import axios from 'axios'
 import qs from 'qs'
 
 //响应时间 //配置请求头
-axios.defaults.timeout = 60000;
+axios.defaults.timeout = 5000;
 
 if (process.env.VUE_APP_MODE !== 'production') {
     axios.defaults.baseURL = 'api';   //配置接口地址
@@ -14,6 +14,15 @@ axios.interceptors.request.use((config) => {
     //在发送请求之前做某件事
     if(config.method === 'post' && config.headers['Content-Type']  === 'application/x-www-form-urlencoded;charset=UTF-8'){
         config.data = qs.stringify(config.data);
+    }
+    if ( config.headers['Content-Type'].includes('multipart')) {
+        let t = config.data
+        let formData = new FormData()
+        for (let key in t) {
+
+            formData.append(key, t[key]);
+        }
+        config.data = formData
     }
     if (config.url === '/user/userModify'|| config.url === '/uploader/mergeFile' || config.url.includes('userOpVideo')
         || config.url.includes('SubtitleSupport') || config.url.includes('msg') || config.url === '/video/own' ||
@@ -94,9 +103,24 @@ export function fetchGet(url, param) {
     })
 }
 
+export function fetchFilePost(url, params) {
+    return new Promise((resolve, reject) => {
+        axios.post(url, params, {headers: {'Content-Type': 'multipart/form-data;charset=UTF-8'}})
+            .then(response => {
+                resolve(response);
+            }, err => {
+                reject(err);
+            })
+            .catch((error) => {
+                reject(error)
+            })
+    })
+}
+
 export default {
     fetchPost,
     fetchGet,
-    fetchJsonPost
+    fetchJsonPost,
+    fetchFilePost
 }
 
