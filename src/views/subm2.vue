@@ -1,22 +1,21 @@
 <template>
-    
+
 	    <div class="body_item">
 			<div class = "space-right-top">
 				<div class = "headline">未读评论</div>
 			</div>
             <div class = "space-right-bottom">
-                <div v-for="(msg,i) in msglist" :key="msg.msgId"> 
+                <div v-for="(msg,i) in msglist" :key="msg.msgId">
                       <div class = "content"  @click="read(msg)">
                            <div class = "top">来自{{msg.fromUserName}}</div>
                            <div class = "bottom">{{msg.msgContent}}</div>
-                       </div>   
+                       </div>
                        <!--<div class = "content" v-if="i=='2'">{{msg.msgContent}}</div>-->
-                       
+
                     </div>
 				</div>
 			</div>
-		</div>
-    
+
 </template>
 
 <script>
@@ -35,8 +34,8 @@
 		},
 		mounted: function()
 		{
-            
-                let params = {type:"read"};
+
+                let params = {type:"notread"};
                 https.fetchPost('/msg', params)
                     .then(data => {
                         console.log(data.data.data)
@@ -44,7 +43,7 @@
                     }).catch(err =>{
                         alert(err.toString())
                 })
-            
+
 
         },
 
@@ -55,11 +54,11 @@
                     https.fetchPost('/msg/read', params)
                     .then(data => {
                         console.log(data.data.data)
-                        
+
                     }).catch(err =>{
                         alert(err.toString())
                     })
-                
+
                 }
 
         }

@@ -17,145 +17,146 @@ import uploader from "@/views/uploader";
 import VideoModify from "@/views/VideoModify";
 import VideoDetail from "@/views/VideoDetail";
 import Search from "@/views/Search";
-import Message from'@/views/Message.vue';
-import subm1 from'@/views/subm1.vue';
-import subm2 from'@/views/subm2.vue';
-import subm3 from'@/views/subm3.vue';
-import subm4 from'@/views/subm4.vue';
+import Message from '@/views/Message.vue';
+import subm1 from '@/views/subm1.vue';
+import subm2 from '@/views/subm2.vue';
+import subm3 from '@/views/subm3.vue';
+import subm4 from '@/views/subm4.vue';
+import subm5 from '@/views/subm5.vue';
 import MDownload from "@/views/MDownload";
 
 Vue.use(VueRouter)
 
-  const routes = [
-  {
-    path: '/',
-    name: 'index',
-    component: index
-  },
+const routes = [
     {
-      path: '/login',
-      name: 'Login',
-      component: Login
-      },
-    {
-      path: '/retrieve',
-      name: 'Retrieve',
-      component: Retrieve
+        path: '/',
+        name: 'index',
+        component: index
     },
     {
-      path: '/favourition',
-      name: 'favourition',
-      component: favourition
+        path: '/login',
+        name: 'Login',
+        component: Login
     },
     {
-      path: '/message',
-      name: 'Message',
-      component: Message,
-      redirect:'Message/subm1',
-       children:[
-         {
-         path:'subm1',
-         name:'subm1',
-         component:subm1
-         },
+        path: '/retrieve',
+        name: 'Retrieve',
+        component: Retrieve
+    },
+    {
+        path: '/favourition',
+        name: 'favourition',
+        component: favourition
+    },
+
+    {
+        path: '/videomodify',
+        name: 'VideoModify',
+        component: VideoModify
+    },
+    {
+        path: '/register',
+        name: 'Register',
+        component: Register
+    },
+    {
+        path: '/userinfo',
+        name: 'userinfo',
+        redirect: 'userinfo/basicinfo',
+        component: UserInfo,
+        children: [
+            {
+                path: 'basicinfo',//以“/”开头的嵌套路径会被当作根路径，所以子路由上不用加“/”;在生成路由时，主路由上的path会被自动添加到子路由之前，所以子路由上的path不用在重新声明主路由上的path了。
+                name: 'basicinfo',
+                component: basicInfo
+            },
+            {
+                path: 'changeinfo',//以“/”开头的嵌套路径会被当作根路径，所以子路由上不用加“/”;在生成路由时，主路由上的path会被自动添加到子路由之前，所以子路由上的path不用在重新声明主路由上的path了。
+                name: 'changeinfo',
+                component: changeinfo
+            },
+            {
+                path: 'changephone',//以“/”开头的嵌套路径会被当作根路径，所以子路由上不用加“/”;在生成路由时，主路由上的path会被自动添加到子路由之前，所以子路由上的path不用在重新声明主路由上的path了。
+                name: 'changephone',
+                component: changephone
+            },
+            {
+                path: 'changemail',//以“/”开头的嵌套路径会被当作根路径，所以子路由上不用加“/”;在生成路由时，主路由上的path会被自动添加到子路由之前，所以子路由上的path不用在重新声明主路由上的path了。
+                name: 'changemail',
+                component: changemail
+            },
+            {
+                path: 'contribute',//以“/”开头的嵌套路径会被当作根路径，所以子路由上不用加“/”;在生成路由时，主路由上的path会被自动添加到子路由之前，所以子路由上的path不用在重新声明主路由上的path了。
+                name: 'contribute',
+                component: contribute
+            },
           {
-            path:'subm2',
-         name:'subm2',
-         component:subm2
+            path: 'message',
+            name: 'Message',
+            component: Message,
+            redirect: 'message/subm1',
+            children: [
+              {
+                path: 'subm1',
+                name: 'subm1',
+                component: subm1
+              },
+              {
+                path: 'subm2',
+                name: 'subm2',
+                component: subm2
+              },
+              {
+                path: 'subm3',
+                name: 'subm3',
+                component: subm3
+              },
+              {
+                path: 'subm4',
+                name: 'subm4',
+                component: subm4
+              },
+              {
+                path: 'subm5',
+                name: 'subm5',
+                component: subm5
+              }
+            ]
           },
-          {
-            path:'subm3',
-         name:'subm3',
-         component:subm3
-          },
-          {
-            path:'subm4',
-         name:'subm4',
-         component:subm4
-          }
         ]
     },
     {
-      path: '/videomodify',
-      name: 'VideoModify',
-      component: VideoModify
+        path: '/about',
+        name: 'About',
+        component: About
     },
     {
-      path: '/register',
-      name: 'Register',
-      component: Register
+        path: '/uploader',
+        name: 'uploader',
+        component: uploader
     },
     {
-      path: '/userinfo',
-      name: 'userinfo',
-      redirect:'userinfo/basicinfo',
-      component: UserInfo,
-      children: [
-        {
-          path: 'basicinfo',//以“/”开头的嵌套路径会被当作根路径，所以子路由上不用加“/”;在生成路由时，主路由上的path会被自动添加到子路由之前，所以子路由上的path不用在重新声明主路由上的path了。
-          name: 'basicinfo',
-          component: basicInfo
-        },
-        {
-          path: 'changeinfo',//以“/”开头的嵌套路径会被当作根路径，所以子路由上不用加“/”;在生成路由时，主路由上的path会被自动添加到子路由之前，所以子路由上的path不用在重新声明主路由上的path了。
-          name: 'changeinfo',
-          component: changeinfo
-        },
-        {
-          path: 'changephone',//以“/”开头的嵌套路径会被当作根路径，所以子路由上不用加“/”;在生成路由时，主路由上的path会被自动添加到子路由之前，所以子路由上的path不用在重新声明主路由上的path了。
-          name: 'changephone',
-          component: changephone
-        },
-        {
-          path: 'changemail',//以“/”开头的嵌套路径会被当作根路径，所以子路由上不用加“/”;在生成路由时，主路由上的path会被自动添加到子路由之前，所以子路由上的path不用在重新声明主路由上的path了。
-          name: 'changemail',
-          component: changemail
-        },
-        {
-          path: 'contribute',//以“/”开头的嵌套路径会被当作根路径，所以子路由上不用加“/”;在生成路由时，主路由上的path会被自动添加到子路由之前，所以子路由上的path不用在重新声明主路由上的path了。
-          name: 'contribute',
-          component: contribute
-        }
-      ]
+        path: '/videodetail',
+        name: 'videodetail',
+        component: VideoDetail
     },
     {
-      path: '/about',
-      name: 'About',
-      component: About
+        path: '/search',
+        name: 'search',
+        component: Search
     },
     {
-      path: '/uploader',
-      name: 'uploader',
-      component: uploader
-    },
-    {
-      path: '/videodetail',
-      name: 'videodetail',
-      component: VideoDetail
-    },
-    {
-      path: '/search',
-      name: 'search',
-      component: Search
-    },
-    {
-      path: '/message',
-      name: 'message',
-      component: Message
-    },
-    {
-      path: '/mdownload',
-      name: 'mdownload',
-      component: MDownload
+        path: '/mdownload',
+        name: 'mdownload',
+        component: MDownload
     }
 ]
 
 const router = new VueRouter({
-  mode: 'hash',
-  base: process.env.BASE_URL,
-  routes
+    mode: 'hash',
+    base: process.env.BASE_URL,
+    routes
 })
-
 
 
 export default router

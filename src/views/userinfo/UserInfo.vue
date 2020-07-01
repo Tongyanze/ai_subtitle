@@ -5,14 +5,12 @@
     <div id="content">
         <div id="left_part">
         <div id= "head">
-            <img   width=30px height=30px>
             个人中心
         </div>
         <div class="list">
-            <router-link :to="{name: 'basicinfo'}" class="blue-link" ><div >基本信息</div></router-link>
-            <router-link :to="{name: 'contribute'}" class="blue-link" > <div >我的作品</div></router-link>
-            <router-link to="/Message" class="blue-link" ><div >我的消息</div></router-link>
-
+            <router-link :to="{name: 'basicinfo'}" class="blue-link"  ><div @click="setCur(1)" :class="{'clicked': cur===1}">基本信息</div></router-link>
+            <router-link :to="{name: 'contribute'}" class="blue-link" > <div  @click="setCur(2)" :class="{'clicked': cur===2}">我的作品</div></router-link>
+            <router-link :to="{name: 'Message'}"  class="blue-link" ><div  @click="setCur(3)" :class="{'clicked': cur===3}">我的消息</div></router-link>
 
         </div>
         </div>
@@ -39,7 +37,13 @@
         },
         data() {
             return {
-                cur: 0 //默认选中第一个tab
+                cur: 1 //默认选中第一个tab
+            }
+        },
+        methods: {
+            setCur(x) {
+                console.log(this.cur)
+                this.cur = x;
             }
         }
     }

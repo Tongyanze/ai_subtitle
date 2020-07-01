@@ -13,7 +13,6 @@
             <ul>
               <li><img class="videoCover" v-bind:src="item.videoCover" @click="play(item)" alt="photo"></li>
               <li class="show-msg">{{item.videoName}}</li>
-              <li class="show-msg">userId:{{item.userId}}</li>
               <li class="show-msg">播放:{{item.videoBrowses}} 点赞:{{item.videoFavors}} 收藏:{{item.videoCollections}}</li>
             </ul>
           </li>
@@ -125,18 +124,18 @@ export default {
     prevPage() {
       //console.log(this.currentPage);
         if (this.currentPage == 1) return;
-         
+
           this.currentPage--;
           this.setCurrentPageData();
-            
+
     },
     // 下一页
     nextPage() {
       if (this.currentPage == this.totalPage)return ;
- 
+
         this.currentPage++;
         this.setCurrentPageData();
-            
+
     },
     play(videoMsg){
       console.log('videoMsg:'+videoMsg)

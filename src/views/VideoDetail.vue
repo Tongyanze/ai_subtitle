@@ -283,12 +283,14 @@
                     .then(response =>{
                     console.log(response.data)
                     this.totalList = response.data.data
-                    this.totalNum = response.data.code - 1000
-                    for (var i=0;i<this.totalList.length;i++) {
-                        this.totalList[i].videoCover = "api" + this.totalList[i].videoCover
+                    this.totalNum = response.data.code - 1000;
+                    if (process.env.VUE_APP_MODE !== 'production') {
+                        for (var i=0;i<this.totalList.length;i++) {
+                            this.totalList[i].videoCover = "api" + this.totalList[i].videoCover
+                        }
                     }
                 })
-                
+
                 let memo=new Set();
                 if(this.totalNum>this.recommendNum){
                     while(memo.size<this.recommendNum){
@@ -309,7 +311,7 @@
                         }
                     }
                 }
-                
+
             },
             play(videoMsg){
                 console.log('videoMsg:'+videoMsg)
@@ -453,6 +455,7 @@
     }
     .cover{
         width: 100%;
+        height: 100px;
         cursor: pointer;
     }
     .video-name{

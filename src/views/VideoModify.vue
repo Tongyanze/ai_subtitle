@@ -77,7 +77,9 @@
                             <span style="width: 28px; display: inline-block">{{dy}}</span>
                         </div>
                     </div>
+                    <div style="width: 40%">
 
+                    </div>
 
                 </div>
             </div>
@@ -300,6 +302,9 @@
         },
         methods: {
             mdownload() {
+                if (!this.canDownload) {
+                    return;
+                }
                 let x = this.$router.resolve({path:'/mdownload', query:{videoId: this.videoId}});
                 window.open(x.href, '_blank');
             },
@@ -341,7 +346,11 @@
                     img: this.$refs.aicover.files[0]
                 })
                     .then(res => {
-
+                        if (res.data.code === 200) {
+                            this.tip = '换脸成功'
+                            clearInterval(this.poptimer)
+                            this.showpop()
+                        }
                     })
                     .catch(err => {
 
@@ -412,7 +421,8 @@
                 if (!this.canConvert) {
                     return
                 }
-                let tmp;
+                let tmp = {operationType: 'importSubtitle', videoId: this.videoId};
+                this.reque.push(tmp)
                 if (this.mb + this.mp + this.sl + this.dy > 0) {
 
                     tmp = {
@@ -432,7 +442,7 @@
                 }
 
 
-                this.canConvert = false
+                this.canConvert = this.canDownload = this.canSave = false
                 this.convertTip = '视频合成中...'
                 let t = setInterval(() => {
                     $('#convert-icon').addClass('convert-infinite')

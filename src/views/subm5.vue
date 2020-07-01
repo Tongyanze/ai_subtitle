@@ -24,7 +24,7 @@
     import https from "@/https.js";
 
     export default {
-		name:'subm4',
+		name:'subm5',
 		components: {Header, Footer},
         data() {
 			return {
@@ -35,7 +35,7 @@
 		mounted: function()
 		{
 
-                let params = {type:"favor"};
+                let params = {type:"collection"};
                 https.fetchPost('/msg', params)
                     .then(data => {
                         console.log(data.data.data)

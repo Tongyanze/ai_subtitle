@@ -32,18 +32,23 @@
             <div class="download-box">
                 <div>
 
-
+                    <a :href="zh">
                     <font-awesome-icon title="中文字幕合成视频下载" class="font-awesome-icon download"
                                        :icon="['fas', 'download']" @click="mdownload(1)">
                     </font-awesome-icon>
+                    </a>
 
+                    <a :href="en">
                     <font-awesome-icon title="英文字幕合成视频下载" class="font-awesome-icon download"
                                        :icon="['fas', 'download']" @click="mdownload(2)">
                     </font-awesome-icon>
+                    </a>
 
+                    <a :href="merge">
                     <font-awesome-icon title="中英文字幕合成视频下载" class="font-awesome-icon download"
                                        :icon="['fas', 'download']" @click="mdownload(3)">
                     </font-awesome-icon>
+                    </a>
                 </div>
                 <div>
                     <div>
@@ -88,6 +93,9 @@
                 soundVal: 100,
                 nowTime: '',
                 isplaying: false,
+                zh: '',
+                en: '',
+                merge: ''
 
             }
         },
@@ -179,10 +187,16 @@
                         if (process.env.VUE_APP_MODE !== 'production') {
                             this.video1url = 'api/video/'+data.identifier+'/'+data.identifier+'.'+data.videoFormat
                             this.video2url = 'api'+data.videoPath
+                            this.zh = 'api/video/'+data.identifier+'/'+data.identifier+'-zh.'+data.videoFormat
+                            this.en = 'api/video/'+data.identifier+'/'+data.identifier+'-en.'+data.videoFormat
+                            this.merge = 'api/video/'+data.identifier+'/'+data.identifier+'-merge.'+data.videoFormat
 
                         } else {
                             this.video1url = '/video/'+data.identifier+'/'+data.identifier+'.'+data.videoFormat
                             this.video2url = data.videoPath
+                            this.zh = '/video/'+data.identifier+'/'+data.identifier+'-zh.'+data.videoFormat
+                            this.en = '/video/'+data.identifier+'/'+data.identifier+'-en.'+data.videoFormat
+                            this.merge = '/video/'+data.identifier+'/'+data.identifier+'-merge.'+data.videoFormat
                         }
                         this.setVideoControl();
                     })
@@ -283,6 +297,7 @@
             width: 44px;
             transition: color 0.3s linear;
             cursor: pointer;
+            color: $dark-blue;
         }
 
         .font-awesome-icon:hover {
@@ -312,7 +327,7 @@
             }
         }
 
-        .font-awesome-icon {
+        .font-awesome-icon, a {
             height: 48px;
             width: 48px;
             margin: 0 auto;

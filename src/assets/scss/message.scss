@@ -1,34 +1,42 @@
 .all{
-	background-color: rgb(42, 151, 224);
+	background-color: rgb(43,43,43);
 	width: 100%;
     height:100%;
-	margin-left: auto;
-	margin-right: auto;
+	box-sizing: border-box;
+}
+
+.global-container {
+	height: auto;
 }
 
 .container{
-	margin-left: 18%;
-	margin-right: 18%;
-	margin-top: 60px;
-	width: 64%;
-	
-	height: 1000px;
+	width: 100%;
+	height: 100%;
+
+}
+
+div:after {
+	content: "";
+	clear: both;
+	display: table;
 }
 
 .space-left{
-	width:15%;
+	width:20%;
 	position: relative;
-	height: 1000px;
+	height: 100%;
 	float: left;
-	background-color: rgba(255,255,255,0.65);
-	
+	z-index: 1;
+	background-color: rgba(255,255,255,0.8);
+
 }
 
 .space-right{
-	width:85%;
-	height: 1000px;
+	width:80%;
+	height: 100%;
 	float:right;
-	background-color: rgba(255,255,255,0.8);
+	background-color: rgba(255,255,255,0.9);
+	z-index: 2;
 }
 
 
@@ -38,7 +46,7 @@
 	margin-top: 40px;
 	font-size: 33px;
 	font-family:'Times New Roman', Times, serif;
-	
+
 	text-align: center;
 	cursor: pointer;
 }
@@ -47,14 +55,14 @@
 	height: 70px;
     margin-top: 25px;
     font-size: 33px;
-    
+
     font-family: fantasy;
     text-align: center;
 }
 
 .list{
 	height: 300px;
-	
+
 	cursor: pointer;
 }
 
@@ -67,7 +75,9 @@
 	width:100%;
 	height: 50px;
 	font-size: 23px;
-    
+	display: flex;
+	align-items: center;
+	justify-content: center;
     font-family: fantasy;
 	text-align:center;
 	margin-bottom: 10px;
@@ -77,9 +87,9 @@
 
 .space-right-top{
 	height: 70px;
-	
+
 	padding: 20px;
-	
+
 }
 
 .headline{
@@ -88,7 +98,7 @@
 	margin-left: 10px;
     font-size: 30px;
     background-color:rgba(255,255,255,1);
-	border-radius: 10%;
+	border-radius: 8px;
 	text-align:left;
 	padding: 15px;
 }
@@ -99,31 +109,34 @@
 	margin-left: 10px;
     font-size: 25px;
     background-color:rgba(255,255,255,1);
-	border-radius: 10%;
+	border-radius: 8px;
 	text-align:left;
 	padding: 15px;
-	padding: red;
-	
+
 }
 
 .space-right-bottom{
-	height: 800px;
+	height: 80%;
 	padding: 10px;
 	overflow-y: scroll;
-	
+
+}
+
+.body_item {
+	height: 100%;
 }
 
 .body-item{
 	border: 10px solid #999;
 	overflow: hidden;
-	
+
 	padding: 10px;
 }
 
 .active{
     color: #3f7dff;
 	padding-left: 10px;
-	
+
     border-left: 3px solid #3f7dff;
 }
 
@@ -131,5 +144,15 @@
 	margin-top: 20px;
 	margin-bottom: 20px;
 	margin-left: 350px;
-	
+
+}
+
+a {
+	color: $dark-blue;
+	margin: 0;
+	text-decoration: none;
+}
+
+a:focus{
+	color: $dark-blue;
 }

@@ -35,6 +35,10 @@
 
 }
 
+.lnfo_content{
+    height: 100%;
+}
+
 #right_part {
     width: 80%;
     float: right;
@@ -66,7 +70,9 @@
     width: 100%;
     margin-top: 10%;
     height: 30px;
-    color: rgb(182, 182, 182);
+    font-size: 24px;
+    font-weight: bold;
+    color: black;
 }
 .list div{
 
@@ -74,9 +80,13 @@
 	text-align: center;
 	cursor: pointer;
 }
-.list div:hover{
+.list div:hover,  .clicked{
     border-left: 3px solid #3f7dff;
 
+}
+
+.clicked {
+    color: rgb(14, 29, 255)
 }
 .blue-link{
 

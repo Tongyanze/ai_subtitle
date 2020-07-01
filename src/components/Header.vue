@@ -13,7 +13,7 @@
                         <div class="me-colla">
                             <div><router-link to="/userinfo">个人中心</router-link></div>
                             <div><router-link to="/favourition">收藏夹</router-link></div>
-                            <div><router-link to="/Message/subm1">消息中心</router-link></div>
+                            <div><router-link to="/userinfo/message">消息中心</router-link></div>
                         </div>
                     </li>
                     <li>
