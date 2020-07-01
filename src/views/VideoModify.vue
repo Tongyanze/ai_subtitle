@@ -300,7 +300,7 @@
         },
         methods: {
             mdownload() {
-                let x = this.$router.resolve({path:'/mdownload',query:{videoinfo: JSON.stringify(this.videoId)}});
+                let x = this.$router.resolve({path:'/mdownload', query:{videoId: this.videoId}});
                 window.open(x.href, '_blank');
             },
             chooseAiPic() {
