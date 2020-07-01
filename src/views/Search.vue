@@ -13,8 +13,8 @@
             <ul>
               <li><img class="videoCover" v-bind:src="item.videoCover" @click="play(item)" alt="photo"></li>
               <li class="show-msg">{{item.videoName}}</li>
-              <li class="show-msg">up:{{item.userId}}</li>
-              <li class="show-msg">点赞量:{{item.videoFavors}}</li>
+              <li class="show-msg">userId:{{item.userId}}</li>
+              <li class="show-msg">播放:{{item.videoBrowses}} 点赞:{{item.videoFavors}} 收藏:{{item.videoCollections}}</li>
             </ul>
           </li>
         </ul>
