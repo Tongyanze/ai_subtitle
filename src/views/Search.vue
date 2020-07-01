@@ -4,26 +4,17 @@
       <div class="content">
       <div class="search-box">
         <input class="search-text" type="text" v-model="data" placeholder="请输入作品名称或关键词">
-        <button class="search-btn" @click="getPage(data)">搜索</button>
+        <button class="search-btn" @click="search(data),getPage()">搜索</button>
       </div>
-        <div>
-          <h2>
-            {{tip}}
-          </h2>
-
-        </div>
       <div class="show1">
-        <div class="para" v-if="realList.length==0">什么都没找到啊</div>
+        <div class="para" v-if="realList.length==0"><img id="not-found" src="../assets/notfound.png" alt="什么都没找到啊..."></div>
         <ul v-else>
           <li class="show-video" v-for="(item,index) in realList" :key="index">
             <ul>
-              <li>
-                <img class="videoCover" v-if="env === 'production'" v-bind:src="item.videoCover" @click="play(item)" alt="photo">
-                <img class="videoCover" v-else v-bind:src="'api'+item.videoCover" @click="play(item)" alt="photo">
-              </li>
+              <li><img class="videoCover" v-bind:src="item.videoCover" @click="play(item)" alt="photo"></li>
               <li class="show-msg">{{item.videoName}}</li>
-              <li class="show-msg">up:{{item.userId}}</li>
-              <li class="show-msg">点赞量:{{item.videoFavors}}</li>
+              <li class="show-msg">userId:{{item.userId}}</li>
+              <li class="show-msg">播放:{{item.videoBrowses}} 点赞:{{item.videoFavors}} 收藏:{{item.videoCollections}}</li>
             </ul>
           </li>
         </ul>
@@ -78,14 +69,10 @@ export default {
       currentPage: 1, //当前页数 ，默认为1
       pageSize: 8, // 每页显示数量
       //currentPageData: [], //当前页显示内容
-      realList: [], // 显示内容,
-      tip: '为你推荐',
-      data: '',
-      env: ''
+      realList: [] // 显示内容
     }
   },
   mounted () {
-    this.env = process.env.VUE_APP_MODE
     this.search(this.searchData)
   },
   methods: {
@@ -98,7 +85,7 @@ export default {
         console.log('null')
       }
       this.searchData = name
-      let params = {key:this.searchData,begin:1*this.currentPage,end:8*this.currentPage};
+      let params = {key:this.searchData,begin:1,end:this.pageSize};
       https.fetchPost('/video/search',params)
         .then(response =>{
           console.log("data:"+response)
@@ -106,13 +93,12 @@ export default {
           this.realList = response.data.data
           this.totalNum = response.data.code - 1000
           for (var i=0;i<this.realList.length;i++) {
-            this.realList[i].videoCover = this.realList[i].videoCover
+            this.realList[i].videoCover = "api" + this.realList[i].videoCover
           }
         })
     },
-    getPage(name) {
+    getPage() {
         // 计算一共有几页
-      this.searchData = name
         this.totalPage = Math.ceil(this.totalNum / this.pageSize);
         // 计算得0时设置为1
         this.totalPage = this.totalPage == 0 ? 1 : this.totalPage;
@@ -123,16 +109,15 @@ export default {
       //let begin = (this.currentPage - 1) * this.pageSize;
       //let end = this.currentPage * this.pageSize;
       //this.currentPageData = this.realList.slice(begin,end);
-      let params = {key:this.searchData,begin:1*this.currentPage,end:8*this.currentPage};
+      let params = {key:this.searchData,begin:this.pageSize*(this.currentPage-1)+1,end:this.pageSize*this.currentPage};
       https.fetchPost('/video/search',params)
         .then(response =>{
           console.log("data:"+response)
           console.log(response.data)
-          this.tip = '搜索结果'
           this.realList = response.data.data
           //this.totalNum = response.data.code - 1000
           for (var i=0;i<this.realList.length;i++) {
-            this.realList[i].videoCover = this.realList[i].videoCover
+            this.realList[i].videoCover = "api" + this.realList[i].videoCover
           }
         })
     },
@@ -140,18 +125,18 @@ export default {
     prevPage() {
       //console.log(this.currentPage);
         if (this.currentPage == 1) return;
-
+         
           this.currentPage--;
           this.setCurrentPageData();
-
+            
     },
     // 下一页
     nextPage() {
       if (this.currentPage == this.totalPage)return ;
-
+ 
         this.currentPage++;
         this.setCurrentPageData();
-
+            
     },
     play(videoMsg){
       console.log('videoMsg:'+videoMsg)

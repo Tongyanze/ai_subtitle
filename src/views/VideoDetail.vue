@@ -48,6 +48,16 @@
                     <font-awesome-icon class="font-awesome-icon" :icon="['fas', 'edit']"></font-awesome-icon>
                     <span>编辑视频</span>
                 </div>
+                <div class="title">推荐</div>
+                <table class="recommend-video" v-for="(item,index) in recommendList" :key="index">
+                    <tr>
+                        <td class="video-cover" rowspan="2"><img class="cover" v-bind:src="item.videoCover" @click="play(item)" alt="photo"></td>
+                        <td class="video-name">{{item.videoName}}</td>
+                    </tr>
+                    <tr>
+                        <td class="video-favor">{{item.videoBrowses}}播放 {{item.videoFavors}}点赞 {{item.videoCollections}}收藏</td>
+                    </tr>
+                </table>
             </div>
         </div>
         <Footer/>
@@ -80,12 +90,19 @@
                 testtime: [],
                 testtt: [],
                 isCh: true,
-                isEn: true
+                isEn: true,
+
+                searchNum: 20, //search只能实现搜索包含key的begin到end条，故在[1,searchNum]范围内实现随机
+                recommendNum: 6, //要推荐多少条
+                totalNum: 0, //搜到了多少条
+                totalList: [],
+                recommendList: []
             }
         },
         mounted() {
 
             this.getInfo()
+            this.search()
         },
         methods: {
             edit() {
@@ -258,6 +275,47 @@
                 console.log(this.videoName)
 
                 this.checkSome(this.videoId)
+            },
+            async search () {
+                let done = false
+                let params = {key:'',begin:1,end:this.recommendNum};
+                await https.fetchPost('/video/search',params)
+                    .then(response =>{
+                    console.log(response.data)
+                    this.totalList = response.data.data
+                    this.totalNum = response.data.code - 1000
+                    for (var i=0;i<this.totalList.length;i++) {
+                        this.totalList[i].videoCover = "api" + this.totalList[i].videoCover
+                    }
+                })
+                
+                let memo=new Set();
+                if(this.totalNum>this.recommendNum){
+                    while(memo.size<this.recommendNum){
+                        let num = Math.floor(Math.random()*this.totalNum);
+                        if(!memo.has(num)){
+                            memo.add(num)
+                            this.recommendList.push(this.totalList[num])
+                        }
+                    }
+                }
+                else{
+                    while(memo.size<this.totalNum){
+                        let num = Math.floor(Math.random()*this.totalNum);
+                        console.log('num'+num)
+                        if(!memo.has(num)){
+                            memo.add(num)
+                            this.recommendList.push(this.totalList[num])
+                        }
+                    }
+                }
+                
+            },
+            play(videoMsg){
+                console.log('videoMsg:'+videoMsg)
+                //this.$router.go(0)
+                let x = this.$router.resolve({path:'/videodetail',query:{videoinfo: JSON.stringify(videoMsg)}});
+                window.open(x.href, '_blank');
             }
         }
     }
@@ -303,6 +361,7 @@
         font-size: 24px;
         text-align: start;
         margin-bottom: 12px;
+        margin-left: 12px;
     }
 
     .dynamic-box {
@@ -380,5 +439,32 @@
         -webkit-text-fill-color: white;
         width: 100%;
         font-weight: bold;
+    }
+
+    //右边的视频列表
+    table{
+        margin: 10px;
+    }
+    td{
+        text-align: left;
+    }
+    .video-cover{
+        width: 40%;
+    }
+    .cover{
+        width: 100%;
+        cursor: pointer;
+    }
+    .video-name{
+        font-size: 18px;
+        color:#505050;
+        max-width: 100px;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+    }
+    .video-favor{
+        font-size: 15px;
+        color:#7c7b7b;
     }
 </style>
