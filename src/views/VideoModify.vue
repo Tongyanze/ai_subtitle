@@ -77,16 +77,7 @@
                             <span style="width: 28px; display: inline-block">{{dy}}</span>
                         </div>
                     </div>
-                    <div style="width: 40%">
-                        <div style="height: 44px">
-                            <input type="checkbox" style="width: 14px; height: 14px; margin: 15px 0" v-model="addCh">
-                            <span>添加中文字幕</span>
-                        </div>
-                        <div style="height: 44px">
-                            <input type="checkbox" style="width: 14px; height: 14px; margin: 15px 0" v-model="addEn">
-                            <span>添加英文字幕</span>
-                        </div>
-                    </div>
+
 
                 </div>
             </div>
@@ -104,10 +95,12 @@
                         </font-awesome-icon>
                     </div>
                     <div>
-                        <a :href="videoUrl"><font-awesome-icon title="下载" class="font-awesome-icon download" :class="[canDownload ? '': 'dis']" :icon="['fas', 'download']">
+                        <font-awesome-icon title="视频对比与下载" class="font-awesome-icon download"
+                                           :class="[canDownload ? '': 'dis']" :icon="['fas', 'download']" @click="mdownload">
                         </font-awesome-icon>
-                        </a>
+
                     </div>
+
                 </div>
                 <span v-show="part === 1" style="font-size: 20px">字幕内容可更改，时间不可修改</span>
                 <div v-show="part === 1" class="subtitle-edit">
@@ -306,6 +299,10 @@
 
         },
         methods: {
+            mdownload() {
+                let x = this.$router.resolve({path:'/mdownload',query:{videoinfo: JSON.stringify(this.videoId)}});
+                window.open(x.href, '_blank');
+            },
             chooseAiPic() {
                 $('#aifile').click()
             },
@@ -415,10 +412,15 @@
                 if (!this.canConvert) {
                     return
                 }
+                let tmp;
+                if (this.mb + this.mp + this.sl + this.dy > 0) {
 
-                let tmp = {operationType: 'beautify', videoId: this.videoId, white: this.mb, smooth: this.mp,
-                    facelift: this.sl, eye: this.dy}
-                this.reque.push(tmp)
+                    tmp = {
+                        operationType: 'beautify', videoId: this.videoId, white: this.mb, smooth: this.mp,
+                        facelift: this.sl, eye: this.dy
+                    }
+                    this.reque.push(tmp)
+                }
                 if (this.sy !== 0) {
                     tmp = {operationType: 'voiceChanger', videoId: this.videoId, audioType: this.sy}
                     this.reque.push(tmp)
@@ -429,17 +431,6 @@
                     this.reque.push(tmp)
                 }
 
-                let x = 0
-                if (this.addCh) {
-                    x += 1
-                }
-                if (this.addEn) {
-                    x += 2
-                }
-                if (x > 0) {
-                    tmp = {operationType: 'importSubtitle', videoId: this.videoId, type: x}
-                    this.reque.push(tmp)
-                }
 
                 this.canConvert = false
                 this.convertTip = '视频合成中...'
@@ -638,8 +629,24 @@
                         let data = res.data.data
                         if (process.env.VUE_APP_MODE !== 'production') {
                             this.videoUrl = 'api'+data.videoPath
+
                         } else {
                             this.videoUrl = data.videoPath
+                        }
+
+                        let tmp = data.videoPath.split('/')
+                        let s = ''
+                        for (let i = 0;i < tmp[tmp.length-1].length; ++i) {
+                            if (tmp[tmp.length-1][i] === '.') {
+                                break;
+                            }
+                            s += tmp[tmp.length-1][i]
+                        }
+                        if (data.identifier !== s) {
+                            this.canDownload = true
+                        }
+                        else {
+                            this.canDownload = false
                         }
                     })
                     .catch(err => {
@@ -661,7 +668,11 @@
                                 if (res.data.data > 0 && res.data.data < 1) {
                                     this.canConvert = this.canDownload = false;
                                     this.convertTip = '视频合成中...'
-                                    $('#convert-icon').addClass('convert-infinite')
+                                    let t = setInterval(()=>{
+                                        $('#convert-icon').addClass('convert-infinite')
+                                        clearInterval(t)
+                                    }, 100)
+
                                 }
                             })
                             .catch(err => {

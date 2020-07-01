@@ -22,6 +22,8 @@ import subm1 from'@/views/subm1.vue';
 import subm2 from'@/views/subm2.vue';
 import subm3 from'@/views/subm3.vue';
 import subm4 from'@/views/subm4.vue';
+import MDownload from "@/views/MDownload";
+
 Vue.use(VueRouter)
 
   const routes = [
@@ -140,6 +142,11 @@ Vue.use(VueRouter)
       path: '/message',
       name: 'message',
       component: Message
+    },
+    {
+      path: '/mdownload',
+      name: 'mdownload',
+      component: MDownload
     }
 ]
 
