@@ -133,7 +133,7 @@
                         <div :class="{'tx-btn-clicked': txPart === 2}" class="tx-btn" @click="txPart=2">
                             自定封面
                         </div>
-                        <div :class="{'tx-btn-clicked': txPart === 3}" class="tx-btn" @click="txPart=3">
+                        <div :class="{'tx-btn-clicked': txPart === 3}" class="tx-btn" @click="getAICover()">
                             AI换脸封面
                         </div>
                     </div>
@@ -163,12 +163,32 @@
 
                     <div class="radio-group" v-show="txPart === 2">
 
-                        <input type="file" id="file" ref="cover" @change="coverInit">
-                        <button class="btn-blue" @click="test">提交</button>
+                        <input type="file" id="file" ref="cover" @change="showPic(this)" style="width: 10%; position: relative; margin-top: 20px">
+                        <div class="choose-file btn-blue" @click="choosePic">选择文件</div>
 
+                        <div class="btn-blue msubmit" @click="submitCover">提交</div>
+                        <div style="position: relative; width: 90%; padding-bottom: 80%" v-show="showpic">
+                            <img id="coverpic" style="position: absolute; width: 100%; height: 100%; left: 0" >
+                        </div>
                     </div>
                     <div class="radio-group" v-show="txPart === 3">
+                        <div class="ai-example">
+                            <div v-for="(item, index) in aiExamp" :key="index" @click="chooseAiCover(index)">
+                                <img :src="item.Url">
+                                <div v-show="chooseAiNum === index">当前选中模板</div>
+                            </div>
+                        </div>
+                        <div style="width: 100%; height: 50%; display: flex; flex-direction: column; align-items: center">
+                            <div style="width: 100%;display: flex; padding: 4px 20px; box-sizing: border-box">
+                                <input type="file" ref="aicover" id="aifile" @change="showAiPic(this)" style="width: 10%; position: relative; margin-top: 20px">
+                                <div class="choose-file btn-blue"  style="margin-bottom: 8px" @click="chooseAiPic">选择文件</div>
+                                <div class="btn-blue msubmit" style="margin-bottom:8px;margin-left: auto" @click="submitAiCover">提交</div>
+                            </div>
 
+                            <div style="position: relative; width: 60%; padding-bottom: 50%" v-show="showaipic">
+                                <img id="aicoverpic" style="position: absolute; width: 100%; height: 100%; left: 0" >
+                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -262,7 +282,12 @@
                 sy: 0, //声音
                 convertTip: '视频合成',
                 txPart: 1,
-                file: ''
+                file: '',
+                showpic: false,
+                aiExamp: [],
+                chooseAiNum: -1,
+                showaipic: false,
+                poptimer: ''
 
             }
         },
@@ -281,18 +306,93 @@
 
         },
         methods: {
-
-            coverInit(e) {
-                let that = this;
-                let file = e.target.files[0];
-                let reader = new FileReader();
-                reader.onload = function(e){
-                    that.file  = e.target.result;
-                }
+            chooseAiPic() {
+                $('#aifile').click()
+            },
+            showAiPic(e) {
+                this.showaipic = true
+                let file = this.$refs.aicover.files[0]
+                let reader = new  FileReader();
                 reader.readAsDataURL(file);
+                reader.onload = (ev) => {
+                    $("#aicoverpic").attr("src", ev.target.result);
+                }
+
             },
 
-            test() {
+            submitAiCover() {
+
+
+                if (this.chooseAiNum === -1) {
+                    this.tip = '没有选择模板'
+                    clearInterval(this.poptimer)
+                    this.showpop()
+                    return
+                }
+
+                if (this.showaipic === false) {
+                    this.tip = '没有选择图片'
+                    clearInterval(this.poptimer)
+                    this.showpop()
+                    return
+                }
+                this.showaipic = false
+
+                https.fetchFilePost('/faceFusion', {
+                    videoId: this.videoId,
+                    MateriaId: this.aiExamp[this.chooseAiNum].MaterialId,
+                    img: this.$refs.aicover.files[0]
+                })
+                    .then(res => {
+
+                    })
+                    .catch(err => {
+
+                    })
+                this.chooseAiNum = -1
+            },
+            chooseAiCover(x) {
+              if (x === this.chooseAiNum) {
+                  this.chooseAiNum = -1
+              }
+              else {
+                  this.chooseAiNum = x
+              }
+            },
+            getAICover() {
+                this.txPart = 3
+                https.fetchGet('/materialList', {})
+                    .then(res => {
+                        this.aiExamp = res.data.data
+                        console.log(this.aiExamp)
+                    })
+                    .catch(err => {
+
+                    })
+            },
+            choosePic() {
+                $('#file').click()
+            },
+            showPic(e) {
+                this.showpic = true
+                let file = this.$refs.cover.files[0]
+                let reader = new  FileReader();
+                reader.readAsDataURL(file);
+                reader.onload = (ev) => {
+                    $("#coverpic").attr("src", ev.target.result);
+                }
+
+            },
+
+            submitCover() {
+                if (this.showpic === false) {
+                    this.tip = '没有选择图片'
+                    clearInterval(this.poptimer)
+                    this.showpop()
+                    return
+                }
+                this.showpic = false
+
                 let params = {
                     videoId: this.videoId,
                     file: this.$refs.cover.files[0]
@@ -301,7 +401,11 @@
                 console.log(params)
                 https.fetchFilePost('/uploader/image', params)
                     .then(res => {
-
+                        if (res.data.code === 200) {
+                            this.tip = '更换封面成功'
+                            clearInterval(this.poptimer)
+                            this.showpop()
+                        }
                     })
                     .catch(err => {
 
@@ -388,7 +492,7 @@
             showpop() {
                 $('.popwindow').css('height', 100)
 
-                let t = setInterval(() => {
+                let t = this.poptimer = setInterval(() => {
                     $('.popwindow').css('height', 0)
                     clearInterval(t)
                 }, 3000)
@@ -780,7 +884,7 @@
     }
 
     .lvjing-list, .bianshen-list {
-        height: 70%;
+        height: 80%;
         width: 100%;
         border: black 1px solid;
         z-index: 20;
@@ -1080,6 +1184,73 @@
     .tx-btn:nth-child(2) {
         border-left: 1px solid black;
         border-right: 1px solid black;
+    }
+
+    .choose-file {
+        position: absolute;
+        line-height: 32px;
+        font-size: 18px;
+        margin-bottom: 20px;
+        border-radius: 8px;
+        padding: 8px 12px;
+        width: 30%;
+        margin-top: 12px;
+    }
+
+    .msubmit {
+        line-height: 32px;
+        font-size: 18px;
+        margin-bottom: 20px;
+        border-radius: 8px;
+        padding: 8px 12px;
+        top: 12px;
+        width: 30%;
+        margin-top: 12px;
+    }
+
+    #file {
+        margin-top: 12px;
+        height: 60px;
+    }
+
+    .ai-example {
+        height: 60%;
+        padding: 8px 0;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        overflow: scroll;
+        overflow-x: hidden;
+        border-bottom: 4px solid grey;
+        flex-direction: column;
+
+        >div{
+            width: 72%;
+            padding-bottom: 80%;
+            height: 0;
+            position: relative;
+            margin: 12px 0;
+            img {
+                position: absolute;
+                width: 100%;
+                height: 100%;
+                left: 0;
+            }
+
+            div {
+                position: absolute;
+                width: 100%;
+                height: 100%;
+                left: 0;
+                background: $dark-blue;
+                opacity: 0.8;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                color: white;
+                font-size: 20px;
+            }
+        }
     }
 
 </style>

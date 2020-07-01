@@ -15,7 +15,7 @@ axios.interceptors.request.use((config) => {
     if(config.method === 'post' && config.headers['Content-Type']  === 'application/x-www-form-urlencoded;charset=UTF-8'){
         config.data = qs.stringify(config.data);
     }
-    if ( config.headers['Content-Type'].includes('multipart')) {
+    if ( config.headers['Content-Type'] != null && config.headers['Content-Type'].includes('multipart')) {
         let t = config.data
         let formData = new FormData()
         for (let key in t) {
@@ -26,7 +26,7 @@ axios.interceptors.request.use((config) => {
     }
     if (config.url === '/user/userModify'|| config.url === '/uploader/mergeFile' || config.url.includes('userOpVideo')
         || config.url.includes('SubtitleSupport') || config.url.includes('msg') || config.url === '/video/own' ||
-        config.url === '/video/collections' || config.url === '/process') {
+        config.url === '/video/collections' || config.url === '/process' || config.url === '/faceFusion') {
         config.headers['token'] = localStorage.getItem('token')
     }
     if (config.url === '/user/userModifyEPP') {
@@ -53,7 +53,7 @@ axios.interceptors.response.use((res) =>{
     }
     return res;
 }, (error) => {
-    console.log('网络异常')
+    console.log('网络异常' + error)
     return Promise.reject(error);
 });
 

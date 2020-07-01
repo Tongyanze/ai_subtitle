@@ -132,10 +132,7 @@ import qs from 'qs'
                 reader.readAsDataURL(file);
             },
             changeIcon(){
-                var formData= new FormData();
-                formData.append('file',document.querySelector('input[type=file]').files[0])
-                let params = {file:this.file}
-                console.log(formData)
+
                 https.fetchFilePost('/uploader/image', {file: document.querySelector('input[type=file]').files[0]})
                     .then(data => {
                         if(data.data.code===200){
@@ -151,7 +148,7 @@ import qs from 'qs'
                         }
                     })
                     .catch(err => {})
-                
+
                 // https.fetchPost('/uploader/image', formData)
                 //     .then(data => {
                 //         if(data.data.code==200){

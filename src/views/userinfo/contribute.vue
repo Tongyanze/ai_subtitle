@@ -146,7 +146,6 @@
 </template>
 
 <style lang="scss" scoped src= @/assets/scss/contribute.scss>
-    @import '../assets/contribute.css'
 </style>
 
 <script>
